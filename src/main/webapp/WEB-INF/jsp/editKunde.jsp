@@ -100,6 +100,11 @@
                                 <div id="postanschrift">
                                     <table>
                                         <tr>
+                                            <td><label for="checkboxPostanschriftID">Aktiviere Postanschrift:</label>
+                                            </td>
+                                            <td><input type="checkbox" id="checkboxPostanschriftID"></td>
+                                        </tr>
+                                        <tr>
                                             <td>
                                                 <h1>Postanschrift</h1>
                                             </td>
@@ -172,7 +177,7 @@
 
                     <tr>
                         <td>
-                            <input type="button" value="Weiter" id="saveId" class="ui button"/>
+                            <input type="submit" value="Weiter" id="saveId" class="ui button"/>
                         </td>
                     </tr>
 
@@ -187,5 +192,45 @@
 
 <script>
 
-  //TODO checkbox genauso wie beim Hizufügen
+    function checkboxChange() {
+        var checkbox = document.getElementById("checkboxPostanschriftID");
+
+        checkbox.addEventListener("change", function () {
+
+            if (checkbox.checked) {
+                document.getElementById("landVonPostanschriftID").disabled = false;
+                document.getElementById("ortVonPostanschriftID").disabled = false;
+                document.getElementById("strasseVonPostanschriftID").disabled = false;
+                document.getElementById("hausNrVonPostanschriftID").disabled = false;
+            } else {
+                document.getElementById("landVonPostanschriftID").disabled = true;
+                document.getElementById("ortVonPostanschriftID").disabled = true;
+                document.getElementById("strasseVonPostanschriftID").disabled = true;
+                document.getElementById("hausNrVonPostanschriftID").disabled = true;
+            }
+        });
+    }
+
+    function bedienebuttonNachRechts() {
+        var buttonNachRechts = document.getElementById("buttonNachRechts");
+
+        buttonNachRechts.addEventListener("click", function () {
+            document.forms[0].action = "/web/buttonnachrechts";
+            document.forms[0].submit();
+        })
+    }
+
+    function bedieneButtonNachLinks() {
+        var buttonNachLinks = document.getElementById("buttonNachLinks");
+
+        buttonNachLinks.addEventListener("click", function () {
+            document.forms[0].action = "/web/buttonnachlinks";
+            document.forms[0].submit();
+        });
+    }
+
+    checkboxChange();
+    bedienebuttonNachRechts();
+    bedieneButtonNachLinks();
+
 </script>

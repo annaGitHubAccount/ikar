@@ -3,6 +3,7 @@ package de.anna.springboot.model.dto;
 import de.anna.springboot.model.enums.ProduktArt;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class ProduktStammdatenDTO {
 
@@ -20,6 +21,19 @@ public class ProduktStammdatenDTO {
 
 
     public ProduktStammdatenDTO() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProduktStammdatenDTO)) return false;
+        ProduktStammdatenDTO that = (ProduktStammdatenDTO) o;
+        return getSymbol().equals(that.getSymbol());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSymbol());
     }
 
     public Long getId() {

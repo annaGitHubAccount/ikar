@@ -1,11 +1,17 @@
 package de.anna.springboot.controller;
 
+import de.anna.springboot.controller.helper.ButtonNachLinksHelper;
+import de.anna.springboot.controller.helper.ButtonNachRechtsHelper;
 import de.anna.springboot.model.assembler.KundeDTOKundeFormAssembler;
+import de.anna.springboot.model.assembler.ProduktStammdatenDTOProduktDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.ProduktDTO;
+import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
 import de.anna.springboot.service.KundeService;
+import de.anna.springboot.service.ProduktStammdatenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +19,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 // jede Methode muss immer alle Daten, die ich zeigen möchte, enthalten !!!! Daten leiter ich in Model weiter!!!
 
@@ -25,12 +33,24 @@ public class KundeWebController {
 
     private static final String KUNDE_FORM = "kundeForm";
     private static final String KUNDE_LIST = "kundeList";
+    private static final String PRODUKT_STAMMDATEN_LIST = "produktStammdatenList";
+    private static final String PRODUKT_LIST = "produktList";
 
     @Autowired
-    KundeService kundeService;
+    private KundeService kundeService;
 
     @Autowired
     private KundeFormValidator kundeFormValidator;
+
+    @Autowired
+    private ProduktStammdatenService produktStammdatenService;
+
+    @Autowired
+    private ButtonNachRechtsHelper buttonNachRechtsHelper;
+
+    @Autowired
+    private ButtonNachLinksHelper buttonNachLinksHelper;
+
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -46,32 +66,48 @@ public class KundeWebController {
 
 
     @GetMapping("/addkunde")
-    public String kundeFormularZeigen(Model model) {
+    public String kundeFormularZeigen(Model model, HttpServletRequest request) {
 
-        Map<String, String> kundeArtMap = KundeArt.convertKundeArtEnumToMap();
-        model.addAttribute("kundeArtMap", kundeArtMap);
+        KundeForm kundeForm = new KundeForm();
 
-        model.addAttribute(KUNDE_FORM, new KundeForm());
+        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
+        List<ProduktDTO> produktStammdatenToProduktDTOList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
+
+        kundeForm.setProduktStammdatenList(produktStammdatenToProduktDTOList);
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+
+        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenToProduktDTOList);
+        request.getSession().setAttribute(PRODUKT_LIST, new ArrayList<>());
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
 
         return "addKunde";
     }
 
 
     @PostMapping("/kundeweiterleiten")
-    public String kundeWeiterleiten(Model model, @Valid @Validated @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation) {
+    public String kundeWeiterleiten(Model model, @Valid @Validated @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation, HttpServletRequest request) {
+
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
 
         if (resultOfValidation.hasErrors()) {
-
-            Map<String, String> kundeArtMap = KundeArt.convertKundeArtEnumToMap();
-            model.addAttribute("kundeArtMap", kundeArtMap);
 
             model.addAttribute(KUNDE_FORM, kundeForm);
             return "addKunde";
 
         } else {
 
-            String kundeArtText = KundeArt.convertKundeArtKodeToText(kundeForm.getKundeArt());
-            kundeForm.setKundeArt(kundeArtText);
+            //String kundeArtText = KundeArt.convertKundeArtKodeToText(kundeForm.getKundeArt());
+            //kundeForm.setKundeArt(kundeArtText);
+
+            @SuppressWarnings("unchecked")
+            List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+
+            @SuppressWarnings("unchecked")
+            List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+
+            kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
+            kundeForm.setProduktList(produktListFromSession);
 
             model.addAttribute(KUNDE_FORM, kundeForm);
             return "kundeWeiterleiten";
@@ -79,8 +115,81 @@ public class KundeWebController {
     }
 
 
+    @PostMapping("/buttonnachrechts")
+    public String bedienebuttonNachRechts(Model model, KundeForm kundeForm, HttpServletRequest request) {
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+
+        List<String> produktStammdatenGewaehlteListFromFormular = kundeForm.getProduktStammdatenGewaehlteList();
+
+        List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelper.loescheAusgewaehlteProduktStammdatenAusProduktStammdatenList(
+                produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
+
+        List<ProduktDTO> produktListUpdated = buttonNachRechtsHelper.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
+
+        produktListFromSession.addAll(produktListUpdated);
+
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setProduktStammdatenList(produktStammdatenListUpdated);
+        kundeForm.setProduktList(produktListFromSession);
+
+        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListUpdated);
+        request.getSession().setAttribute(PRODUKT_LIST, produktListFromSession);
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
+
+        if (kundeForm.getId() == null) {
+            return "addKunde";
+        } else {
+            return "editKunde";
+        }
+    }
+
+
+    @PostMapping("/buttonnachlinks")
+    public String bedienebuttonNachLinks(Model model, KundeForm kundeForm, HttpServletRequest request) {
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+
+        List<String> produktAusgewaehlteListFromFormular = kundeForm.getProduktGewaehlteList();
+
+        List<ProduktDTO> produktDTOListUpdated = buttonNachLinksHelper.loescheAusgewaehlteProdukteFromFormularAusProduktList(produktListFromSession, produktAusgewaehlteListFromFormular);
+
+        List<ProduktDTO> produktStammdatenListUpdated = buttonNachLinksHelper.fuegeAusgewaehlteProduktListFromFormularToProduktStammdatenListHinzu(produktListFromSession, produktAusgewaehlteListFromFormular);
+
+        produktStammdatenListFromSession.addAll(produktStammdatenListUpdated);
+
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
+        kundeForm.setProduktList(produktDTOListUpdated);
+
+        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListFromSession);
+        request.getSession().setAttribute(PRODUKT_LIST, produktDTOListUpdated);
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
+
+        if (kundeForm.getId() == null) {
+            return "addKunde";
+        } else {
+            return "editKunde";
+        }
+    }
+
+
     @PostMapping("/savekunde")
-    public String saveKunde(@ModelAttribute(KUNDE_FORM) KundeForm kundeForm, Model model) {
+    public String saveKunde(@ModelAttribute(KUNDE_FORM) KundeForm kundeForm, Model model, HttpServletRequest request) {
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+        kundeForm.setProduktList(produktListFromSession);
 
         KundeDTO kundeDTO = KundeDTOKundeFormAssembler.mapKundeFormToKundeDTO(kundeForm);
         kundeService.save(kundeDTO);
@@ -103,13 +212,23 @@ public class KundeWebController {
 
 
     @GetMapping("/editkunde/{id}")
-    public String editKunde(@PathVariable Long id, Model model) {
+    public String editKunde(@PathVariable Long id, Model model, HttpServletRequest request) {
+
+        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
+        List<ProduktDTO> produktStammdatenList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
 
         KundeDTO kundeDTOById = kundeService.findKundeById(id);
+        List<ProduktDTO> produktDTOListVonKunden = kundeDTOById.getProduktDTOList();
+
+        produktStammdatenList.removeAll(produktDTOListVonKunden);
+
         KundeForm kundeForm = KundeDTOKundeFormAssembler.mapKundeDTOToKundeForm(kundeDTOById);
 
-        Map<String, String> kundeArtMap = KundeArt.convertKundeArtEnumToMap();
-        model.addAttribute("kundeArtMap", kundeArtMap);
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setProduktStammdatenList(produktStammdatenList);
+
+        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenList);
+        request.getSession().setAttribute(PRODUKT_LIST, produktDTOListVonKunden);
 
         model.addAttribute(KUNDE_FORM, kundeForm);
 
@@ -118,10 +237,21 @@ public class KundeWebController {
 
 
     @PostMapping("/kundeweiterleitenedit")
-    public String kundeWeiterleitenEdit(Model model, KundeForm kundeForm) {
+    public String kundeWeiterleitenEdit(Model model, KundeForm kundeForm, HttpServletRequest request) {
 
-        String kundeArtText = KundeArt.convertKundeArtKodeToText(kundeForm.getKundeArt());
-        kundeForm.setKundeArt(kundeArtText);
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
+        kundeForm.setProduktList(produktListFromSession);
+
+        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListFromSession);
+        request.getSession().setAttribute(PRODUKT_LIST, produktListFromSession);
+
         model.addAttribute(KUNDE_FORM, kundeForm);
 
         return "kundeWeiterleitenEdit";

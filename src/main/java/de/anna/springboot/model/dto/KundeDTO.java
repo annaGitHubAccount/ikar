@@ -3,6 +3,7 @@ package de.anna.springboot.model.dto;
 import de.anna.springboot.model.enums.KundeArt;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class KundeDTO {
 
@@ -36,6 +37,19 @@ public class KundeDTO {
 
 
     public KundeDTO() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof KundeDTO)) return false;
+        KundeDTO kundeDTO = (KundeDTO) o;
+        return getSteuerId().equals(kundeDTO.getSteuerId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSteuerId());
     }
 
     public Long getId() {

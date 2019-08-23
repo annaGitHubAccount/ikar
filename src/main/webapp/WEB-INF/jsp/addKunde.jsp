@@ -214,7 +214,7 @@
 
                     <tr>
                         <td>
-                            <input type="button" value="Weiter" id="saveId" class="ui button"/>
+                            <input type="submit" value="Weiter" id="saveId" class="ui button"/>
                         </td>
                     </tr>
 
@@ -250,8 +250,26 @@
     }
 
 
+    function bedienebuttonNachRechts() {
+        var buttonNachRechts = document.getElementById("buttonNachRechts");
 
+        buttonNachRechts.addEventListener("click", function () {
+            document.forms[0].action = "/web/buttonnachrechts";
+            document.forms[0].submit();
+        })
+    }
+
+    function bedieneButtonNachLinks() {
+        var buttonNachLinks = document.getElementById("buttonNachLinks");
+
+        buttonNachLinks.addEventListener("click", function () {
+            document.forms[0].action = "/web/buttonnachlinks";
+            document.forms[0].submit();
+        });
+    }
 
     checkboxChange();
+    bedienebuttonNachRechts();
+    bedieneButtonNachLinks();
 
 </script>

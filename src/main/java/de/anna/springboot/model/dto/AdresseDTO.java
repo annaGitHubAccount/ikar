@@ -2,6 +2,8 @@ package de.anna.springboot.model.dto;
 
 import de.anna.springboot.model.enums.AdresseArt;
 
+import java.util.Objects;
+
 public class AdresseDTO {
 
     private Long id;
@@ -14,6 +16,23 @@ public class AdresseDTO {
 
 
     public AdresseDTO() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AdresseDTO)) return false;
+        AdresseDTO that = (AdresseDTO) o;
+        return getLand().equals(that.getLand()) &&
+                getOrt().equals(that.getOrt()) &&
+                getStrasse().equals(that.getStrasse()) &&
+                getHausNr().equals(that.getHausNr()) &&
+                getAdresseArt() == that.getAdresseArt();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLand(), getOrt(), getStrasse(), getHausNr(), getAdresseArt());
     }
 
     public Long getId() {
