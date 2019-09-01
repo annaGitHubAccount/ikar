@@ -9,6 +9,7 @@ import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
+import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.service.ProduktStammdatenService;
@@ -97,9 +98,6 @@ public class KundeWebController {
 
         } else {
 
-            //String kundeArtText = KundeArt.convertKundeArtKodeToText(kundeForm.getKundeArt());
-            //kundeForm.setKundeArt(kundeArtText);
-
             @SuppressWarnings("unchecked")
             List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
 
@@ -129,7 +127,8 @@ public class KundeWebController {
         List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelper.loescheAusgewaehlteProduktStammdatenAusProduktStammdatenList(
                 produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
 
-        List<ProduktDTO> produktListUpdated = buttonNachRechtsHelper.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
+        List<ProduktDTO> produktListUpdated = buttonNachRechtsHelper.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(
+                produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
 
         produktListFromSession.addAll(produktListUpdated);
 
@@ -202,13 +201,47 @@ public class KundeWebController {
 
 
     @GetMapping("/listevonkunden")
-    public String zeigeListeVonKunden(Model model) {
+    public String listeVonKunden(Model model) {
+
+        KundeSucheForm kundeSucheForm = new KundeSucheForm();
+        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+
+        List<KundeDTO> kundeDTOList = kundeService.findAll();
+        model.addAttribute(KUNDE_LIST, kundeDTOList);
+        model.addAttribute("kundeSucheForm", kundeSucheForm);
+
+        return "listeVonKunden";
+    }
+
+    @PostMapping("/findekunden")
+    public String findeKunden(KundeSucheForm kundeSucheForm, Model model) {
+
+        String steuerId = kundeSucheForm.getSteuerId();
+
+        List<KundeDTO> kundenBySteuerId = kundeService.findeKunden(steuerId);
+
+        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+
+        model.addAttribute(KUNDE_LIST, kundenBySteuerId);
+        model.addAttribute("kundeSucheForm", kundeSucheForm);
+
+        return "listeVonKunden";
+
+    }
+
+    @PostMapping("/resetbutton")
+    public String bedieneResetButton(KundeSucheForm kundeSucheForm, Model model){
+
+        kundeSucheForm.setSteuerId("");
+        kundeSucheForm.setNachname("");
+        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
         return "listeVonKunden";
     }
+
 
 
     @GetMapping("/editkunde/{id}")

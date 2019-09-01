@@ -17,4 +17,6 @@ public interface KundeService {
 
     List<KundeDTO> findKundenByNachname(String nachname);
 
+    List<KundeDTO> findeKunden(String steuerId);
+
 }

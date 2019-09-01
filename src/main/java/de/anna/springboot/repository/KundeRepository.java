@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface KundeRepository extends CrudRepository<Kunde, Long> {
 
-    List<Kunde> findKundenByNachname(String nachname);
+    List<Kunde> findKundeByNachname(String nachname);
 
+    List<Kunde> findKundeBySteuerId(String steuerId);
 }

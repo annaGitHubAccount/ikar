@@ -187,38 +187,45 @@
 
         <tr>
             <td>
-                <table id="innerGlobal2">
+                <fieldset>
+                    <legend>Produkte</legend>
 
-                    <tr>
-                        <td>Alle Produktstammdaten:</td>
-                        <td></td>
-                        <td>Produkte von Kunden:</td>
-                    </tr>
+                    <table id="innerGlobal2">
 
-                    <tr>
-                        <td><form:select path="produktStammdatenGewaehlteList" multiple="true"
-                                         items="${kundeForm.produktStammdatenList}" itemValue="symbol"
-                                         itemLabel="name" size="6"/></td>
-                        <td>
-                            <input type="button" value=">>" id="buttonNachRechts" class="ui button"/>
+                        <tr>
 
-                            <br/>
-                            <br/>
-                            <br/>
+                            <td>Alle Produktstammdaten:</td>
+                            <td></td>
+                            <td>Produkte von Kunden:</td>
 
-                            <input type="button" value="<<" id="buttonNachLinks" class="ui button"/>
-                        </td>
-                        <td><form:select path="produktGewaehlteList" multiple="true" items="${kundeForm.produktList}"
-                                         itemValue="symbol" itemLabel="name" size="6"/></td>
-                    </tr>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <input type="submit" value="Weiter" id="saveId" class="ui button"/>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><form:select path="produktStammdatenGewaehlteList" multiple="true"
+                                             items="${kundeForm.produktStammdatenList}" itemValue="symbol"
+                                             itemLabel="name" size="6"/></td>
+                            <td>
+                                <input type="button" value=">>" id="buttonNachRechts" class="ui button"/>
 
-                </table>
+                                <br/>
+                                <br/>
+                                <br/>
+
+                                <input type="button" value="<<" id="buttonNachLinks" class="ui button"/>
+                            </td>
+                            <td><form:select path="produktGewaehlteList" multiple="true"
+                                             items="${kundeForm.produktList}"
+                                             itemValue="symbol" itemLabel="name" size="6"/></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <input type="submit" value="Weiter" id="saveId" class="ui button"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </fieldset>
             </td>
         </tr>
 

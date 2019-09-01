@@ -55,7 +55,7 @@ public class KundeServiceImpl implements KundeService {
 
         List<Produkt> produktList = kundeFromDatenbank.getProduktList();
 
-        for(Produkt produkt : produktList){
+        for (Produkt produkt : produktList) {
             produktRepository.delete(produkt);
         }
         produktList.clear();
@@ -107,9 +107,32 @@ public class KundeServiceImpl implements KundeService {
     public List<KundeDTO> findKundenByNachname(String nachname) {
 
         List<KundeDTO> kundeDTOList = new ArrayList<>();
-        List<Kunde> kundenByNachname = kundeRepository.findKundenByNachname(nachname);
+        List<Kunde> kundenByNachname = kundeRepository.findKundeByNachname(nachname);
 
         for (Kunde kunde : kundenByNachname) {
+            KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);
+            kundeDTOList.add(kundeDTO);
+        }
+
+        return kundeDTOList;
+    }
+
+    @Override
+    public List<KundeDTO> findeKunden(String steuerId) {
+
+        List<KundeDTO> kundeDTOList = new ArrayList<>();
+
+        ArrayList<Kunde> kundeList;
+
+        if (steuerId == null || steuerId.isEmpty()) {
+            kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
+
+        } else {
+            kundeList = (ArrayList<Kunde>) kundeRepository.findKundeBySteuerId(steuerId);
+        }
+
+
+        for (Kunde kunde : kundeList) {
             KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);
             kundeDTOList.add(kundeDTO);
         }

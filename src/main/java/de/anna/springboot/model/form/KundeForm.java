@@ -18,7 +18,7 @@ public class KundeForm {
 
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
-    @Size(min = 9, max = 9, message = "{steuerId.muss9DiditsHaben}")
+    @Size(min = 9, max = 9, message = "{steuerId.muss9DigitsHaben}")
     private String steuerId;
 
     @Size(min = 1, message = "{feld.isErfordelich}")

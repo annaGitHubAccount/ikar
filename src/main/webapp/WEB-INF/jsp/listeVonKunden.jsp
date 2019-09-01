@@ -3,6 +3,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
+<form:form method="post" modelAttribute="kundeSucheForm" action="/web/findekunden">
+
+    <fieldset>
+        <legend>Suchmachine</legend>
+
+        <table>
+
+            <tr>
+                <td>Steuer ID :</td>
+                <td>
+                    <div class="ui input"><form:input path="steuerId"/></div>
+                </td>
+                <td></td>
+
+                <td>Nachname :</td>
+                <td>
+                    <div class="ui input"><form:input path="nachname"/></div>
+                </td>
+                <td></td>
+
+                <td>KundeArt :</td>
+                <td>
+                    <form:select path="kundeArt" cssClass="ui dropdown" items="${kundeSucheForm.kundeArtMap}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Suche" class="ui button"/></td>
+                <td><input type="button" value="Reset" id="resetId" class="ui button"/></td>
+            </tr>
+
+        </table>
+
+    </fieldset>
+
+</form:form>
+
 <h1>
     <c:if test="${empty kundeList}">
         Es gibt keine Kunden zum zeigen
@@ -50,3 +87,19 @@
     </table>
 
 </c:if>
+
+<script>
+
+    function bedieneResetButton() {
+
+        var buttonReset = document.getElementById("resetId");
+
+        buttonReset.addEventListener("click", function () {
+            document.forms[0].action = "/web/resetbutton";
+            document.forms[0].submit();
+        });
+    }
+
+    bedieneResetButton();
+
+</script>
