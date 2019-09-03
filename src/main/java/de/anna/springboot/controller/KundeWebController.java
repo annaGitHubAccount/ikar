@@ -75,7 +75,7 @@ public class KundeWebController {
         List<ProduktDTO> produktStammdatenToProduktDTOList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
 
         kundeForm.setProduktStammdatenList(produktStammdatenToProduktDTOList);
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenToProduktDTOList);
         request.getSession().setAttribute(PRODUKT_LIST, new ArrayList<>());
@@ -89,7 +89,7 @@ public class KundeWebController {
     @PostMapping("/kundeweiterleiten")
     public String kundeWeiterleiten(Model model, @Valid @Validated @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation, HttpServletRequest request) {
 
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         if (resultOfValidation.hasErrors()) {
 
@@ -132,7 +132,7 @@ public class KundeWebController {
 
         produktListFromSession.addAll(produktListUpdated);
 
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenListUpdated);
         kundeForm.setProduktList(produktListFromSession);
 
@@ -166,7 +166,7 @@ public class KundeWebController {
 
         produktStammdatenListFromSession.addAll(produktStammdatenListUpdated);
 
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
         kundeForm.setProduktList(produktDTOListUpdated);
 
@@ -204,7 +204,7 @@ public class KundeWebController {
     public String listeVonKunden(Model model) {
 
         KundeSucheForm kundeSucheForm = new KundeSucheForm();
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
@@ -216,13 +216,15 @@ public class KundeWebController {
     @PostMapping("/findekunden")
     public String findeKunden(KundeSucheForm kundeSucheForm, Model model) {
 
+        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
+
         String steuerId = kundeSucheForm.getSteuerId();
+        String nachname = kundeSucheForm.getNachname();
+        String kundeArt = kundeSucheForm.getKundeArt();
 
-        List<KundeDTO> kundenBySteuerId = kundeService.findeKunden(steuerId);
+        List<KundeDTO> kundenList = kundeService.findeKunden(steuerId, nachname, kundeArt);
 
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
-
-        model.addAttribute(KUNDE_LIST, kundenBySteuerId);
+        model.addAttribute(KUNDE_LIST, kundenList);
         model.addAttribute("kundeSucheForm", kundeSucheForm);
 
         return "listeVonKunden";
@@ -234,7 +236,7 @@ public class KundeWebController {
 
         kundeSucheForm.setSteuerId("");
         kundeSucheForm.setNachname("");
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
@@ -257,7 +259,7 @@ public class KundeWebController {
 
         KundeForm kundeForm = KundeDTOKundeFormAssembler.mapKundeDTOToKundeForm(kundeDTOById);
 
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenList);
 
         request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenList);
@@ -278,7 +280,7 @@ public class KundeWebController {
         @SuppressWarnings("unchecked")
         List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
 
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToMap());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
         kundeForm.setProduktList(produktListFromSession);
 

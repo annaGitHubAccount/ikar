@@ -19,7 +19,7 @@ public enum KundeArt {
     }
 
 
-    public static Map<String, String> convertKundeArtEnumToMap() {
+    public static Map<String, String> convertKundeArtEnumToTextTextMap() {
 
         Map<String, String> kundeArtMap = new HashMap<>();
         KundeArt[] kundeArtEnumArray = values();
@@ -31,6 +31,17 @@ public enum KundeArt {
         return kundeArtMap;
     }
 
+    public static Map<String, String> convertKundeArtEnumToKodeTextMap() {
+
+        Map<String, String> kundeArtMap = new HashMap<>();
+        KundeArt[] kundeArtEnumArray = values();
+
+        for (KundeArt kundeArt : kundeArtEnumArray) {
+            kundeArtMap.put(kundeArt.getKode(), kundeArt.getText());
+        }
+
+        return kundeArtMap;
+    }
 
     public static KundeArt convertToKundeArtByCode(String kundeArtByKode) {
 

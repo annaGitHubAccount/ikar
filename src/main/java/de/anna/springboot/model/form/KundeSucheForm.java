@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class KundeSucheForm {
 
-    //@Size(min = 9, max = 9, message = "{steuerId.muss9DigitsHaben}")
+    //@Size(min = 3, max = 9, message = "{steuerId.mussMind3DigitsHaben}")
     private String steuerId;
 
     private String nachname;

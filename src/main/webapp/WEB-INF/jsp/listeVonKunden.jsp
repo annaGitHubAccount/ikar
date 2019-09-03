@@ -15,7 +15,6 @@
                 <td>
                     <div class="ui input"><form:input path="steuerId"/></div>
                 </td>
-                <td></td>
 
                 <td>Nachname :</td>
                 <td>

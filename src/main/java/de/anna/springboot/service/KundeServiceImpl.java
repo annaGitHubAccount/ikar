@@ -5,6 +5,7 @@ import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
 import de.anna.springboot.repository.KundeRepository;
+import de.anna.springboot.repository.KundeSucheRepository;
 import de.anna.springboot.repository.ProduktRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class KundeServiceImpl implements KundeService {
 
     @Autowired
     private ProduktRepository produktRepository;
+
+    @Autowired
+    private KundeSucheRepository kundeSucheRepository;
 
 
     @Override
@@ -118,19 +122,11 @@ public class KundeServiceImpl implements KundeService {
     }
 
     @Override
-    public List<KundeDTO> findeKunden(String steuerId) {
+    public List<KundeDTO> findeKunden(String steuerId, String nachname, String kundeArt) {
 
         List<KundeDTO> kundeDTOList = new ArrayList<>();
 
-        ArrayList<Kunde> kundeList;
-
-        if (steuerId == null || steuerId.isEmpty()) {
-            kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
-
-        } else {
-            kundeList = (ArrayList<Kunde>) kundeRepository.findKundeBySteuerId(steuerId);
-        }
-
+        List<Kunde> kundeList = kundeSucheRepository.findKunden(steuerId, nachname, kundeArt);
 
         for (Kunde kunde : kundeList) {
             KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);
