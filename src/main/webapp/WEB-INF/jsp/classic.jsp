@@ -20,6 +20,8 @@
             var dateFormat = { dateFormat: "dd.mm.yy" };
             $( "#datepickeraddkunde" ).datepicker(dateFormat);
             $( "#datepickereditkunde" ).datepicker(dateFormat);
+            $( "#datepickergeburtsdatumab" ).datepicker(dateFormat);
+            $( "#datepickergeburtsdatumbis" ).datepicker(dateFormat);
             $( "#tabs" ).tabs();
         } );
     </script>

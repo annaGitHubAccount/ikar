@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class KundeSucheRepositoryImpl implements KundeSucheRepository {
 
 
     @Override
-    public List<Kunde> findKunden(String steuerId, String nachname, String kundeArt) {
+    public List<Kunde> findKunden(String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Kunde> criteriaQuery = criteriaBuilder.createQuery(Kunde.class);
@@ -49,6 +50,18 @@ public class KundeSucheRepositoryImpl implements KundeSucheRepository {
             KundeArt kundeArtByKode = KundeArt.convertToKundeArtByCode(kundeArt);
             Predicate kundeArtPredicate = criteriaBuilder.equal(kundeRoot.get("kundeArt"), kundeArtByKode);
             predicateList.add(kundeArtPredicate);
+        }
+
+        if(geburtsdatumAB != null){
+
+            Predicate birthDatePredicate = criteriaBuilder.greaterThanOrEqualTo(kundeRoot.get("birthDate"), geburtsdatumAB);
+            predicateList.add(birthDatePredicate);
+        }
+
+        if(geburtsdatumBIS != null){
+
+            Predicate birthDatePredicate = criteriaBuilder.lessThanOrEqualTo(kundeRoot.get("birthDate"), geburtsdatumBIS);
+            predicateList.add(birthDatePredicate);
         }
 
         Predicate[] predicateArray = new Predicate[predicateList.size()];

@@ -15,6 +15,12 @@ public class KundeSucheForm {
 
     private String kundeArt;
 
+    private String geburtsdatumAB;
+
+    private String geburtsdatumBIS;
+
+
+
 
     public String getSteuerId() {
         return steuerId;
@@ -46,5 +52,21 @@ public class KundeSucheForm {
 
     public void setKundeArt(String kundeArt) {
         this.kundeArt = kundeArt;
+    }
+
+    public String getGeburtsdatumAB() {
+        return geburtsdatumAB;
+    }
+
+    public void setGeburtsdatumAB(String geburtsdatumAB) {
+        this.geburtsdatumAB = geburtsdatumAB;
+    }
+
+    public String getGeburtsdatumBIS() {
+        return geburtsdatumBIS;
+    }
+
+    public void setGeburtsdatumBIS(String geburtsdatumBIS) {
+        this.geburtsdatumBIS = geburtsdatumBIS;
     }
 }

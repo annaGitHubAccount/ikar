@@ -1,6 +1,6 @@
-insert into Kunde(id, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (1, '345676548', 'Mariusz', 'Pudzian', parsedatetime('17.09.2012', 'dd.MM.yyyy'), 'GD');
-insert into Kunde(id, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (2, '467887549', 'Kora', 'Jackowska', parsedatetime('06.11.2000', 'dd.MM.yyyy'), 'SB');
-insert into Kunde(id, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, '256787543', 'Maja', 'Morowska', parsedatetime('02.06.2006', 'dd.MM.yyyy'), 'BR');
+insert into Kunde(id, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (1, '345676548', 'Mariusz', 'Pudzian', parsedatetime('17.08.2019', 'dd.MM.yyyy'), 'GD');
+insert into Kunde(id, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (2, '467887549', 'Kora', 'Jackowska', parsedatetime('06.01.2019', 'dd.MM.yyyy'), 'SB');
+insert into Kunde(id, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, '256787543', 'Maja', 'Morowska', parsedatetime('02.05.2019', 'dd.MM.yyyy'), 'BR');
 
 insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (1, 'P01', 'Produkt1', 100, true, 'L');
 insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (2, 'P02', 'Produkt2', 250, true, 'S');

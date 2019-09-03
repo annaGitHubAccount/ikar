@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -122,11 +123,11 @@ public class KundeServiceImpl implements KundeService {
     }
 
     @Override
-    public List<KundeDTO> findeKunden(String steuerId, String nachname, String kundeArt) {
+    public List<KundeDTO> findeKunden(String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
         List<KundeDTO> kundeDTOList = new ArrayList<>();
 
-        List<Kunde> kundeList = kundeSucheRepository.findKunden(steuerId, nachname, kundeArt);
+        List<Kunde> kundeList = kundeSucheRepository.findKunden(steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
 
         for (Kunde kunde : kundeList) {
             KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);

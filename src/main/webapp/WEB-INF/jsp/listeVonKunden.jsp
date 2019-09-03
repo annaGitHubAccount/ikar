@@ -24,7 +24,22 @@
 
                 <td>KundeArt :</td>
                 <td>
-                    <form:select path="kundeArt" cssClass="ui dropdown" items="${kundeSucheForm.kundeArtMap}"/>
+                    <form:select path="kundeArt">
+                        <form:option value="">--keine KundeArt--</form:option>
+                        <form:options cssClass="ui dropdown" items="${kundeSucheForm.kundeArtMap}"/>
+                    </form:select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Geburtsdatum ab:</td>
+                <td>
+                    <div class="ui input"><form:input path="geburtsdatumAB" id="datepickergeburtsdatumab"/></div>
+                </td>
+
+                <td>Geburtsdatum bis:</td>
+                <td>
+                    <div class="ui input"><form:input path="geburtsdatumBIS" id="datepickergeburtsdatumbis"/></div>
                 </td>
             </tr>
 

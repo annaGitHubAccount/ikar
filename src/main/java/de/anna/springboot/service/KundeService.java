@@ -3,6 +3,7 @@ package de.anna.springboot.service;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface KundeService {
@@ -17,6 +18,6 @@ public interface KundeService {
 
     List<KundeDTO> findKundenByNachname(String nachname);
 
-    List<KundeDTO> findeKunden(String steuerId, String nachname, String kundeArt);
+    List<KundeDTO> findeKunden(String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS);
 
 }
