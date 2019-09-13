@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
-<form:form method="post" modelAttribute="kundeSucheForm" action="/web/findekunden">
+<form:form method="post" modelAttribute="kundeSucheForm" action="/kundesucheform/findekunden">
 
     <fieldset>
         <legend>Suchmachine</legend>
@@ -41,11 +41,14 @@
                 <td>
                     <div class="ui input"><form:input path="geburtsdatumBIS" id="datepickergeburtsdatumbis"/></div>
                 </td>
+                <td colspan="3"></td>
             </tr>
 
             <tr>
-                <td><input type="submit" value="Suche" class="ui button"/></td>
+                <td><input type="button" value="Suche" id="sucheButtonId" class="ui button"/></td>
                 <td><input type="button" value="Reset" id="resetId" class="ui button"/></td>
+                <td><input type="button" value="Generate XML" id="generateXMLButtonId" class="ui button"/></td>
+                <td colspan="4"></td>
             </tr>
 
         </table>
@@ -95,12 +98,18 @@
                 <td data-label="Operation"><a href="/web/editkunde/${kunde.id}">Aendern</a></td>
                 <td data-label="Operation"><a href="/web/deletekunde/${kunde.id}">Loeschen</a></td>
             </tr>
+
         </c:forEach>
+
         </tbody>
 
     </table>
 
 </c:if>
+
+<a href="${pageContext.request.contextPath}/kundesucheform/generatexmllistevonkunden">Generate XML Liste von Kunden</a>
+<br>
+<a href="${pageContext.request.contextPath}/kundesucheform/generatepdflistevonkunden">Generate PDF Liste von Kunden</a>
 
 <script>
 
@@ -109,11 +118,35 @@
         var buttonReset = document.getElementById("resetId");
 
         buttonReset.addEventListener("click", function () {
-            document.forms[0].action = "/web/resetbutton";
+            document.forms[0].action = "/kundesucheform/resetbutton";
+            document.forms[0].submit();
+        });
+    }
+
+
+    function bedieneGenerateXMLButton() {
+
+        var buttonXML = document.getElementById("generateXMLButtonId");
+
+        buttonXML.addEventListener("click", function () {
+            document.forms[0].action = "/kundesucheform/generatexml";
+            document.forms[0].submit();
+        });
+    }
+
+
+    function bedieneSucheButton() {
+
+        var sucheButton = document.getElementById("sucheButtonId");
+
+        sucheButton.addEventListener("click", function () {
+            document.forms[0].action = "/kundesucheform/findekunden";
             document.forms[0].submit();
         });
     }
 
     bedieneResetButton();
+    bedieneGenerateXMLButton();
+    bedieneSucheButton();
 
 </script>

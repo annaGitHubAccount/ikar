@@ -1,6 +1,5 @@
 package de.anna.springboot.model.form;
 
-import javax.validation.constraints.Size;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,8 +17,6 @@ public class KundeSucheForm {
     private String geburtsdatumAB;
 
     private String geburtsdatumBIS;
-
-
 
 
     public String getSteuerId() {

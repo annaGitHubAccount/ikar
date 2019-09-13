@@ -1,7 +1,6 @@
 package de.anna.springboot.model.validator;
 
 import de.anna.springboot.model.form.KundeForm;
-import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.util.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -13,13 +12,11 @@ public class KundeFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return KundeForm.class.equals(aClass) || KundeSucheForm.class.equals(aClass);
+        return KundeForm.class.equals(aClass);
     }
 
     @Override
     public void validate(Object object, Errors errors) {
-
-        if(!(object instanceof KundeForm)) return;
 
         KundeForm kundeForm = (KundeForm) object;
 

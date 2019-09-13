@@ -47,21 +47,21 @@ public class KundeSucheRepositoryImpl implements KundeSucheRepository {
 
         if(kundeArt != null && !kundeArt.isEmpty()){
 
-            KundeArt kundeArtByKode = KundeArt.convertToKundeArtByCode(kundeArt);
-            Predicate kundeArtPredicate = criteriaBuilder.equal(kundeRoot.get("kundeArt"), kundeArtByKode);
+            KundeArt kundeArtEnum = KundeArt.convertToKundeArtByCode(kundeArt);
+            Predicate kundeArtPredicate = criteriaBuilder.equal(kundeRoot.get("kundeArt"), kundeArtEnum);
             predicateList.add(kundeArtPredicate);
         }
 
-        if(geburtsdatumAB != null){
+        if(geburtsdatumAB !=null){
 
-            Predicate birthDatePredicate = criteriaBuilder.greaterThanOrEqualTo(kundeRoot.get("birthDate"), geburtsdatumAB);
-            predicateList.add(birthDatePredicate);
+            Predicate geburtsdatumABPredicate = criteriaBuilder.greaterThanOrEqualTo(kundeRoot.get("birthDate"), geburtsdatumAB);
+            predicateList.add(geburtsdatumABPredicate);
         }
 
-        if(geburtsdatumBIS != null){
+        if(geburtsdatumBIS !=null){
 
-            Predicate birthDatePredicate = criteriaBuilder.lessThanOrEqualTo(kundeRoot.get("birthDate"), geburtsdatumBIS);
-            predicateList.add(birthDatePredicate);
+            Predicate geburtsdatumABPredicate = criteriaBuilder.lessThanOrEqualTo(kundeRoot.get("birthDate"), geburtsdatumBIS);
+            predicateList.add(geburtsdatumABPredicate);
         }
 
         Predicate[] predicateArray = new Predicate[predicateList.size()];

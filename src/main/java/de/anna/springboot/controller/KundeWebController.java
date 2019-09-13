@@ -13,7 +13,6 @@ import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.service.ProduktStammdatenService;
-import de.anna.springboot.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +20,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-// jede Methode muss immer alle Daten, die ich zeigen möchte, enthalten !!!! Daten leiter ich in Model weiter!!!
+// jede Methode muss immer alle Daten, die ich zeigen möchte, enthalten !!!! Daten leite ich in Model weiter!!!
 
 @Controller
 @RequestMapping("/web")
@@ -198,69 +195,14 @@ public class KundeWebController {
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
-        return "listeVonKunden";
+        return "redirect:/kundesucheform/listevonkunden";
     }
 
 
-    @GetMapping("/listevonkunden")
-    public String listeVonKunden(Model model) {
 
-        KundeSucheForm kundeSucheForm = new KundeSucheForm();
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
 
-        List<KundeDTO> kundeDTOList = kundeService.findAll();
-        model.addAttribute(KUNDE_LIST, kundeDTOList);
-        model.addAttribute("kundeSucheForm", kundeSucheForm);
 
-        return "listeVonKunden";
-    }
 
-    @PostMapping("/findekunden")
-    public String findeKunden(KundeSucheForm kundeSucheForm, Model model) {
-
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
-
-        String steuerId = kundeSucheForm.getSteuerId();
-        String nachname = kundeSucheForm.getNachname();
-        String kundeArt = kundeSucheForm.getKundeArt();
-        String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
-        String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
-
-        LocalDate geburtsdatumABlocalDate = null;
-        LocalDate geburtsdatumBISlocalDate = null;
-
-        if(geburtsdatumAB != null && !geburtsdatumAB.isEmpty()) {
-            geburtsdatumABlocalDate = DateUtils.stringToLocalDate(geburtsdatumAB);
-        }
-
-        if(geburtsdatumBIS != null && !geburtsdatumBIS.isEmpty()) {
-            geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
-        }
-
-        List<KundeDTO> kundenList = kundeService.findeKunden(steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
-
-        model.addAttribute(KUNDE_LIST, kundenList);
-        model.addAttribute("kundeSucheForm", kundeSucheForm);
-
-        return "listeVonKunden";
-
-    }
-
-    @PostMapping("/resetbutton")
-    public String bedieneResetButton(KundeSucheForm kundeSucheForm, Model model) {
-
-        kundeSucheForm.setSteuerId("");
-        kundeSucheForm.setNachname("");
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
-        kundeSucheForm.setKundeArt("");
-        kundeSucheForm.setGeburtsdatumAB("");
-        kundeSucheForm.setGeburtsdatumBIS("");
-
-        List<KundeDTO> kundeDTOList = kundeService.findAll();
-        model.addAttribute(KUNDE_LIST, kundeDTOList);
-
-        return "listeVonKunden";
-    }
 
 
     @GetMapping("/editkunde/{id}")
@@ -318,6 +260,6 @@ public class KundeWebController {
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
-        return "listeVonKunden";
+        return "redirect:/kundesucheform/listevonkunden";
     }
 }

@@ -85,7 +85,7 @@ public final class KundeDTOKundeFormAssembler {
         String dateToString = DateUtils.localDateToString(kundeDTO.getBirthDate());
         kundeForm.setBirthDate(dateToString);
 
-        kundeForm.setKundeArt(kundeDTO.getKundeArt().toString());
+        kundeForm.setKundeArt(kundeDTO.getKundeArt().getText());
 
         kundeForm = convertKundeDTOAdresseToKundeFormAdresse(kundeDTO, kundeForm);
 
