@@ -157,62 +157,26 @@ public class KundeSucheWebController {
 
 
     @GetMapping("/generatexmllistevonkunden")
-    public void generateXMLlisteVonKunden(HttpServletRequest request, HttpServletResponse response) {
+    public void generateXMLlisteVonKunden(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
         response.setContentType("text/xml");
         response.setHeader("Content-disposition", "attachment; filename=kunden_daten.xml");
 
-        @SuppressWarnings("unchecked")
-        List<KundeZeileDTO> kundenList = (List<KundeZeileDTO>) request.getSession().getAttribute(KUNDE_LIST);
-
-        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundenList);
-
-        try {
-
-            JAXBContext jaxbContext = JAXBContext.newInstance(KundeRootDTO.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            jaxbMarshaller.marshal(kundeRootDTO, response.getOutputStream());
-
-            response.getOutputStream().flush();
-
-        } catch (JAXBException | IOException e) {
-            throw new RuntimeException(e);
-
-        }
+        generateXMLListeVonKunden(request, response.getOutputStream());
     }
 
 
     @GetMapping("/generatepdflistevonkunden")
     public void generatePDFlisteVonKunden(HttpServletRequest request, HttpServletResponse response) {
 
-        @SuppressWarnings("unchecked")
-        List<KundeZeileDTO> kundenList = (List<KundeZeileDTO>) request.getSession().getAttribute(KUNDE_LIST);
-
-        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundenList);
-
         response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "attachment; filename=kunden_daten.pdf");
 
         ByteArrayOutputStream outStreamXML = new ByteArrayOutputStream();
 
-        try {
+        generateXMLListeVonKunden(request, outStreamXML);
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(KundeRootDTO.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            jaxbMarshaller.marshal(kundeRootDTO, outStreamXML);
-
-
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-
-        }
 
         // the XSL FOB file:
 
@@ -253,4 +217,28 @@ public class KundeSucheWebController {
     }
 
 
+
+    private void generateXMLListeVonKunden(HttpServletRequest request, OutputStream outputStream) {
+
+        @SuppressWarnings("unchecked")
+        List<KundeZeileDTO> kundenList = (List<KundeZeileDTO>) request.getSession().getAttribute(KUNDE_LIST);
+
+        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundenList);
+
+        try {
+
+            JAXBContext jaxbContext = JAXBContext.newInstance(KundeRootDTO.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(kundeRootDTO, outputStream);
+
+            outputStream.flush();
+
+        } catch (JAXBException | IOException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
 }

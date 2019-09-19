@@ -13,8 +13,6 @@ public class KundeDTOToKundeRootDTOAssembler {
 
         KundeRootDTO kundeRootDTO = new KundeRootDTO();
 
-        //List<KundeZeileDTO> kundeZeileDTOList = convertKundeDTOListToKundeZeileDTOList(kundenList);
-
         kundeRootDTO.setKundeZeileDTOList(kundenList);
 
         return kundeRootDTO;
