@@ -1,7 +1,9 @@
 package de.anna.springboot.service;
 
 import de.anna.springboot.model.assembler.KundeKundeDTOAssembler;
+import de.anna.springboot.model.assembler.KundeKundeZeileDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
 import de.anna.springboot.repository.KundeRepository;
@@ -80,6 +82,21 @@ public class KundeServiceImpl implements KundeService {
         }
 
         return kundeDTOList;
+    }
+
+    @Override
+    public List<KundeZeileDTO> findAllKundeZeileDTO() {
+
+        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
+
+        ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
+
+        for (Kunde kunde : kundeList) {
+            KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
+            kundeZeileDTOList.add(kundeZeileDTO);
+        }
+
+        return kundeZeileDTOList;
     }
 
 

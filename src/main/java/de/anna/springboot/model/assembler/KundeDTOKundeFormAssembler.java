@@ -87,14 +87,14 @@ public final class KundeDTOKundeFormAssembler {
 
         kundeForm.setKundeArt(kundeDTO.getKundeArt().getText());
 
-        kundeForm = convertKundeDTOAdresseToKundeFormAdresse(kundeDTO, kundeForm);
+        convertKundeDTOAdresseToKundeFormAdresse(kundeDTO, kundeForm);
 
         kundeForm.setProduktList(kundeDTO.getProduktDTOList());
 
         return kundeForm;
     }
 
-    private static KundeForm convertKundeDTOAdresseToKundeFormAdresse(KundeDTO kundeDTO, KundeForm kundeForm) {
+    private static void convertKundeDTOAdresseToKundeFormAdresse(KundeDTO kundeDTO, KundeForm kundeForm) {
 
         List<AdresseDTO> adresseListDTO = kundeDTO.getAdresseList();
 
@@ -114,8 +114,6 @@ public final class KundeDTOKundeFormAssembler {
                 kundeForm.setHausNrVonPostanschrift(adresseDTO.getHausNr());
             }
         }
-
-        return kundeForm;
     }
 
 

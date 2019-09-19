@@ -9,18 +9,18 @@ import java.util.List;
 
 public class KundeDTOToKundeRootDTOAssembler {
 
-    public static KundeRootDTO convertKundeListDTOToKundeRootDTO(List<KundeDTO> kundenList) {
+    public static KundeRootDTO convertKundeZeileListDTOToKundeRootDTO(List<KundeZeileDTO> kundenList) {
 
         KundeRootDTO kundeRootDTO = new KundeRootDTO();
 
-        List<KundeZeileDTO> kundeZeileDTOList = convertKundeDTOListToKundeZeileDTOList(kundenList);
+        //List<KundeZeileDTO> kundeZeileDTOList = convertKundeDTOListToKundeZeileDTOList(kundenList);
 
-        kundeRootDTO.setKundeZeileDTOList(kundeZeileDTOList);
+        kundeRootDTO.setKundeZeileDTOList(kundenList);
 
         return kundeRootDTO;
     }
 
-    private static List<KundeZeileDTO> convertKundeDTOListToKundeZeileDTOList(List<KundeDTO> kundenList) {
+    public static List<KundeZeileDTO> convertKundeDTOListToKundeZeileDTOList(List<KundeDTO> kundenList) {
 
         List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
 
@@ -36,6 +36,7 @@ public class KundeDTOToKundeRootDTOAssembler {
 
         KundeZeileDTO kundeZeileDTO = new KundeZeileDTO();
 
+        kundeZeileDTO.setId(kundeDTO.getId());
         kundeZeileDTO.setSteuerId(kundeDTO.getSteuerId());
         kundeZeileDTO.setName(kundeDTO.getName());
         kundeZeileDTO.setNachname(kundeDTO.getNachname());

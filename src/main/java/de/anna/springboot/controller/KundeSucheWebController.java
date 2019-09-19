@@ -3,6 +3,7 @@ package de.anna.springboot.controller;
 import de.anna.springboot.model.assembler.KundeDTOToKundeRootDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.xml.KundeRootDTO;
+import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.service.KundeService;
@@ -46,11 +47,11 @@ public class KundeSucheWebController {
         KundeSucheForm kundeSucheForm = new KundeSucheForm();
         kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
 
-        List<KundeDTO> kundeDTOList = kundeService.findAll();
+        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findAllKundeZeileDTO();
 
-        request.getSession().setAttribute(KUNDE_LIST, kundeDTOList);
+        request.getSession().setAttribute(KUNDE_LIST, kundeZeileDTOList);
 
-        model.addAttribute(KUNDE_LIST, kundeDTOList);
+        model.addAttribute(KUNDE_LIST, kundeZeileDTOList);
         model.addAttribute("kundeSucheForm", kundeSucheForm);
 
         return "listeVonKunden";
@@ -130,7 +131,9 @@ public class KundeSucheWebController {
 
         List<KundeDTO> kundenList = kundeService.findeKunden(steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
-        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeListDTOToKundeRootDTO(kundenList);
+        List<KundeZeileDTO> kundeZeileDTOList = KundeDTOToKundeRootDTOAssembler.convertKundeDTOListToKundeZeileDTOList(kundenList);
+
+        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundeZeileDTOList);
 
         response.setContentType("text/xml");
         response.setHeader("Content-disposition", "attachment; filename=kunden_daten.xml");
@@ -153,8 +156,6 @@ public class KundeSucheWebController {
     }
 
 
-
-
     @GetMapping("/generatexmllistevonkunden")
     public void generateXMLlisteVonKunden(HttpServletRequest request, HttpServletResponse response) {
 
@@ -163,9 +164,9 @@ public class KundeSucheWebController {
         response.setHeader("Content-disposition", "attachment; filename=kunden_daten.xml");
 
         @SuppressWarnings("unchecked")
-        List<KundeDTO> kundenList = (List<KundeDTO>) request.getSession().getAttribute(KUNDE_LIST);
+        List<KundeZeileDTO> kundenList = (List<KundeZeileDTO>) request.getSession().getAttribute(KUNDE_LIST);
 
-        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeListDTOToKundeRootDTO(kundenList);
+        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundenList);
 
         try {
 
@@ -188,11 +189,30 @@ public class KundeSucheWebController {
     @GetMapping("/generatepdflistevonkunden")
     public void generatePDFlisteVonKunden(HttpServletRequest request, HttpServletResponse response) {
 
+        @SuppressWarnings("unchecked")
+        List<KundeZeileDTO> kundenList = (List<KundeZeileDTO>) request.getSession().getAttribute(KUNDE_LIST);
+
+        KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundenList);
+
         response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "attachment; filename=kunden_daten.pdf");
+
         ByteArrayOutputStream outStreamXML = new ByteArrayOutputStream();
 
+        try {
 
+            JAXBContext jaxbContext = JAXBContext.newInstance(KundeRootDTO.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(kundeRootDTO, outStreamXML);
+
+
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+
+        }
 
         // the XSL FOB file:
 

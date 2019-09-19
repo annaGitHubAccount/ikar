@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 public class KundeZeileDTO {
 
+    private Long id;
+
     private String steuerId;
 
     private String name;
@@ -16,6 +18,17 @@ public class KundeZeileDTO {
 
     private KundeArt kundeArt;
 
+    public KundeZeileDTO() {
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getSteuerId() {
         return steuerId;
