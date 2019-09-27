@@ -18,6 +18,10 @@ public class KundeForm {
 
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
+    private String kundeNummer;
+
+    @NotNull(message = "{feld.isErfordelich}")
+    @NotEmpty(message = "{feld.isErfordelich}")
     @Size(min = 9, max = 9, message = "{steuerId.muss9DigitsHaben}")
     private String steuerId;
 
@@ -215,4 +219,11 @@ public class KundeForm {
         this.produktGewaehlteList = produktGewaehlteList;
     }
 
+    public String getKundeNummer() {
+        return kundeNummer;
+    }
+
+    public void setKundeNummer(String kundeNummer) {
+        this.kundeNummer = kundeNummer;
+    }
 }

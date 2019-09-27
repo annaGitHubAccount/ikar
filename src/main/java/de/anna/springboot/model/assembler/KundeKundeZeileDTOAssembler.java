@@ -19,6 +19,7 @@ public final class KundeKundeZeileDTOAssembler {
         kundeZeileDTO.setSteuerId(kunde.getSteuerId());
         kundeZeileDTO.setBirthDate(kunde.getBirthDate());
         kundeZeileDTO.setKundeArt(kunde.getKundeArt());
+        kundeZeileDTO.setKundeNummer(kunde.getKundeNummer());
 
         return kundeZeileDTO;
     }

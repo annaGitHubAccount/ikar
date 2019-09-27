@@ -9,6 +9,8 @@ public class KundeDTO {
 
     private Long id;
 
+    private String kundeNummer;
+
     private String steuerId;
 
     private String name;
@@ -114,5 +116,13 @@ public class KundeDTO {
 
     public void setProduktDTOList(List<ProduktDTO> produktDTOList) {
         this.produktDTOList = produktDTOList;
+    }
+
+    public String getKundeNummer() {
+        return kundeNummer;
+    }
+
+    public void setKundeNummer(String kundeNummer) {
+        this.kundeNummer = kundeNummer;
     }
 }

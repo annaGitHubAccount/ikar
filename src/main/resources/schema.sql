@@ -17,6 +17,7 @@ CREATE SEQUENCE ADRESSE_SEQ
 create table Kunde
 (
     id       long primary key auto_increment not null,
+    kunde_nummer varchar(10) not null,
     steuer_id   varchar(50) not null,
     name      varchar(50)  not null,
     nachname  varchar(50)  not null,

@@ -1,5 +1,5 @@
 <div>
 
-    @Copyright polanskiTeam.org
+    @Copyright A.Polanska
 
 </div>

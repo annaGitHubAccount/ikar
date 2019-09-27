@@ -140,11 +140,11 @@ public class KundeServiceImpl implements KundeService {
     }
 
     @Override
-    public List<KundeDTO> findeKunden(String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
+    public List<KundeDTO> findeKunden(String kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
         List<KundeDTO> kundeDTOList = new ArrayList<>();
 
-        List<Kunde> kundeList = kundeSucheRepository.findKunden(steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
+        List<Kunde> kundeList = kundeSucheRepository.findKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
 
         for (Kunde kunde : kundeList) {
             KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);

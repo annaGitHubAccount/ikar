@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
@@ -84,6 +83,7 @@ public class KundeSucheWebController {
         String kundeArt = kundeSucheForm.getKundeArt();
         String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
         String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
+        String kundeNummer = kundeSucheForm.getKundeNummer();
 
         LocalDate geburtsdatumABlocalDate = null;
         LocalDate geburtsdatumBISlocalDate = null;
@@ -96,7 +96,7 @@ public class KundeSucheWebController {
             geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
         }
 
-        List<KundeDTO> kundenList = kundeService.findeKunden(steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+        List<KundeDTO> kundenList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
         request.getSession().setAttribute(KUNDE_LIST, kundenList);
 
@@ -117,6 +117,7 @@ public class KundeSucheWebController {
         String kundeArt = kundeSucheForm.getKundeArt();
         String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
         String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
+        String kundeNummer = kundeSucheForm.getKundeNummer();
 
         LocalDate geburtsdatumABlocalDate = null;
         LocalDate geburtsdatumBISlocalDate = null;
@@ -129,7 +130,7 @@ public class KundeSucheWebController {
             geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
         }
 
-        List<KundeDTO> kundenList = kundeService.findeKunden(steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+        List<KundeDTO> kundenList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
         List<KundeZeileDTO> kundeZeileDTOList = KundeDTOToKundeRootDTOAssembler.convertKundeDTOListToKundeZeileDTOList(kundenList);
 
@@ -177,28 +178,20 @@ public class KundeSucheWebController {
 
         generateXMLListeVonKunden(request, outStreamXML);
 
-
-        // the XSL FOB file:
-
         byte[] outStrByteArray = outStreamXML.toByteArray();
 
         ByteArrayInputStream inStreamXML = new ByteArrayInputStream(outStrByteArray);
 
-        // the XML file which provides the input
         StreamSource xmlSource = new StreamSource(inStreamXML);
 
-        // create an instance of fop factory
         FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
 
-        // a user agent is needed for transformation
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 
         try {
 
-            // Construct fop with desired output format
             Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, response.getOutputStream());
 
-            // Setup XSLT
             TransformerFactory factory = TransformerFactory.newInstance();
 
             InputStream inputStreamXSL = KundeSucheWebController.class.getResourceAsStream("/templates/kunden_daten.xsl");

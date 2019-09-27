@@ -24,6 +24,7 @@ public final class KundeKundeDTOAssembler {
         kundeDTO.setNachname(kunde.getNachname());
         kundeDTO.setBirthDate(kunde.getBirthDate());
         kundeDTO.setKundeArt(kunde.getKundeArt());
+        kundeDTO.setKundeNummer(kunde.getKundeNummer());
 
         List<AdresseDTO> adresseDTOList = new ArrayList<>();
         List<Adresse> adresseList = kunde.getAdresseList();
@@ -56,6 +57,7 @@ public final class KundeKundeDTOAssembler {
         kunde.setNachname(kundeDTO.getNachname());
         kunde.setBirthDate(kundeDTO.getBirthDate());
         kunde.setKundeArt(kundeDTO.getKundeArt());
+        kunde.setKundeNummer(kundeDTO.getKundeNummer());
 
         List<Adresse> adresseList = new ArrayList<>();
         List<AdresseDTO> adresseDTOList = kundeDTO.getAdresseList();

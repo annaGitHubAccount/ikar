@@ -28,6 +28,12 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Kunde Nummer :</td>
+                                            <td>
+                                                <div class="ui input"><form:input path="kundeNummer"/></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Steuer ID :</td>
                                             <td>
                                                 <div class="ui input"><form:input path="steuerId"/></div>

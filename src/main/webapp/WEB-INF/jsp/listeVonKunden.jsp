@@ -11,6 +11,11 @@
         <table>
 
             <tr>
+                <td>Kunde Nummer :</td>
+                <td>
+                    <div class="ui input"><form:input path="kundeNummer"/></div>
+                </td>
+
                 <td>Steuer ID :</td>
                 <td>
                     <div class="ui input"><form:input path="steuerId"/></div>
@@ -72,6 +77,7 @@
 
         <thead>
         <tr>
+            <th>Kunde Nummer</th>
             <th>Steuer ID</th>
             <th>Name</th>
             <th>Nachname</th>
@@ -85,6 +91,7 @@
         <c:forEach var="kunde" items="${kundeList}">
 
             <tr>
+                <td data-label="Kunde Nummer">${kunde.kundeNummer}</td>
                 <td data-label="Steuer ID">${kunde.steuerId}</td>
                 <td data-label="Name">${kunde.name}</td>
                 <td data-label="Nachname">${kunde.nachname}</td>

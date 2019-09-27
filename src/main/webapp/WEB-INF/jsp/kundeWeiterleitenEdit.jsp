@@ -6,6 +6,10 @@
 <form:form method="post" modelAttribute="kundeForm" action="/web/savekunde">
     <table >
         <tr>
+            <td>Kunde Nummer : </td>
+            <td>${kundeForm.kundeNummer}</td>
+        </tr>
+        <tr>
             <td>Steuer ID : </td>
             <td>${kundeForm.steuerId}</td>
         </tr>
@@ -97,6 +101,7 @@
     </table>
 
     <form:hidden path="id" />
+    <form:hidden path="kundeNummer"/>
     <form:hidden path="steuerId"/>
     <form:hidden path="name"/>
     <form:hidden path="nachname"/>

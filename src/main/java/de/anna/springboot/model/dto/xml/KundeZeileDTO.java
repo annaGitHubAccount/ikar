@@ -1,12 +1,13 @@
 package de.anna.springboot.model.dto.xml;
 
 import de.anna.springboot.model.enums.KundeArt;
-
 import java.time.LocalDate;
 
 public class KundeZeileDTO {
 
     private Long id;
+
+    private String kundeNummer;
 
     private String steuerId;
 
@@ -68,5 +69,13 @@ public class KundeZeileDTO {
 
     public void setKundeArt(KundeArt kundeArt) {
         this.kundeArt = kundeArt;
+    }
+
+    public String getKundeNummer() {
+        return kundeNummer;
+    }
+
+    public void setKundeNummer(String kundeNummer) {
+        this.kundeNummer = kundeNummer;
     }
 }

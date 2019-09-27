@@ -26,6 +26,7 @@ public final class KundeDTOKundeFormAssembler {
         kundeDTO.setSteuerId(kundeForm.getSteuerId());
         kundeDTO.setName(kundeForm.getName());
         kundeDTO.setNachname(kundeForm.getNachname());
+        kundeDTO.setKundeNummer(kundeForm.getKundeNummer());
 
         LocalDate localDate = DateUtils.stringToLocalDate(kundeForm.getBirthDate());
         kundeDTO.setBirthDate(localDate);
@@ -81,6 +82,7 @@ public final class KundeDTOKundeFormAssembler {
         kundeForm.setSteuerId(kundeDTO.getSteuerId());
         kundeForm.setName(kundeDTO.getName());
         kundeForm.setNachname(kundeDTO.getNachname());
+        kundeForm.setKundeNummer(kundeDTO.getKundeNummer());
 
         String dateToString = DateUtils.localDateToString(kundeDTO.getBirthDate());
         kundeForm.setBirthDate(dateToString);

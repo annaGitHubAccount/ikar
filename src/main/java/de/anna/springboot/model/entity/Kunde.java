@@ -15,6 +15,8 @@ public class Kunde {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String kundeNummer;
+
     private String steuerId;
 
     private String name;
@@ -111,5 +113,13 @@ public class Kunde {
 
     public void setProduktList(List<Produkt> produktList) {
         this.produktList = produktList;
+    }
+
+    public String getKundeNummer() {
+        return kundeNummer;
+    }
+
+    public void setKundeNummer(String kundeNummer) {
+        this.kundeNummer = kundeNummer;
     }
 }
