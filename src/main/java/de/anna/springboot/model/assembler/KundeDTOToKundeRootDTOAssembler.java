@@ -40,6 +40,7 @@ public class KundeDTOToKundeRootDTOAssembler {
         kundeZeileDTO.setNachname(kundeDTO.getNachname());
         kundeZeileDTO.setBirthDate(kundeDTO.getBirthDate());
         kundeZeileDTO.setKundeArt(kundeDTO.getKundeArt());
+        kundeZeileDTO.setKundeNummer(kundeDTO.getKundeNummer());
 
         return kundeZeileDTO;
     }

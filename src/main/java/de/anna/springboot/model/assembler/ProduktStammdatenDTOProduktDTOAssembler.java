@@ -22,7 +22,6 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
         produktDTO.setPreis(produktStammdatenDTO.getPreis());
         produktDTO.setProduktArt(produktStammdatenDTO.getProduktArt());
         produktDTO.setAktiv(produktStammdatenDTO.isAktiv());
-        produktDTO.setId(produktStammdatenDTO.getId());
 
         return produktDTO;
 

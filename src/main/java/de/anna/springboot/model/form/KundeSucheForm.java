@@ -8,6 +8,8 @@ public class KundeSucheForm {
     //@Size(min = 3, max = 9, message = "{steuerId.mussMind3DigitsHaben}")
     private String steuerId;
 
+    private Long kundeNummer;
+
     private String nachname;
 
     private Map<String, String> kundeArtMap = new LinkedHashMap<>();
@@ -65,5 +67,13 @@ public class KundeSucheForm {
 
     public void setGeburtsdatumBIS(String geburtsdatumBIS) {
         this.geburtsdatumBIS = geburtsdatumBIS;
+    }
+
+    public Long getKundeNummer() {
+        return kundeNummer;
+    }
+
+    public void setKundeNummer(Long kundeNummer) {
+        this.kundeNummer = kundeNummer;
     }
 }

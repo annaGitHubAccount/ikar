@@ -16,6 +16,8 @@ public class KundeForm {
 
     private Long id;
 
+    private Long kundeNummer;
+
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
     @Size(min = 9, max = 9, message = "{steuerId.muss9DigitsHaben}")
@@ -215,4 +217,11 @@ public class KundeForm {
         this.produktGewaehlteList = produktGewaehlteList;
     }
 
+    public Long getKundeNummer() {
+        return kundeNummer;
+    }
+
+    public void setKundeNummer(Long kundeNummer) {
+        this.kundeNummer = kundeNummer;
+    }
 }
