@@ -9,5 +9,9 @@ public interface RolleService {
 
     List<RolleDTO> findByKundeId(Long kundeId);
 
+    RolleDTO findRolleById(Long id);
 
+    void deleteRolleById(Long id);
+
+    void save(RolleDTO rolleDTO);
 }

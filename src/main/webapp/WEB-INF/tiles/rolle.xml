@@ -15,4 +15,14 @@
         <put-attribute name="body" value="/WEB-INF/jsp/listeVonRollen.jsp"/>
     </definition>
 
+    <definition name="editRolle" extends="base.definition">
+        <put-attribute name="title" value="Edit Rolle" />
+        <put-attribute name="body" value="/WEB-INF/jsp/editRolle.jsp" />
+    </definition>
+
+    <definition name="rolleWeiterleitenEdit" extends="base.definition">
+        <put-attribute name="title" value="Rolle Weiterleiten Edit" />
+        <put-attribute name="body" value="/WEB-INF/jsp/rolleWeiterleitenEdit.jsp" />
+    </definition>
+
 </tiles-definitions>

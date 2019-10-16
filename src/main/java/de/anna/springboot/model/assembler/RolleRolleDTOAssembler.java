@@ -43,4 +43,14 @@ public final class RolleRolleDTOAssembler {
 
         return rolle;
     }
+
+    public static Rolle convertRolleDTOToRolle(RolleDTO rolleDTO){
+
+        Rolle rolle = new Rolle();
+
+        rolle.setId(rolleDTO.getId());
+        rolle.setName(rolleDTO.getName());
+
+        return rolle;
+    }
 }

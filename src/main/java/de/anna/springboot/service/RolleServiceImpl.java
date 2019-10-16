@@ -6,9 +6,11 @@ import de.anna.springboot.model.entity.Rolle;
 import de.anna.springboot.repository.RolleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RolleServiceImpl implements RolleService {
@@ -18,6 +20,7 @@ public class RolleServiceImpl implements RolleService {
     RolleRepository rolleRepository;
 
     @Override
+    @Transactional
     public List<RolleDTO> findByKundeId(Long kundeId) {
 
         List<Rolle> rollenListByKunde = rolleRepository.findByKundeId(kundeId);
@@ -29,5 +32,37 @@ public class RolleServiceImpl implements RolleService {
         }
 
         return rolleDTOListByKunde;
+    }
+
+    @Override
+    @Transactional
+    public RolleDTO findRolleById(Long id) {
+
+        Optional<Rolle> rolleById = rolleRepository.findById(id);
+
+        RolleDTO rolleDTO = new RolleDTO();
+        if (rolleById.isPresent()) {
+            rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolleById.get());
+        }
+
+        return rolleDTO;
+    }
+
+    @Override
+    @Transactional
+    public void deleteRolleById(Long id) {
+
+        Optional<Rolle> rolleById = rolleRepository.findById(id);
+
+        if (rolleById.isPresent()) {
+            rolleRepository.delete(rolleById.get());
+        }
+    }
+
+    @Override
+    public void save(RolleDTO rolleDTO) {
+
+        Rolle rolle = RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO);
+        rolleRepository.save(rolle);
     }
 }
