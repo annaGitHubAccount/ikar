@@ -25,6 +25,8 @@ insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VA
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(5, 'P05', 'Produkt5', 1000, false, 'M', 3);
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(6, 'P06', 'Produkt6', 1000, true, 'S', 3);
 
-insert into Rolle(id, name, KUNDE_ID) VALUES (1, 'Scrum Master, Entwickler', 1);
-insert into Rolle(id, name, KUNDE_ID) VALUES (2, 'Produkt Owner', 2);
-insert into Rolle(id, name, KUNDE_ID) VALUES (3, 'Entwickler, PO', 3);
+insert into Rolle(id, name, KUNDE_ID) VALUES (1, 'Scrum Master', 1);
+insert into Rolle(id, name, KUNDE_ID) VALUES (2, 'Entwickler', 1);
+insert into Rolle(id, name, KUNDE_ID) VALUES (3, 'Produkt Owner', 2);
+insert into Rolle(id, name, KUNDE_ID) VALUES (4, 'Entwickler', 3);
+insert into Rolle(id, name, KUNDE_ID) VALUES (5, 'PO', 3);

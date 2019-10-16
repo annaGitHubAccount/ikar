@@ -9,7 +9,9 @@
 
     <tbody>
     <c:forEach var="rolle" items="${rolleList}">
-        <td data-label="Rollen">${rolle.name}</td>
+        <tr data-label="Rollen">
+            <td> ${rolle.name} </td>
+        </tr>
     </c:forEach>
     </tbody>
 
