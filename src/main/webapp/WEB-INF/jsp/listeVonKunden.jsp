@@ -84,7 +84,7 @@
             <th>Rolle</th>
             <th>Geburtsdatum</th>
             <th>KundeArt</th>
-            <th colspan="2">Operation</th>
+            <th colspan="3">Operation</th>
         </tr>
         </thead>
 
@@ -106,6 +106,7 @@
 
                 <td data-label="Operation"><a href="/web/editkunde/${kunde.id}">Aendern</a></td>
                 <td data-label="Operation"><a href="/web/deletekunde/${kunde.id}">Loeschen</a></td>
+                <td data-label="Operation"><a href="/web/findrollenvonkunde/${kunde.id}">Manage von Rollen</a></td>
             </tr>
 
         </c:forEach>

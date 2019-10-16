@@ -22,6 +22,16 @@ public final class RolleRolleDTOAssembler {
         return rolleDTO;
     }
 
+    public static RolleDTO convertRolleToRolleDTO(Rolle rolle){
+
+        RolleDTO rolleDTO = new RolleDTO();
+
+        rolleDTO.setId(rolle.getId());
+        rolleDTO.setName(rolle.getName());
+
+        return rolleDTO;
+    }
+
 
     public static Rolle convertRolleDTOToRolle(RolleDTO rolleDTO, Kunde kunde){
 
