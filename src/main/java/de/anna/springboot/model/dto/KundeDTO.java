@@ -25,6 +25,8 @@ public class KundeDTO {
 
     private List<ProduktDTO> produktDTOList;
 
+    private List<RolleDTO> rolleDTOList;
+
 
     public KundeDTO(String name, String nachname) {
         this.name = name;
@@ -124,5 +126,13 @@ public class KundeDTO {
 
     public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public List<RolleDTO> getRolleDTOList() {
+        return rolleDTOList;
+    }
+
+    public void setRolleDTOList(List<RolleDTO> rolleDTOList) {
+        this.rolleDTOList = rolleDTOList;
     }
 }

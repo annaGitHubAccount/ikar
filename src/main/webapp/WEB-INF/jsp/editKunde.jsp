@@ -46,6 +46,12 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Rolle :</td>
+                                            <td>
+                                                <div class="ui input"><form:input path="rolle"/></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Date of Birth :</td>
                                             <td>
                                                 <div class="ui input"><form:input path="birthDate"

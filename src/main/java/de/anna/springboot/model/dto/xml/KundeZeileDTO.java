@@ -1,7 +1,6 @@
 package de.anna.springboot.model.dto.xml;
 
 import de.anna.springboot.model.enums.KundeArt;
-
 import java.time.LocalDate;
 
 public class KundeZeileDTO {
@@ -15,6 +14,8 @@ public class KundeZeileDTO {
     private String name;
 
     private String nachname;
+
+    private String rolle;
 
     private LocalDate birthDate;
 
@@ -78,5 +79,13 @@ public class KundeZeileDTO {
 
     public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
     }
 }

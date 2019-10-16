@@ -1,6 +1,7 @@
 package de.anna.springboot.webantwort;
 
 import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 
 import java.util.ArrayList;
 import java.util.List;

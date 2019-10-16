@@ -6,9 +6,11 @@ import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
+import de.anna.springboot.model.entity.Rolle;
 import de.anna.springboot.repository.KundeRepository;
 import de.anna.springboot.repository.KundeSucheRepository;
 import de.anna.springboot.repository.ProduktRepository;
+import de.anna.springboot.repository.RolleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +23,21 @@ import java.util.Optional;
 @Service
 public class KundeServiceImpl implements KundeService {
 
-    @Autowired
-    private KundeRepository kundeRepository;
+    private final KundeRepository kundeRepository;
 
     @Autowired
     private ProduktRepository produktRepository;
 
     @Autowired
     private KundeSucheRepository kundeSucheRepository;
+
+    @Autowired
+    private RolleRepository rolleRepository;
+
+
+    public KundeServiceImpl(KundeRepository kundeRepository) {
+        this.kundeRepository = kundeRepository;
+    }
 
 
     @Override
@@ -47,7 +56,8 @@ public class KundeServiceImpl implements KundeService {
             if (kundeRepositoryById.isPresent()) {
                 Kunde kundeFromDatenbank = kundeRepositoryById.get();
 
-                clearKunde(kundeFromDatenbank);
+                clearKundeProduktList(kundeFromDatenbank);
+                clearKundeRollenList(kundeFromDatenbank);
 
                 Kunde kunde = KundeKundeDTOAssembler.mapKundeDTOToKunde(kundeDTO, kundeFromDatenbank);
 
@@ -58,7 +68,7 @@ public class KundeServiceImpl implements KundeService {
 
     }
 
-    private void clearKunde(Kunde kundeFromDatenbank) {
+    private void clearKundeProduktList(Kunde kundeFromDatenbank) {
 
         List<Produkt> produktList = kundeFromDatenbank.getProduktList();
 
@@ -66,6 +76,16 @@ public class KundeServiceImpl implements KundeService {
             produktRepository.delete(produkt);
         }
         produktList.clear();
+    }
+
+    private void clearKundeRollenList(Kunde kundeFromDatenbank){
+
+        List<Rolle> rolleList = kundeFromDatenbank.getRolleList();
+
+        for(Rolle rolle : rolleList){
+            rolleRepository.delete(rolle);
+        }
+        rolleList.clear();
     }
 
 
@@ -92,6 +112,22 @@ public class KundeServiceImpl implements KundeService {
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
 
         for (Kunde kunde : kundeList) {
+            KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
+            kundeZeileDTOList.add(kundeZeileDTO);
+        }
+
+        return kundeZeileDTOList;
+    }
+
+    @Override
+    public List<KundeZeileDTO> findAllKundeZeileDTOByNachname(String nachname) {
+
+        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
+
+        ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findKundeByNachname(nachname);
+
+        for (Kunde kunde : kundeList) {
+
             KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
             kundeZeileDTOList.add(kundeZeileDTO);
         }
@@ -140,18 +176,18 @@ public class KundeServiceImpl implements KundeService {
     }
 
     @Override
-    public List<KundeDTO> findeKunden(Long kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
+    public List<KundeZeileDTO> findeKunden(Long kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
-        List<KundeDTO> kundeDTOList = new ArrayList<>();
+        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
 
         List<Kunde> kundeList = kundeSucheRepository.findKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
 
         for (Kunde kunde : kundeList) {
-            KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);
-            kundeDTOList.add(kundeDTO);
+            KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
+            kundeZeileDTOList.add(kundeZeileDTO);
         }
 
-        return kundeDTOList;
+        return kundeZeileDTOList;
     }
 
 

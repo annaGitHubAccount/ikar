@@ -2,17 +2,19 @@ package de.anna.springboot.controller;
 
 import de.anna.springboot.controller.helper.ButtonNachLinksHelper;
 import de.anna.springboot.controller.helper.ButtonNachRechtsHelper;
+import de.anna.springboot.controller.helper.RolleDTOHelper;
 import de.anna.springboot.model.assembler.KundeDTOKundeFormAssembler;
 import de.anna.springboot.model.assembler.ProduktStammdatenDTOProduktDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
-import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.service.ProduktStammdatenService;
+import de.anna.springboot.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +22,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // jede Methode muss immer alle Daten, die ich zeigen möchte, enthalten !!!! Daten leite ich in Model weiter!!!
@@ -50,6 +54,9 @@ public class KundeWebController {
 
     @Autowired
     private ButtonNachLinksHelper buttonNachLinksHelper;
+
+    @Autowired
+    RolleDTOHelper rolleDTOHelper;
 
 
     @InitBinder
@@ -197,12 +204,6 @@ public class KundeWebController {
 
         return "redirect:/kundesucheform/listevonkunden";
     }
-
-
-
-
-
-
 
 
     @GetMapping("/editkunde/{id}")

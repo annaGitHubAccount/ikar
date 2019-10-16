@@ -1,6 +1,8 @@
 package de.anna.springboot.model.assembler;
 
+import de.anna.springboot.controller.helper.RolleDTOHelper;
 import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.dto.xml.KundeRootDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 
@@ -41,6 +43,10 @@ public class KundeDTOToKundeRootDTOAssembler {
         kundeZeileDTO.setBirthDate(kundeDTO.getBirthDate());
         kundeZeileDTO.setKundeArt(kundeDTO.getKundeArt());
         kundeZeileDTO.setKundeNummer(kundeDTO.getKundeNummer());
+
+        List<RolleDTO> rolleDTOList = kundeDTO.getRolleDTOList();
+        String rollenAsAtring = RolleDTOHelper.convertRolleDTOListToString(rolleDTOList);
+        kundeZeileDTO.setRolle(rollenAsAtring);
 
         return kundeZeileDTO;
     }

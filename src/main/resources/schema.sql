@@ -13,6 +13,10 @@ CREATE SEQUENCE ADRESSE_SEQ
     START WITH 100
     INCREMENT BY 1;
 
+CREATE SEQUENCE ROLLE_SEQ
+    MAXVALUE 99999999999999
+    START WITH 100
+    INCREMENT BY 1;
 
 create table Kunde
 (
@@ -59,4 +63,13 @@ create table Produkt
     KUNDE_ID NUMBER(10) NOT NULL,
     CONSTRAINT Produkt_PK PRIMARY KEY(ID),
     CONSTRAINT Produkt_Kunde_FK FOREIGN KEY(KUNDE_ID) REFERENCES Kunde(ID)
+);
+
+create table Rolle
+(
+  id long primary key auto_increment not null,
+  name varchar(100),
+  KUNDE_ID NUMBER(10) NOT NULL,
+  CONSTRAINT ROLLE_PK primary key (ID),
+  CONSTRAINT ROLLE_KUNDE_FK FOREIGN KEY (KUNDE_ID) REFERENCES Kunde(ID)
 );

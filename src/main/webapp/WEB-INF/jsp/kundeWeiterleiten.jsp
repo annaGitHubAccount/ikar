@@ -18,6 +18,10 @@
             <td>${kundeForm.nachname}</td>
         </tr>
         <tr>
+            <td>Rolle :</td>
+            <td>${kundeForm.rolle}</td>
+        </tr>
+        <tr>
             <td>Date of Birth :</td>
             <td>${kundeForm.birthDate}</td>
         </tr>
@@ -98,6 +102,7 @@
 
     <form:hidden path="name"/>
     <form:hidden path="nachname"/>
+    <form:hidden path="rolle"/>
     <form:hidden path="steuerId"/>
     <form:hidden path="birthDate"/>
     <form:hidden path="kundeArt"/>

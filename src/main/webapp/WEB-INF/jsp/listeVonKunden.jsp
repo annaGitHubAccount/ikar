@@ -81,6 +81,7 @@
             <th>Steuer ID</th>
             <th>Name</th>
             <th>Nachname</th>
+            <th>Rolle</th>
             <th>Geburtsdatum</th>
             <th>KundeArt</th>
             <th colspan="2">Operation</th>
@@ -95,6 +96,7 @@
                 <td data-label="Steuer ID">${kunde.steuerId}</td>
                 <td data-label="Name">${kunde.name}</td>
                 <td data-label="Nachname">${kunde.nachname}</td>
+                <td data-label = "Rolle">${kunde.rolle}</td>
 
                 <fmt:parseDate value="${kunde.birthDate}" type="date" pattern="yyyy-MM-dd" var="parsedDate"/>
                 <fmt:formatDate value="${parsedDate}" var="formattedBirthDate" type="date" pattern="dd.MM.yyyy"/>

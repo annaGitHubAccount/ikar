@@ -2,6 +2,7 @@ package de.anna.springboot.model.form;
 
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -63,6 +64,8 @@ public class KundeForm {
 
     private List<ProduktDTO> produktList = new ArrayList<>();
     private List<String> produktGewaehlteList = new ArrayList<>();
+
+    private String rolle;
 
 
     public String getName() {
@@ -223,5 +226,13 @@ public class KundeForm {
 
     public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
     }
 }
