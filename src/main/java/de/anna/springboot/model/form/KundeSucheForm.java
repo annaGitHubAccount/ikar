@@ -8,7 +8,7 @@ public class KundeSucheForm {
     //@Size(min = 3, max = 9, message = "{steuerId.mussMind3DigitsHaben}")
     private String steuerId;
 
-    private String kundeNummer;
+    private Long kundeNummer;
 
     private String nachname;
 
@@ -69,11 +69,11 @@ public class KundeSucheForm {
         this.geburtsdatumBIS = geburtsdatumBIS;
     }
 
-    public String getKundeNummer() {
+    public Long getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(String kundeNummer) {
+    public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
     }
 }

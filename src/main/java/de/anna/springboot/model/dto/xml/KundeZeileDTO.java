@@ -7,13 +7,15 @@ public class KundeZeileDTO {
 
     private Long id;
 
-    private String kundeNummer;
+    private Long kundeNummer;
 
     private String steuerId;
 
     private String name;
 
     private String nachname;
+
+    private String rolle;
 
     private LocalDate birthDate;
 
@@ -71,11 +73,19 @@ public class KundeZeileDTO {
         this.kundeArt = kundeArt;
     }
 
-    public String getKundeNummer() {
+    public Long getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(String kundeNummer) {
+    public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
     }
 }

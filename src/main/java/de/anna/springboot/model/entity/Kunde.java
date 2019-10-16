@@ -15,7 +15,7 @@ public class Kunde {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String kundeNummer;
+    private Long kundeNummer;
 
     private String steuerId;
 
@@ -33,6 +33,9 @@ public class Kunde {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kunde")
     private List<Produkt> produktList;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kunde")
+    private List<Rolle> rolleList;
 
 
     public Kunde() {
@@ -115,11 +118,19 @@ public class Kunde {
         this.produktList = produktList;
     }
 
-    public String getKundeNummer() {
+    public Long getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(String kundeNummer) {
+    public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public List<Rolle> getRolleList() {
+        return rolleList;
+    }
+
+    public void setRolleList(List<Rolle> rolleList) {
+        this.rolleList = rolleList;
     }
 }

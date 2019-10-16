@@ -9,7 +9,7 @@ public class KundeDTO {
 
     private Long id;
 
-    private String kundeNummer;
+    private Long kundeNummer;
 
     private String steuerId;
 
@@ -24,6 +24,8 @@ public class KundeDTO {
     private List<AdresseDTO> adresseList;
 
     private List<ProduktDTO> produktDTOList;
+
+    private List<RolleDTO> rolleDTOList;
 
 
     public KundeDTO(String name, String nachname) {
@@ -118,11 +120,19 @@ public class KundeDTO {
         this.produktDTOList = produktDTOList;
     }
 
-    public String getKundeNummer() {
+    public Long getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(String kundeNummer) {
+    public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public List<RolleDTO> getRolleDTOList() {
+        return rolleDTOList;
+    }
+
+    public void setRolleDTOList(List<RolleDTO> rolleDTOList) {
+        this.rolleDTOList = rolleDTOList;
     }
 }

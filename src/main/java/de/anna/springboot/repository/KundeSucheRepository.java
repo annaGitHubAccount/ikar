@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface KundeSucheRepository {
 
-    List<Kunde> findKunden(String kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS);
+    List<Kunde> findKunden(Long kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS);
 }

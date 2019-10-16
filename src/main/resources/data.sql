@@ -1,6 +1,6 @@
-insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (1, '001', '345676548', 'Mariusz', 'Pudzian', parsedatetime('17.08.2019', 'dd.MM.yyyy'), 'GD');
-insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (2, '002', '467887549', 'Kora', 'Jackowska', parsedatetime('06.01.2019', 'dd.MM.yyyy'), 'SB');
-insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, '003', '256787543', 'Maja', 'Morowska', parsedatetime('02.05.2019', 'dd.MM.yyyy'), 'BR');
+insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (1, 1, '345676548', 'Mariusz', 'Pudzian', parsedatetime('17.08.2019', 'dd.MM.yyyy'), 'GD');
+insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (2, 2, '467887549', 'Kora', 'Jackowska', parsedatetime('06.01.2019', 'dd.MM.yyyy'), 'SB');
+insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, 3, '256787543', 'Maja', 'Morowska', parsedatetime('02.05.2019', 'dd.MM.yyyy'), 'BR');
 
 insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (1, 'P01', 'Produkt1', 100, true, 'L');
 insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (2, 'P02', 'Produkt2', 250, true, 'S');
@@ -24,3 +24,9 @@ insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VA
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(4, 'P04', 'Produkt4', 1000, true, 'L', 2);
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(5, 'P05', 'Produkt5', 1000, false, 'M', 3);
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(6, 'P06', 'Produkt6', 1000, true, 'S', 3);
+
+insert into Rolle(id, name, KUNDE_ID) VALUES (1, 'Scrum Master', 1);
+insert into Rolle(id, name, KUNDE_ID) VALUES (2, 'Entwickler', 1);
+insert into Rolle(id, name, KUNDE_ID) VALUES (3, 'Produkt Owner', 2);
+insert into Rolle(id, name, KUNDE_ID) VALUES (4, 'Entwickler', 3);
+insert into Rolle(id, name, KUNDE_ID) VALUES (5, 'PO', 3);

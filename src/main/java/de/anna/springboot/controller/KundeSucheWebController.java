@@ -15,8 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.xml.sax.SAXException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,6 +29,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -65,6 +70,7 @@ public class KundeSucheWebController {
         kundeSucheForm.setKundeArt("");
         kundeSucheForm.setGeburtsdatumAB("");
         kundeSucheForm.setGeburtsdatumBIS("");
+        kundeSucheForm.setKundeNummer(null);
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
@@ -83,7 +89,7 @@ public class KundeSucheWebController {
         String kundeArt = kundeSucheForm.getKundeArt();
         String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
         String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
-        String kundeNummer = kundeSucheForm.getKundeNummer();
+        Long kundeNummer = kundeSucheForm.getKundeNummer();
 
         LocalDate geburtsdatumABlocalDate = null;
         LocalDate geburtsdatumBISlocalDate = null;
@@ -96,11 +102,11 @@ public class KundeSucheWebController {
             geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
         }
 
-        List<KundeDTO> kundenList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
-        request.getSession().setAttribute(KUNDE_LIST, kundenList);
+        request.getSession().setAttribute(KUNDE_LIST, kundeZeileDTOList);
 
-        model.addAttribute(KUNDE_LIST, kundenList);
+        model.addAttribute(KUNDE_LIST, kundeZeileDTOList);
         model.addAttribute("kundeSucheForm", kundeSucheForm);
 
         return "listeVonKunden";
@@ -117,7 +123,7 @@ public class KundeSucheWebController {
         String kundeArt = kundeSucheForm.getKundeArt();
         String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
         String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
-        String kundeNummer = kundeSucheForm.getKundeNummer();
+        Long kundeNummer = kundeSucheForm.getKundeNummer();
 
         LocalDate geburtsdatumABlocalDate = null;
         LocalDate geburtsdatumBISlocalDate = null;
@@ -130,9 +136,7 @@ public class KundeSucheWebController {
             geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
         }
 
-        List<KundeDTO> kundenList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
-
-        List<KundeZeileDTO> kundeZeileDTOList = KundeDTOToKundeRootDTOAssembler.convertKundeDTOListToKundeZeileDTOList(kundenList);
+        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
         KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundeZeileDTOList);
 
@@ -178,6 +182,7 @@ public class KundeSucheWebController {
 
         generateXMLListeVonKunden(request, outStreamXML);
 
+
         byte[] outStrByteArray = outStreamXML.toByteArray();
 
         ByteArrayInputStream inStreamXML = new ByteArrayInputStream(outStrByteArray);
@@ -210,7 +215,6 @@ public class KundeSucheWebController {
     }
 
 
-
     private void generateXMLListeVonKunden(HttpServletRequest request, OutputStream outputStream) {
 
         @SuppressWarnings("unchecked")
@@ -223,8 +227,11 @@ public class KundeSucheWebController {
             JAXBContext jaxbContext = JAXBContext.newInstance(KundeRootDTO.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema XSDschema = schemaFactory.newSchema(new File("D:\\Workspace\\temp\\xmlToXsd\\kunden_daten.xsd"));
 
+            jaxbMarshaller.setSchema(XSDschema);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             jaxbMarshaller.marshal(kundeRootDTO, outputStream);
 
             outputStream.flush();
@@ -232,6 +239,9 @@ public class KundeSucheWebController {
         } catch (JAXBException | IOException e) {
             throw new RuntimeException(e);
 
+        } catch (SAXException e) {
+            e.printStackTrace();
         }
     }
 }
+

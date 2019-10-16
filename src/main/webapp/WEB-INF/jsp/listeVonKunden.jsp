@@ -81,9 +81,10 @@
             <th>Steuer ID</th>
             <th>Name</th>
             <th>Nachname</th>
+            <th>Rolle</th>
             <th>Geburtsdatum</th>
             <th>KundeArt</th>
-            <th colspan="2">Operation</th>
+            <th colspan="3">Operation</th>
         </tr>
         </thead>
 
@@ -95,6 +96,7 @@
                 <td data-label="Steuer ID">${kunde.steuerId}</td>
                 <td data-label="Name">${kunde.name}</td>
                 <td data-label="Nachname">${kunde.nachname}</td>
+                <td data-label = "Rolle">${kunde.rolle}</td>
 
                 <fmt:parseDate value="${kunde.birthDate}" type="date" pattern="yyyy-MM-dd" var="parsedDate"/>
                 <fmt:formatDate value="${parsedDate}" var="formattedBirthDate" type="date" pattern="dd.MM.yyyy"/>
@@ -104,6 +106,7 @@
 
                 <td data-label="Operation"><a href="/web/editkunde/${kunde.id}">Aendern</a></td>
                 <td data-label="Operation"><a href="/web/deletekunde/${kunde.id}">Loeschen</a></td>
+                <td data-label="Operation"><a href="/web/findrollenvonkunde/${kunde.id}">Manage von Rollen</a></td>
             </tr>
 
         </c:forEach>

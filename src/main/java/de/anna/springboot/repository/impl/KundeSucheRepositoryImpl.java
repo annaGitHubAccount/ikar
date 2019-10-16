@@ -23,7 +23,7 @@ public class KundeSucheRepositoryImpl implements KundeSucheRepository {
 
 
     @Override
-    public List<Kunde> findKunden(String kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
+    public List<Kunde> findKunden(Long kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Kunde> criteriaQuery = criteriaBuilder.createQuery(Kunde.class);
@@ -31,10 +31,9 @@ public class KundeSucheRepositoryImpl implements KundeSucheRepository {
 
         List<Predicate> predicateList = new ArrayList<>();
 
-        if(kundeNummer !=null && !kundeNummer.isEmpty()){
+        if(kundeNummer != null){
 
-            String kundeNummerReplace = kundeNummer.replace('*', '%');
-            Predicate kundeNummerPredicate = criteriaBuilder.like(kundeRoot.get("kundeNummer"), "%" + kundeNummerReplace + '%');
+            Predicate kundeNummerPredicate = criteriaBuilder.equal(kundeRoot.get("kundeNummer"), kundeNummer);
             predicateList.add(kundeNummerPredicate);
         }
 

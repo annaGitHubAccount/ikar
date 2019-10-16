@@ -2,6 +2,7 @@ package de.anna.springboot.model.form;
 
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,9 +17,7 @@ public class KundeForm {
 
     private Long id;
 
-    @NotNull(message = "{feld.isErfordelich}")
-    @NotEmpty(message = "{feld.isErfordelich}")
-    private String kundeNummer;
+    private Long kundeNummer;
 
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
@@ -65,6 +64,8 @@ public class KundeForm {
 
     private List<ProduktDTO> produktList = new ArrayList<>();
     private List<String> produktGewaehlteList = new ArrayList<>();
+
+    private String rolle;
 
 
     public String getName() {
@@ -219,11 +220,19 @@ public class KundeForm {
         this.produktGewaehlteList = produktGewaehlteList;
     }
 
-    public String getKundeNummer() {
+    public Long getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(String kundeNummer) {
+    public void setKundeNummer(Long kundeNummer) {
         this.kundeNummer = kundeNummer;
+    }
+
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
     }
 }

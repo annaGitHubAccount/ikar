@@ -1,9 +1,11 @@
 package de.anna.springboot.controller;
 
 import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.webantwort.KundeListServiceAntwort;
 import de.anna.springboot.webantwort.KundeServiceAntwort;
+import de.anna.springboot.webantwort.KundeZeileListServiceAntwort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -107,4 +109,34 @@ public class KundeWSController {
         return new KundeListServiceAntwort(kundeDTOList, true, "");
     }
 
+    @GetMapping("/findeallekundezeiledto")
+    public KundeZeileListServiceAntwort findeAlleKundeZeileDTO() {
+
+        List<KundeZeileDTO> allKundeZeileDTO = new ArrayList<>();
+
+        try {
+            allKundeZeileDTO = kundeService.findAllKundeZeileDTO();
+
+        } catch (Exception exception) {
+            return new KundeZeileListServiceAntwort(allKundeZeileDTO, false, exception.getMessage());
+        }
+
+        return new KundeZeileListServiceAntwort(allKundeZeileDTO, true, "");
+    }
+
+    @GetMapping("/findeallekundezeiledtobynachname/{nachname}")
+    public KundeZeileListServiceAntwort findeAlleKundeZeileDTO(@PathVariable String nachname) {
+
+        List<KundeZeileDTO> allKundeZeileDTOByNachname = new ArrayList<>();
+
+        try {
+            allKundeZeileDTOByNachname = kundeService.findAllKundeZeileDTOByNachname(nachname);
+
+
+        } catch (Exception exception) {
+            return new KundeZeileListServiceAntwort(allKundeZeileDTOByNachname, false, exception.getMessage());
+        }
+
+        return new KundeZeileListServiceAntwort(allKundeZeileDTOByNachname, true, "");
+    }
 }

@@ -1,12 +1,15 @@
 package de.anna.springboot.model.assembler;
 
+import de.anna.springboot.controller.helper.RolleDTOHelper;
 import de.anna.springboot.model.dto.AdresseDTO;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.enums.AdresseArt;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.util.DateUtils;
+import de.anna.springboot.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,6 +48,10 @@ public final class KundeDTOKundeFormAssembler {
         for(ProduktDTO produktDTO : produktListFromForm){
             produktDTO.setKundeDTO(kundeDTO);
         }
+
+        String rolle = kundeForm.getRolle();
+        List<RolleDTO> rolleDTOList = convertStringVonRollenToRolleDTOList(rolle);
+        kundeDTO.setRolleDTOList(rolleDTOList);
 
         return kundeDTO;
     }
@@ -93,6 +100,10 @@ public final class KundeDTOKundeFormAssembler {
 
         kundeForm.setProduktList(kundeDTO.getProduktDTOList());
 
+        List<RolleDTO> rolleDTOList = kundeDTO.getRolleDTOList();
+        String rolle = RolleDTOHelper.convertRolleDTOListToString(rolleDTOList);
+        kundeForm.setRolle(rolle);
+
         return kundeForm;
     }
 
@@ -118,5 +129,13 @@ public final class KundeDTOKundeFormAssembler {
         }
     }
 
+    private static List<RolleDTO> convertStringVonRollenToRolleDTOList(String string){
+
+        String[] arrayVonRollen = StringUtils.convertStringToStringArray(string);
+        RolleDTOHelper rolleDTOHelper = new RolleDTOHelper();
+        List<RolleDTO> rolleDTOList = rolleDTOHelper.convertStringArrayVonRollenToRolleDTOList(arrayVonRollen);
+
+        return rolleDTOList;
+    }
 
 }
