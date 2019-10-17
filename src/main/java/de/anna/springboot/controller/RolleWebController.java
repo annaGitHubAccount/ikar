@@ -40,8 +40,8 @@ public class RolleWebController {
     @GetMapping("/editrolle/{id}")
     public String editRolle(@PathVariable Long id, Model model){
 
-        RolleDTO rolleById = rolleService.findRolleById(id);
-        model.addAttribute(ROLLE, rolleById);
+        RolleDTO rolleDTO = rolleService.findRolleById(id);
+        model.addAttribute(ROLLE, rolleDTO);
 
         return "editRolle";
     }
@@ -54,7 +54,7 @@ public class RolleWebController {
     }
 
     @PostMapping("/saverolle")
-    public String saveRolle(RolleDTO rolleDTO, Model model){
+    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Model model){
 
         rolleService.save(rolleDTO);
 

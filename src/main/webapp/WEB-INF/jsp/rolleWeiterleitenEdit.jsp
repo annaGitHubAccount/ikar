@@ -20,6 +20,7 @@
     </table>
 
     <form:hidden path="id" />
+    <form:hidden path="name" />
 
 
 </form:form>
