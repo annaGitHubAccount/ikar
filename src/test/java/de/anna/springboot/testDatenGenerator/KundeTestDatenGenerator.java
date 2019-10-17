@@ -3,6 +3,7 @@ package de.anna.springboot.testDatenGenerator;
 import de.anna.springboot.model.entity.Adresse;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
+import de.anna.springboot.model.entity.Rolle;
 import de.anna.springboot.model.enums.AdresseArt;
 import de.anna.springboot.util.DateUtils;
 import java.math.BigDecimal;
@@ -40,6 +41,21 @@ public class KundeTestDatenGenerator {
         listProdukt.add(produkt2);
         kunde.setProduktList(listProdukt);
 
+        Rolle rolle1 = new Rolle();
+        rolle1.setId((long) 1);
+        rolle1.setName("PO");
+        rolle1.setKunde(kunde);
+
+        Rolle rolle2 = new Rolle();
+        rolle2.setId((long) 2);
+        rolle2.setName("Entwickler");
+        rolle2.setKunde(kunde);
+
+        List<Rolle> rolleList = new ArrayList<>();
+        rolleList.add(rolle1);
+        rolleList.add(rolle2);
+        kunde.setRolleList(rolleList);
+
         return kunde;
     }
 
@@ -71,6 +87,21 @@ public class KundeTestDatenGenerator {
         listProdukt.add(produkt1);
         listProdukt.add(produkt2);
         kunde.setProduktList(listProdukt);
+
+        Rolle rolle1 = new Rolle();
+        rolle1.setId((long) 1);
+        rolle1.setName("Scrum Master");
+        rolle1.setKunde(kunde);
+
+        Rolle rolle2 = new Rolle();
+        rolle2.setId((long) 2);
+        rolle2.setName("PO");
+        rolle2.setKunde(kunde);
+
+        List<Rolle> rolleList = new ArrayList<>();
+        rolleList.add(rolle1);
+        rolleList.add(rolle2);
+        kunde.setRolleList(rolleList);
 
         return kunde;
     }

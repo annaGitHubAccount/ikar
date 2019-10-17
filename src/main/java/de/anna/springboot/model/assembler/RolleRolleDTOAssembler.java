@@ -1,7 +1,6 @@
 package de.anna.springboot.model.assembler;
 
 import de.anna.springboot.model.dto.KundeDTO;
-import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Rolle;
 
@@ -11,9 +10,9 @@ public final class RolleRolleDTOAssembler {
     }
 
 
-    public static RolleDTO convertRolleToRolleDTO(Rolle rolle, KundeDTO  kundeDTO){
+    public static de.anna.springboot.model.dto.RolleDTO convertRolleToRolleDTO(Rolle rolle, KundeDTO  kundeDTO){
 
-        RolleDTO rolleDTO = new RolleDTO();
+        de.anna.springboot.model.dto.RolleDTO rolleDTO = new de.anna.springboot.model.dto.RolleDTO();
 
         rolleDTO.setId(rolle.getId());
         rolleDTO.setName(rolle.getName());
@@ -22,9 +21,9 @@ public final class RolleRolleDTOAssembler {
         return rolleDTO;
     }
 
-    public static RolleDTO convertRolleToRolleDTO(Rolle rolle){
+    public static de.anna.springboot.model.dto.RolleDTO convertRolleToRolleDTO(Rolle rolle){
 
-        RolleDTO rolleDTO = new RolleDTO();
+        de.anna.springboot.model.dto.RolleDTO rolleDTO = new de.anna.springboot.model.dto.RolleDTO();
 
         rolleDTO.setId(rolle.getId());
         rolleDTO.setName(rolle.getName());
@@ -33,7 +32,7 @@ public final class RolleRolleDTOAssembler {
     }
 
 
-    public static Rolle convertRolleDTOToRolle(RolleDTO rolleDTO, Kunde kunde){
+    public static Rolle convertRolleDTOToRolle(de.anna.springboot.model.dto.RolleDTO rolleDTO, Kunde kunde){
 
         Rolle rolle = new Rolle();
 
@@ -44,7 +43,7 @@ public final class RolleRolleDTOAssembler {
         return rolle;
     }
 
-    public static Rolle convertRolleDTOToRolle(RolleDTO rolleDTO){
+    public static Rolle convertRolleDTOToRolle(de.anna.springboot.model.dto.RolleDTO rolleDTO){
 
         Rolle rolle = new Rolle();
 

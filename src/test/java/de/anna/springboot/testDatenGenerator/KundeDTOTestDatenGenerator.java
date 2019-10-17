@@ -3,6 +3,7 @@ package de.anna.springboot.testDatenGenerator;
 import de.anna.springboot.model.dto.AdresseDTO;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.enums.AdresseArt;
 import de.anna.springboot.util.DateUtils;
 import java.math.BigDecimal;
@@ -40,6 +41,21 @@ public class KundeDTOTestDatenGenerator {
         listProdukt.add(produkt1);
         listProdukt.add(produkt2);
         kundeDTO.setProduktDTOList(listProdukt);
+
+        RolleDTO rolle1 = new RolleDTO();
+        rolle1.setId((long) 1);
+        rolle1.setName("Scrim Master");
+        rolle1.setKundeDTO(kundeDTO);
+
+        RolleDTO rolle2 = new RolleDTO();
+        rolle2.setId((long) 2);
+        rolle2.setName("Entwickler");
+        rolle2.setKundeDTO(kundeDTO);
+
+        List<RolleDTO> rolleList = new ArrayList<>();
+        rolleList.add(rolle1);
+        rolleList.add(rolle2);
+        kundeDTO.setRolleDTOList(rolleList);
 
         return kundeDTO;
     }

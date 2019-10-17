@@ -1,6 +1,5 @@
 package de.anna.springboot.controller.helper;
 
-import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Rolle;
 import org.junit.Test;
 
@@ -16,19 +15,19 @@ public class RolleDTOHelperTest {
 
         String[] arrayVonString = new String[]{"PO", "Scrum Master", "Product Owner"};
 
-        RolleDTO rolleDTO1 = new RolleDTO();
+        de.anna.springboot.model.dto.RolleDTO rolleDTO1 = new de.anna.springboot.model.dto.RolleDTO();
         rolleDTO1.setName("PO");
-        RolleDTO rolleDTO2 = new RolleDTO();
+        de.anna.springboot.model.dto.RolleDTO rolleDTO2 = new de.anna.springboot.model.dto.RolleDTO();
         rolleDTO2.setName("Scrum Master");
-        RolleDTO rolleDTO3 = new RolleDTO();
+        de.anna.springboot.model.dto.RolleDTO rolleDTO3 = new de.anna.springboot.model.dto.RolleDTO();
         rolleDTO3.setName("Product Owner");
 
-        List<RolleDTO> rolleDTOListExpected = new ArrayList<>();
+        List<de.anna.springboot.model.dto.RolleDTO> rolleDTOListExpected = new ArrayList<>();
         rolleDTOListExpected.add(rolleDTO1);
         rolleDTOListExpected.add(rolleDTO2);
         rolleDTOListExpected.add(rolleDTO3);
 
-        List<RolleDTO> rolleDTOList = RolleDTOHelper.convertStringArrayVonRollenToRolleDTOList(arrayVonString);
+        List<de.anna.springboot.model.dto.RolleDTO> rolleDTOList = RolleDTOHelper.convertStringArrayVonRollenToRolleDTOList(arrayVonString);
 
         assertEquals(rolleDTOListExpected.size(), rolleDTOList.size());
         assertEquals(rolleDTOListExpected, rolleDTOList);

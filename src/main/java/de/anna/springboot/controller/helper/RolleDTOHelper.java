@@ -1,6 +1,5 @@
 package de.anna.springboot.controller.helper;
 
-import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Rolle;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -13,13 +12,13 @@ public class RolleDTOHelper {
     private static final int ROLLEN_SEPARATOR_LENGTH = ROLLEN_SEPARATOR.length();
 
 
-    public static List<RolleDTO> convertStringArrayVonRollenToRolleDTOList(String[] arrayVonString){
+    public static List<de.anna.springboot.model.dto.RolleDTO> convertStringArrayVonRollenToRolleDTOList(String[] arrayVonString){
 
-        List<RolleDTO> rolleDTOList = new ArrayList<>();
+        List<de.anna.springboot.model.dto.RolleDTO> rolleDTOList = new ArrayList<>();
 
         for(String rolleAsString : arrayVonString){
 
-            RolleDTO rolleDTO = new RolleDTO();
+            de.anna.springboot.model.dto.RolleDTO rolleDTO = new de.anna.springboot.model.dto.RolleDTO();
             rolleDTO.setName(rolleAsString);
             rolleDTOList.add(rolleDTO);
         }
@@ -27,11 +26,11 @@ public class RolleDTOHelper {
         return rolleDTOList;
     }
 
-    public static String convertRolleDTOListToString(List<RolleDTO> rolleDTOList) {
+    public static String convertRolleDTOListToString(List<de.anna.springboot.model.dto.RolleDTO> rolleDTOList) {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        for(RolleDTO rolleDTO : rolleDTOList){
+        for(de.anna.springboot.model.dto.RolleDTO rolleDTO : rolleDTOList){
             stringBuilder.append(rolleDTO.getName()).append(ROLLEN_SEPARATOR);
         }
         String stringOhneKommaAmEnde = stringBuilder.substring(0, stringBuilder.length() - ROLLEN_SEPARATOR_LENGTH);
