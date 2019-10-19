@@ -3,6 +3,7 @@ package de.anna.springboot.model.assembler;
 import de.anna.springboot.model.dto.AdresseDTO;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Adresse;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
@@ -89,10 +90,11 @@ public final class KundeKundeDTOAssembler {
         kunde.setProduktList(produktList);
 
         List<Rolle> rolleList = new ArrayList<>();
-        List<de.anna.springboot.model.dto.RolleDTO> rolleListDTO = kundeDTO.getRolleDTOList();
+        List<RolleDTO> rolleListDTO = kundeDTO.getRolleDTOList();
 
-        for(de.anna.springboot.model.dto.RolleDTO rolleDTO : rolleListDTO){
-            Rolle rolle = RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO, kunde);
+        for(RolleDTO rolleDTO : rolleListDTO){
+            Rolle rolle = RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO);
+            rolle.setKunde(kunde);
             rolleList.add(rolle);
         }
         kunde.setRolleList(rolleList);

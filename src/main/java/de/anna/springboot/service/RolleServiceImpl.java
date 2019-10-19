@@ -1,7 +1,12 @@
 package de.anna.springboot.service;
 
+import de.anna.springboot.model.assembler.KundeKundeDTOAssembler;
 import de.anna.springboot.model.assembler.RolleRolleDTOAssembler;
+import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.RolleDTO;
+import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Rolle;
+import de.anna.springboot.repository.KundeRepository;
 import de.anna.springboot.repository.RolleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +23,19 @@ public class RolleServiceImpl implements RolleService {
     @Autowired
     RolleRepository rolleRepository;
 
+    @Autowired
+    KundeRepository kundeRepository;
+
+
     @Override
     @Transactional
-    public List<de.anna.springboot.model.dto.RolleDTO> findByKundeId(Long kundeId) {
+    public List<RolleDTO> findByKundeId(Long kundeId) {
 
         List<Rolle> rollenListByKunde = rolleRepository.findByKundeId(kundeId);
-        List<de.anna.springboot.model.dto.RolleDTO> rolleDTOListByKunde = new ArrayList<>();
+        List<RolleDTO> rolleDTOListByKunde = new ArrayList<>();
 
         for (Rolle rolle : rollenListByKunde) {
-            de.anna.springboot.model.dto.RolleDTO rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle);
+            RolleDTO rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle);
             rolleDTOListByKunde.add(rolleDTO);
         }
 
@@ -35,11 +44,11 @@ public class RolleServiceImpl implements RolleService {
 
     @Override
     @Transactional
-    public de.anna.springboot.model.dto.RolleDTO findRolleById(Long id) {
+    public RolleDTO findRolleById(Long id) {
 
         Optional<Rolle> rolleById = rolleRepository.findById(id);
 
-        de.anna.springboot.model.dto.RolleDTO rolleDTO = new de.anna.springboot.model.dto.RolleDTO();
+        RolleDTO rolleDTO = new RolleDTO();
         if (rolleById.isPresent()) {
             rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolleById.get());
         }
@@ -60,16 +69,35 @@ public class RolleServiceImpl implements RolleService {
 
     @Override
     @Transactional
-    public void save(de.anna.springboot.model.dto.RolleDTO rolleDTO) {
+    public void save(RolleDTO rolleDTO, Long kundeId) {
 
-        Optional<Rolle> rolleOptional = rolleRepository.findById(rolleDTO.getId());
+        if (rolleDTO.getId() == null) {
 
-        Rolle rolle = null;
-        if(rolleOptional.isPresent()){
-            rolle = rolleOptional.get();
-            rolle.setName(rolleDTO.getName());
+            Optional<Kunde> optionalKunde = kundeRepository.findById(kundeId);
+
+            Rolle rolle = null;
+            if(optionalKunde.isPresent()) {
+
+                rolle = RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO);
+                Kunde kunde = optionalKunde.get();
+                rolle.setKunde(kunde);
+
+                kunde.getRolleList().add(rolle);
+            }
+
+            rolleRepository.save(rolle);
+
+        } else {
+
+            Optional<Rolle> rolleOptional = rolleRepository.findById(rolleDTO.getId());
+
+            Rolle rolle = null;
+            if (rolleOptional.isPresent()) {
+                rolle = rolleOptional.get();
+                rolle.setName(rolleDTO.getName());
+            }
+
+            rolleRepository.save(rolle);
         }
-
-        rolleRepository.save(rolle);
     }
 }

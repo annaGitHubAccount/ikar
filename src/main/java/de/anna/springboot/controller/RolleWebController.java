@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -28,10 +29,12 @@ public class RolleWebController {
 
 
     @GetMapping("/findrollenvonkunde/{id}")
-    public String findRollenVonKunde(@PathVariable Long id, Model model){
+    public String findRollenVonKunde(@PathVariable Long id, Model model, HttpServletRequest request){
 
         List<RolleDTO> rollenByKundeId = rolleService.findByKundeId(id);
         model.addAttribute(ROLLE_LIST, rollenByKundeId);
+
+        request.getSession().setAttribute("kundeId", id);
 
         return "listeVonRollen";
     }
@@ -54,13 +57,40 @@ public class RolleWebController {
     }
 
     @PostMapping("/saverolle")
-    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Model model){
+    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Model model, HttpServletRequest request){
 
-        rolleService.save(rolleDTO);
+        Long kundeId = (Long) request.getSession().getAttribute("kundeId");
+        rolleService.save(rolleDTO, kundeId);
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
         return "redirect:/kundesucheform/listevonkunden";
     }
+
+    @GetMapping("/deleterolle/{id}")
+    public String deleteRolle(@PathVariable Long id){
+
+        rolleService.deleteRolleById(id);
+
+        return "redirect:/web/findrollenvonkunde/{id}";
+    }
+
+    @PostMapping("/addrole")
+    public String addRolle(Model model){
+
+        RolleDTO rolleDTO = new RolleDTO();
+        model.addAttribute(ROLLE, rolleDTO);
+
+        return "addRole";
+    }
+
+    @PostMapping("/rolleweiterleiten")
+    public String rolleweiterleiten(RolleDTO rolleDTO, Model model){
+
+        model.addAttribute(ROLLE, rolleDTO);
+
+        return "rolleWeiterleiten";
+    }
+
 }
