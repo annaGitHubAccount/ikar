@@ -26,7 +26,7 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
         return produktDTO;
 
     }
-
+//TODO
     public static List<ProduktDTO> convertProduktStammdatenDTOToProduktDTO(List<ProduktStammdatenDTO> produktStammdatenDTOList){
 
         List<ProduktDTO> produktStammdatenDTOToProduktDTOList = new ArrayList<>();

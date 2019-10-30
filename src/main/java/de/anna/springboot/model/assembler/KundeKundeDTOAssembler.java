@@ -11,6 +11,7 @@ import de.anna.springboot.model.entity.Rolle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class KundeKundeDTOAssembler {
 
@@ -29,35 +30,43 @@ public final class KundeKundeDTOAssembler {
         kundeDTO.setKundeArt(kunde.getKundeArt());
         kundeDTO.setKundeNummer(kunde.getKundeNummer());
 
-        List<AdresseDTO> adresseDTOList = new ArrayList<>();
-        List<Adresse> adresseList = kunde.getAdresseList();
-
-        for (Adresse adresse : adresseList) {
-            AdresseDTO adresseDTO = AdresseAdresseDTOAssembler.mapAdresseToAdresseDTO(adresse, kundeDTO);
-            adresseDTOList.add(adresseDTO);
-        }
+        List<AdresseDTO> adresseDTOList = convertAddresseToAdresseDTOList(kunde, kundeDTO);
         kundeDTO.setAdresseList(adresseDTOList);
 
-
-        List<ProduktDTO> produktDTOList = new ArrayList<>();
-        List<Produkt> produktList = kunde.getProduktList();
-
-        for(Produkt produkt :produktList){
-            ProduktDTO produktDTO = ProduktProduktDTOAssembler.mapProduktToProduktDTO(produkt, kundeDTO);
-            produktDTOList.add(produktDTO);
-        }
+        List<ProduktDTO> produktDTOList = convertProduktToProduktDTOList(kunde, kundeDTO);
         kundeDTO.setProduktDTOList(produktDTOList);
 
-        List<de.anna.springboot.model.dto.RolleDTO> rolleListDTO = new ArrayList<>();
-        List<Rolle> rolleList = kunde.getRolleList();
-
-        for(Rolle rolle : rolleList) {
-            de.anna.springboot.model.dto.RolleDTO rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle, kundeDTO);
-            rolleListDTO.add(rolleDTO);
-        }
+        List<RolleDTO> rolleListDTO = convertRolleToRolleDTOList(kunde, kundeDTO);
         kundeDTO.setRolleDTOList(rolleListDTO);
 
         return kundeDTO;
+    }
+
+    private static List<RolleDTO> convertRolleToRolleDTOList(Kunde kunde, KundeDTO kundeDTO) {
+
+        List<Rolle> rolleList = kunde.getRolleList();
+
+        return rolleList.stream()
+                .map(rolle -> RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle, kundeDTO))
+                .collect(Collectors.toList());
+    }
+
+    private static List<AdresseDTO> convertAddresseToAdresseDTOList(Kunde kunde, KundeDTO kundeDTO) {
+
+        List<Adresse> adresseList = kunde.getAdresseList();
+
+        return adresseList.stream()
+                .map(adresse -> AdresseAdresseDTOAssembler.mapAdresseToAdresseDTO(adresse, kundeDTO))
+                .collect(Collectors.toList());
+    }
+
+    private static List<ProduktDTO> convertProduktToProduktDTOList(Kunde kunde, KundeDTO kundeDTO) {
+
+        List<Produkt> produktList = kunde.getProduktList();
+
+        return produktList.stream()
+                .map(produkt -> ProduktProduktDTOAssembler.mapProduktToProduktDTO(produkt, kundeDTO))
+                .collect(Collectors.toList());
     }
 
 
@@ -71,34 +80,42 @@ public final class KundeKundeDTOAssembler {
         kunde.setKundeArt(kundeDTO.getKundeArt());
         kunde.setKundeNummer(kundeDTO.getKundeNummer());
 
-        List<Adresse> adresseList = new ArrayList<>();
-        List<AdresseDTO> adresseDTOList = kundeDTO.getAdresseList();
-
-        for (AdresseDTO adresseDTO : adresseDTOList) {
-            Adresse adresse = AdresseAdresseDTOAssembler.mapAdresseDTOToAdresse(adresseDTO, kunde);
-            adresseList.add(adresse);
-        }
+        List<Adresse> adresseList = convertAdresseDTOToAdresseList(kundeDTO, kunde);
         kunde.setAdresseList(adresseList);
 
-        List<Produkt> produktList = new ArrayList<>();
-        List<ProduktDTO> produktDTOList = kundeDTO.getProduktDTOList();
-
-        for (ProduktDTO produktDTO : produktDTOList){
-            Produkt produkt = ProduktProduktDTOAssembler.mapProduktDTOToProdukt(produktDTO, kunde);
-            produktList.add(produkt);
-        }
+        List<Produkt> produktList = convertProduktDTOToProduktList(kundeDTO, kunde);
         kunde.setProduktList(produktList);
 
-        List<Rolle> rolleList = new ArrayList<>();
-        List<RolleDTO> rolleListDTO = kundeDTO.getRolleDTOList();
-
-        for(RolleDTO rolleDTO : rolleListDTO){
-            Rolle rolle = RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO);
-            rolle.setKunde(kunde);
-            rolleList.add(rolle);
-        }
+        List<Rolle> rolleList = convertRolleDTOToRolleList(kundeDTO, kunde);
         kunde.setRolleList(rolleList);
 
         return kunde;
+    }
+
+    private static List<Rolle> convertRolleDTOToRolleList(KundeDTO kundeDTO, Kunde kunde) {
+
+        List<RolleDTO> rolleDTOList = kundeDTO.getRolleDTOList();
+
+        return rolleDTOList.stream()
+                .map(rolleDTO -> RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO, kunde))
+                .collect(Collectors.toList());
+    }
+
+    private static List<Produkt> convertProduktDTOToProduktList(KundeDTO kundeDTO, Kunde kunde) {
+
+        List<ProduktDTO> produktDTOList = kundeDTO.getProduktDTOList();
+
+        return produktDTOList.stream()
+                .map(produktDTO -> ProduktProduktDTOAssembler.mapProduktDTOToProdukt(produktDTO, kunde))
+                .collect(Collectors.toList());
+    }
+
+    private static List<Adresse> convertAdresseDTOToAdresseList(KundeDTO kundeDTO, Kunde kunde) {
+
+        List<AdresseDTO> adresseList = kundeDTO.getAdresseList();
+
+        return adresseList.stream()
+                .map(adresseDTO -> AdresseAdresseDTOAssembler.mapAdresseDTOToAdresse(adresseDTO, kunde))
+                .collect(Collectors.toList());
     }
 }

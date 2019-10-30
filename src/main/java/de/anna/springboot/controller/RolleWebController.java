@@ -2,6 +2,7 @@ package de.anna.springboot.controller;
 
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.RolleDTO;
+import de.anna.springboot.model.entity.Rolle;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.service.RolleService;
@@ -29,12 +30,15 @@ public class RolleWebController {
 
 
     @GetMapping("/findrollenvonkunde/{id}")
-    public String findRollenVonKunde(@PathVariable Long id, Model model, HttpServletRequest request){
+    public String findRollenVonKunde(@PathVariable Long id, Model model){
 
         List<RolleDTO> rollenByKundeId = rolleService.findByKundeId(id);
-        model.addAttribute(ROLLE_LIST, rollenByKundeId);
 
-        request.getSession().setAttribute("kundeId", id);
+        RolleDTO rolleDTO = new RolleDTO();
+        rolleDTO.setKundeId(id);
+
+        model.addAttribute(ROLLE_LIST, rollenByKundeId);
+        model.addAttribute(ROLLE, rolleDTO);
 
         return "listeVonRollen";
     }
@@ -57,15 +61,19 @@ public class RolleWebController {
     }
 
     @PostMapping("/saverolle")
-    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Model model, HttpServletRequest request){
+    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Long kundeId, Model model){
 
-        Long kundeId = (Long) request.getSession().getAttribute("kundeId");
         rolleService.save(rolleDTO, kundeId);
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
         return "redirect:/kundesucheform/listevonkunden";
+    }
+
+    @ModelAttribute
+    public void provideKundeId(Model model){
+        model.addAttribute("kundeId", 1L);
     }
 
     @GetMapping("/deleterolle/{id}")
@@ -77,16 +85,15 @@ public class RolleWebController {
     }
 
     @PostMapping("/addrole")
-    public String addRolle(Model model){
+    public String addRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO , Model model){
 
-        RolleDTO rolleDTO = new RolleDTO();
         model.addAttribute(ROLLE, rolleDTO);
 
         return "addRole";
     }
 
     @PostMapping("/rolleweiterleiten")
-    public String rolleweiterleiten(RolleDTO rolleDTO, Model model){
+    public String rolleweiterleiten(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Model model){
 
         model.addAttribute(ROLLE, rolleDTO);
 

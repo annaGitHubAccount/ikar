@@ -8,15 +8,12 @@ import de.anna.springboot.model.assembler.ProduktStammdatenDTOProduktDTOAssemble
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
-import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.service.ProduktStammdatenService;
-import de.anna.springboot.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 // jede Methode muss immer alle Daten, die ich zeigen möchte, enthalten !!!! Daten leite ich in Model weiter!!!
@@ -131,7 +127,7 @@ public class KundeWebController {
 
         List<String> produktStammdatenGewaehlteListFromFormular = kundeForm.getProduktStammdatenGewaehlteList();
 
-        List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelper.loescheAusgewaehlteProduktStammdatenAusProduktStammdatenList(
+        List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelper.loescheAusgewaehlteProduktStammdatenVonProduktStammdatenList(
                 produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
 
         List<ProduktDTO> produktListUpdated = buttonNachRechtsHelper.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(

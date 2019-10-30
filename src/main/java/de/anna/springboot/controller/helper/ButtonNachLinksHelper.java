@@ -3,37 +3,26 @@ package de.anna.springboot.controller.helper;
 import de.anna.springboot.model.dto.ProduktDTO;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ButtonNachLinksHelper {
 
-    public List<ProduktDTO> loescheAusgewaehlteProdukteFromFormularAusProduktList(List<ProduktDTO> produktListFromSession, List<String> produktAusgewaehlteListFromFormular) {
+    public List<ProduktDTO> loescheAusgewaehlteProdukteFromFormularAusProduktList(List<ProduktDTO> produktListFromSession,
+                                                                                  List<String> produktAusgewaehlteListFromFormular) {
 
-        List<ProduktDTO> newProduktList = new ArrayList<>();
-
-        for (ProduktDTO produktDTOFromSession : produktListFromSession) {
-            if (!produktAusgewaehlteListFromFormular.contains(produktDTOFromSession.getSymbol())) {
-                newProduktList.add(produktDTOFromSession);
-            }
-        }
-
-        return newProduktList;
+        return produktListFromSession.stream()
+                .filter(produktDTO -> !produktAusgewaehlteListFromFormular.contains(produktDTO.getSymbol()))
+                .collect(Collectors.toList());
     }
 
 
-    public List<ProduktDTO> fuegeAusgewaehlteProduktListFromFormularToProduktStammdatenListHinzu(List<ProduktDTO> produktListFromSession, List<String> produktAusgewaehlteListFromFormular) {
+    public List<ProduktDTO> fuegeAusgewaehlteProduktListFromFormularToProduktStammdatenListHinzu(List<ProduktDTO> produktListFromSession,
+                                                                                                 List<String> produktAusgewaehlteListFromFormular) {
 
-        List<ProduktDTO> newProduktStammdatenList = new ArrayList<>();
-
-        for (ProduktDTO produktDTOFromSession : produktListFromSession) {
-            if (produktAusgewaehlteListFromFormular.contains(produktDTOFromSession.getSymbol())) {
-                newProduktStammdatenList.add(produktDTOFromSession);
-            }
-        }
-
-        return newProduktStammdatenList;
+        return produktListFromSession.stream()
+                .filter(produktDTO -> produktAusgewaehlteListFromFormular.contains(produktDTO.getSymbol()))
+                .collect(Collectors.toList());
     }
-
 }

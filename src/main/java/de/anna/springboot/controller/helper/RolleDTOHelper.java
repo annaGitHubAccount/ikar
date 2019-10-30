@@ -1,24 +1,36 @@
 package de.anna.springboot.controller.helper;
 
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Rolle;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RolleDTOHelper {
 
     private static final String ROLLEN_SEPARATOR = ", ";
-    private static final int ROLLEN_SEPARATOR_LENGTH = ROLLEN_SEPARATOR.length();
 
+    //TODO
+    public static List<RolleDTO> convertStringArrayVonRollenToRolleDTOList(String[] rollenArrayAsString) {
 
-    public static List<de.anna.springboot.model.dto.RolleDTO> convertStringArrayVonRollenToRolleDTOList(String[] arrayVonString){
+        /*
+         List<String> rollenListAsString = Arrays.asList(rollenArrayAsString);
+        RolleDTO rolleDTO = new RolleDTO();
 
-        List<de.anna.springboot.model.dto.RolleDTO> rolleDTOList = new ArrayList<>();
+        return rollenListAsString.stream()
+                .map(rolleAsString -> rolleDTO.setName(rolleAsString))
+                .collect(Collectors.toList());
+         */
 
-        for(String rolleAsString : arrayVonString){
+        List<RolleDTO> rolleDTOList = new ArrayList<>();
 
-            de.anna.springboot.model.dto.RolleDTO rolleDTO = new de.anna.springboot.model.dto.RolleDTO();
+        for (String rolleAsString : rollenArrayAsString) {
+
+            RolleDTO rolleDTO = new RolleDTO();
             rolleDTO.setName(rolleAsString);
             rolleDTOList.add(rolleDTO);
         }
@@ -26,28 +38,26 @@ public class RolleDTOHelper {
         return rolleDTOList;
     }
 
-    public static String convertRolleDTOListToString(List<de.anna.springboot.model.dto.RolleDTO> rolleDTOList) {
+    public static String convertRolleDTOListToString(List<RolleDTO> rolleDTOList) {
 
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> rollenDTOListNachName = rolleDTOList.stream()
+                .map(rolleDTO -> rolleDTO.getName())
+                .collect(Collectors.toList());
 
-        for(de.anna.springboot.model.dto.RolleDTO rolleDTO : rolleDTOList){
-            stringBuilder.append(rolleDTO.getName()).append(ROLLEN_SEPARATOR);
-        }
-        String stringOhneKommaAmEnde = stringBuilder.substring(0, stringBuilder.length() - ROLLEN_SEPARATOR_LENGTH);
+        String rollenStringNachName = String.join(ROLLEN_SEPARATOR, rollenDTOListNachName);
 
-        return stringOhneKommaAmEnde;
+        return rollenStringNachName;
     }
 
 
     public static String convertRolleListToString(List<Rolle> rolleList) {
 
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> rolleListNachName = rolleList.stream()
+                .map(rolle -> rolle.getName())
+                .collect(Collectors.toList());
 
-        for (Rolle rolle : rolleList) {
-            stringBuilder.append(rolle.getName()).append(ROLLEN_SEPARATOR);
-        }
-        String stringOhneKommaAmEnde = stringBuilder.substring(0, stringBuilder.length() - ROLLEN_SEPARATOR_LENGTH);
+        String rollenStringNachName = String.join(ROLLEN_SEPARATOR, rolleListNachName);
 
-        return stringOhneKommaAmEnde;
+        return rollenStringNachName;
     }
 }

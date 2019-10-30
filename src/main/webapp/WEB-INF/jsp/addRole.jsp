@@ -2,25 +2,27 @@
 
 <h1>Add Rolle</h1>
 
-<form:form modelAttribute="rolle" action="/web/rolleweiterleiten">
+<form:form method="post" modelAttribute="rolle" action="/web/rolleweiterleiten">
 
-    <table>
-        <tr>
-            <td>
-                <div class="ui input"><form:hidden path="id"/></div>
-            </td>
-        </tr>
-        <tr>
-            <td>Rolle :</td>
-            <td>
-                <div class="ui input"><form:input path="name"/></div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Weiter" id="weiterId" class="ui button"/>
-            </td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <td>
+            <div class="ui input"><form:hidden path="id"/></div>
+        </td>
+    </tr>
+    <tr>
+        <td>Rolle :</td>
+        <td>
+            <div class="ui input"><form:input path="name"/></div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value="Weiter" id="weiterId" class="ui button"/>
+        </td>
+    </tr>
+</table>
 
+
+    <form:hidden path="kundeId"/>
 </form:form>

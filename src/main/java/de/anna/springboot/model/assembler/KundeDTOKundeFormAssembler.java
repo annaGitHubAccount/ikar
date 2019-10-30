@@ -44,10 +44,8 @@ public final class KundeDTOKundeFormAssembler {
 
         kundeDTO.setProduktDTOList(kundeForm.getProduktList());
 
-        List<ProduktDTO> produktListFromForm = kundeForm.getProduktList();
-        for(ProduktDTO produktDTO : produktListFromForm){
-            produktDTO.setKundeDTO(kundeDTO);
-        }
+        List<ProduktDTO> produktDTOListFromForm = kundeForm.getProduktList();
+        produktDTOListFromForm.forEach(produktDTO -> produktDTO.setKundeDTO(kundeDTO));
 
         String rolle = kundeForm.getRolle();
         List<RolleDTO> rolleDTOList = convertStringVonRollenToRolleDTOList(rolle);
@@ -132,8 +130,8 @@ public final class KundeDTOKundeFormAssembler {
     private static List<RolleDTO> convertStringVonRollenToRolleDTOList(String string){
 
         String[] arrayVonRollen = StringUtils.convertStringToStringArray(string);
-        RolleDTOHelper rolleDTOHelper = new RolleDTOHelper();
-        List<RolleDTO> rolleDTOList = rolleDTOHelper.convertStringArrayVonRollenToRolleDTOList(arrayVonRollen);
+
+        List<RolleDTO> rolleDTOList = RolleDTOHelper.convertStringArrayVonRollenToRolleDTOList(arrayVonRollen);
 
         return rolleDTOList;
     }

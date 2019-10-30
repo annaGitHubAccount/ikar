@@ -5,8 +5,6 @@ import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Rolle;
 
-import java.util.List;
-
 public final class RolleRolleDTOAssembler {
 
     private RolleRolleDTOAssembler() {
@@ -34,6 +32,17 @@ public final class RolleRolleDTOAssembler {
         return rolleDTO;
     }
 
+
+    public static Rolle convertRolleDTOToRolle(RolleDTO rolleDTO, Kunde kunde){
+
+        Rolle rolle = new Rolle();
+
+        rolle.setId(rolleDTO.getId());
+        rolle.setName(rolleDTO.getName());
+        rolle.setKunde(kunde);
+
+        return rolle;
+    }
 
     public static Rolle convertRolleDTOToRolle(RolleDTO rolleDTO){
 

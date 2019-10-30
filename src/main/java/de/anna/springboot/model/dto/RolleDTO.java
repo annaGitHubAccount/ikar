@@ -10,6 +10,8 @@ public class RolleDTO {
 
     private KundeDTO kundeDTO;
 
+    private Long kundeId;
+
 
 
     public RolleDTO() {
@@ -52,5 +54,13 @@ public class RolleDTO {
 
     public void setKundeDTO(KundeDTO kundeDTO) {
         this.kundeDTO = kundeDTO;
+    }
+
+    public Long getKundeId() {
+        return kundeId;
+    }
+
+    public void setKundeId(Long kundeId) {
+        this.kundeId = kundeId;
     }
 }
