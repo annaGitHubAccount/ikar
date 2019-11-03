@@ -13,4 +13,6 @@ public interface RolleService {
     void deleteRolleById(Long id);
 
     void save(RolleDTO rolleDTO);
+
+    List<RolleDTO> findRolleByName(String name);
 }

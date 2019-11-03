@@ -8,4 +8,6 @@ import java.util.List;
 public interface RolleRepository extends CrudRepository<Rolle, Long> {
 
     List<Rolle> findByKundeId(Long kundeId);
+
+    List<Rolle> findRolleByName(String name);
 }

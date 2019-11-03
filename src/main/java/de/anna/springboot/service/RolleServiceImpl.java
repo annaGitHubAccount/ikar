@@ -97,4 +97,13 @@ public class RolleServiceImpl implements RolleService {
             rolleRepository.save(rolle);
         }
     }
+
+    @Override
+    public List<RolleDTO> findRolleByName(String name) {
+
+        List<Rolle> rolleByNameList = rolleRepository.findRolleByName(name);
+
+        return rolleByNameList.stream().map(rolle -> RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle))
+                .collect(Collectors.toList());
+    }
 }
