@@ -33,7 +33,6 @@ public final class ProduktStammdatenProductStammdatenDTOAssembler {
         produktStammdaten.setPreis(produktStammdatenDTO.getPreis());
         produktStammdaten.setAktiv(produktStammdatenDTO.isAktiv());
         produktStammdaten.setProduktArt(produktStammdatenDTO.getProduktArt());
-        produktStammdaten.setSymbol(produktStammdatenDTO.getSymbol());
 
         return produktStammdaten;
     }

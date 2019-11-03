@@ -1,8 +1,6 @@
 package de.anna.springboot.service;
 
-import de.anna.springboot.model.assembler.KundeKundeDTOAssembler;
 import de.anna.springboot.model.assembler.RolleRolleDTOAssembler;
-import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Rolle;
@@ -12,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RolleServiceImpl implements RolleService {
@@ -32,14 +30,13 @@ public class RolleServiceImpl implements RolleService {
     public List<RolleDTO> findByKundeId(Long kundeId) {
 
         List<Rolle> rollenListByKunde = rolleRepository.findByKundeId(kundeId);
-        List<RolleDTO> rolleDTOListByKunde = new ArrayList<>();
 
-        for (Rolle rolle : rollenListByKunde) {
-            RolleDTO rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle);
-            rolleDTOListByKunde.add(rolleDTO);
-        }
-
-        return rolleDTOListByKunde;
+        return rollenListByKunde.stream()
+                .map(rolle -> {
+                    RolleDTO rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle);
+                    return rolleDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -69,14 +66,14 @@ public class RolleServiceImpl implements RolleService {
 
     @Override
     @Transactional
-    public void save(RolleDTO rolleDTO, Long kundeId) {
+    public void save(RolleDTO rolleDTO) {
 
         if (rolleDTO.getId() == null) {
 
-            Optional<Kunde> optionalKunde = kundeRepository.findById(kundeId);
+            Optional<Kunde> optionalKunde = kundeRepository.findById(rolleDTO.getKundeId());
 
             Rolle rolle = null;
-            if(optionalKunde.isPresent()) {
+            if (optionalKunde.isPresent()) {
 
                 rolle = RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO);
                 Kunde kunde = optionalKunde.get();

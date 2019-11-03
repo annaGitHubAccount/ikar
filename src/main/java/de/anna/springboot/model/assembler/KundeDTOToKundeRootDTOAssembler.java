@@ -8,6 +8,7 @@ import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class KundeDTOToKundeRootDTOAssembler {
 
@@ -20,17 +21,12 @@ public class KundeDTOToKundeRootDTOAssembler {
         return kundeRootDTO;
     }
 
-    //TODO
+
     public static List<KundeZeileDTO> convertKundeDTOListToKundeZeileDTOList(List<KundeDTO> kundenList) {
 
-        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
-
-        for (KundeDTO kundeDTO : kundenList) {
-            KundeZeileDTO kundeZeileDTO = convertKundeDTOToKundeZeileDTO(kundeDTO);
-            kundeZeileDTOList.add(kundeZeileDTO);
-        }
-
-        return kundeZeileDTOList;
+       return kundenList.stream()
+               .map(kundeDTO -> convertKundeDTOToKundeZeileDTO(kundeDTO))
+               .collect(Collectors.toList());
     }
 
     private static KundeZeileDTO convertKundeDTOToKundeZeileDTO(KundeDTO kundeDTO) {

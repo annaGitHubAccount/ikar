@@ -11,11 +11,6 @@
 <form:form modelAttribute="produktStammdatenForm" action="/web/produktstammdatenweiterleitenedit">
     <table>
         <tr>
-            <td>
-                <div class="ui input"><form:hidden path="id"/></div>
-            </td>
-        </tr>
-        <tr>
             <td>Name :</td>
             <td>
                 <div class="ui input"><form:input path="name"/></div>
@@ -51,4 +46,6 @@
             <td><input type="submit" value="Update"/></td>
         </tr>
     </table>
+
+    <form:hidden path="id"/>
 </form:form>

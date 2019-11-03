@@ -4,9 +4,9 @@ import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Rolle;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Component
@@ -14,28 +14,22 @@ public class RolleDTOHelper {
 
     private static final String ROLLEN_SEPARATOR = ", ";
 
-    //TODO
-    public static List<RolleDTO> convertStringArrayVonRollenToRolleDTOList(String[] rollenArrayAsString) {
 
-        /*
-         List<String> rollenListAsString = Arrays.asList(rollenArrayAsString);
-        RolleDTO rolleDTO = new RolleDTO();
+    public static List<RolleDTO> convertStringArrayVonRollenToRolleDTOList(String[] rolleArray) {
 
-        return rollenListAsString.stream()
-                .map(rolleAsString -> rolleDTO.setName(rolleAsString))
+
+        List<String> rollenNameList = Arrays.asList(rolleArray);
+
+        return rollenNameList.stream()
+                .map(RolleDTOHelper::convertRolleNameToRolleDTO)
                 .collect(Collectors.toList());
-         */
+    }
 
-        List<RolleDTO> rolleDTOList = new ArrayList<>();
+    private static RolleDTO convertRolleNameToRolleDTO(String rolleName){
 
-        for (String rolleAsString : rollenArrayAsString) {
-
-            RolleDTO rolleDTO = new RolleDTO();
-            rolleDTO.setName(rolleAsString);
-            rolleDTOList.add(rolleDTO);
-        }
-
-        return rolleDTOList;
+        RolleDTO rolleDTO = new RolleDTO();
+        rolleDTO.setName(rolleName);
+        return rolleDTO;
     }
 
     public static String convertRolleDTOListToString(List<RolleDTO> rolleDTOList) {

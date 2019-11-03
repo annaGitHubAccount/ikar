@@ -13,18 +13,13 @@
             <td>${rolle.name}</td>
         </tr>
         <tr>
-            <td>
-                <div class="ui input"><form:hidden path="kundeId"/></div>
-            </td>
-        </tr>
-        <tr>
             <td> </td>
             <td><input type="submit" value="Save" class="ui button"/></td>
         </tr>
 
     </table>
 
-    <form:hidden path="id" />
+    <form:hidden path="kundeId"/>
     <form:hidden path="name" />
 
 

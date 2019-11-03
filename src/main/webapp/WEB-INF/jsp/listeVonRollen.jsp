@@ -18,16 +18,15 @@
 
     <tbody>
 
-    <c:forEach var="rolle" items="${rolleList}">
+    <c:forEach var="rolleVar" items="${rolleList}">
         <tr>
-            <td data-label="Rolle">${rolle.name}</td>
-            <td data-label="Operation"><a href="/web/editrolle/${rolle.id}">Aendern</a></td>
-            <td data-label="Operation"><a href="/web/deleterolle/${rolle.id}">Loeschen</a></td>
+            <td data-label="Rolle">${rolleVar.name}</td>
+            <td data-label="Operation"><a href="/web/editrolle/${rolleVar.id}">Aendern</a></td>
+            <td data-label="Operation"><a href="/web/deleterolle/${rolleVar.id}/${rolle.kundeId}">Loeschen</a></td>
         </tr>
     </c:forEach>
 
     </tbody>
-
 </table>
 
 

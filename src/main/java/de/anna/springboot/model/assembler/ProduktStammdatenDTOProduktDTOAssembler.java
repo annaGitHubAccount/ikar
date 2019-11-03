@@ -5,6 +5,7 @@ import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class ProduktStammdatenDTOProduktDTOAssembler {
 
@@ -26,17 +27,15 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
         return produktDTO;
 
     }
-//TODO
+
     public static List<ProduktDTO> convertProduktStammdatenDTOToProduktDTO(List<ProduktStammdatenDTO> produktStammdatenDTOList){
 
-        List<ProduktDTO> produktStammdatenDTOToProduktDTOList = new ArrayList<>();
-
-        for(ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList){
-            ProduktDTO produktDTO = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTO);
-            produktStammdatenDTOToProduktDTOList.add(produktDTO);
-        }
-
-        return produktStammdatenDTOToProduktDTOList;
+        return produktStammdatenDTOList.stream()
+                .map(produktStammdatenDTO -> {
+                    ProduktDTO produktDTO = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTO);
+                    return produktDTO;
+                })
+                .collect(Collectors.toList());
     }
 
 

@@ -12,5 +12,5 @@ public interface RolleService {
 
     void deleteRolleById(Long id);
 
-    void save(RolleDTO rolleDTO, Long kundeId);
+    void save(RolleDTO rolleDTO);
 }

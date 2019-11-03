@@ -60,7 +60,7 @@ public class ProduktStammdatenWebController {
     }
 
     @PostMapping("/saveproduktstammdaten")
-    public String saveProduktStammdaten(@ModelAttribute(PRODUKT_STAMMDATEN_FORM) ProduktStammdatenForm produktStammdatenForm, Model model){
+    public String saveProduktStammdaten(@ModelAttribute(PRODUKT_STAMMDATEN_FORM) ProduktStammdatenForm produktStammdatenForm, Model model) {
 
         ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenDTOProductStammdatenFormAssembler.mapProduktStammdatenFormToProduktStammdatenDTO(produktStammdatenForm);
         produktStammdatenService.save(produktStammdatenDTO);
@@ -72,7 +72,7 @@ public class ProduktStammdatenWebController {
     }
 
     @GetMapping("/produktstammdatenlist")
-    public String produktStammdatenListZeigen(Model model){
+    public String produktStammdatenListZeigen(Model model) {
 
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
         model.addAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenDTOList);
@@ -81,7 +81,7 @@ public class ProduktStammdatenWebController {
     }
 
     @GetMapping("/editproduktstammdaten/{id}")
-        public String editProduktStammdaten(@PathVariable Long id, Model model){
+    public String editProduktStammdaten(@PathVariable Long id, Model model) {
 
         Map<String, String> produktArtEnumMap = ProduktArt.convertProduktArtEnumToMap();
         model.addAttribute("produktArtMap", produktArtEnumMap);
@@ -94,7 +94,7 @@ public class ProduktStammdatenWebController {
     }
 
     @PostMapping("/produktstammdatenweiterleitenedit")
-    public String produktStammdatenWeiterleitenEdit(@ModelAttribute(PRODUKT_STAMMDATEN_FORM) ProduktStammdatenForm produktStammdatenForm, Model model){
+    public String produktStammdatenWeiterleitenEdit(@ModelAttribute(PRODUKT_STAMMDATEN_FORM) ProduktStammdatenForm produktStammdatenForm, Model model) {
 
         Map<String, String> produktArtEnumMap = ProduktArt.convertProduktArtEnumToMap();
         model.addAttribute("produktArtMap", produktArtEnumMap);
@@ -104,7 +104,7 @@ public class ProduktStammdatenWebController {
     }
 
     @GetMapping("/deleteproduktstammdaten/{id}")
-    public String deleteProduktStammdaten(@PathVariable Long id, Model model){
+    public String deleteProduktStammdaten(@PathVariable Long id, Model model) {
 
         ProduktStammdatenDTO produktStammdatenById = produktStammdatenService.findProduktStammdatenById(id);
         produktStammdatenService.deleteProduktStammdatenById(produktStammdatenById.getId());

@@ -6,11 +6,6 @@
 
 <table>
     <tr>
-        <td>
-            <div class="ui input"><form:hidden path="id"/></div>
-        </td>
-    </tr>
-    <tr>
         <td>Rolle :</td>
         <td>
             <div class="ui input"><form:input path="name"/></div>
@@ -22,7 +17,6 @@
         </td>
     </tr>
 </table>
-
 
     <form:hidden path="kundeId"/>
 </form:form>

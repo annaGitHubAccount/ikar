@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
@@ -18,12 +19,30 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     @Autowired
     ProduktStammdatenRepository produktStammdatenRepository;
 
-    //TODO
+    // TODO
     @Override
     @Transactional
     public void save(ProduktStammdatenDTO produktStammdatenDTO) {
 
-        ProduktStammdaten produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
+        ProduktStammdaten produktStammdaten = null;
+
+        if (produktStammdatenDTO.getId() == null) {
+
+            produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
+            //produktStammdaten.setSymbol();
+
+        } else {
+
+            Optional<ProduktStammdaten> produktStammdatenOptional = produktStammdatenRepository.findById(produktStammdatenDTO.getId());
+
+            if (produktStammdatenOptional.isPresent()) {
+                ProduktStammdaten produktStammdatenFromDB = produktStammdatenOptional.get();
+                String symbol = produktStammdatenFromDB.getSymbol();
+                produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
+                produktStammdaten.setSymbol(symbol);
+            }
+        }
+
         produktStammdatenRepository.save(produktStammdaten);
     }
 
@@ -31,14 +50,13 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     public List<ProduktStammdatenDTO> findAll() {
 
         ArrayList<ProduktStammdaten> produktStammdatenArrayList = (ArrayList<ProduktStammdaten>) produktStammdatenRepository.findAll();
-        List<ProduktStammdatenDTO> produktStammdatenDTOList = new ArrayList<>();
 
-        for(ProduktStammdaten produktStammdaten : produktStammdatenArrayList) {
-            ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
-            produktStammdatenDTOList.add(produktStammdatenDTO);
-        }
-
-        return produktStammdatenDTOList;
+        return produktStammdatenArrayList.stream()
+                .map(produktStammdaten -> {
+                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
+                    return produktStammdatenDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -47,7 +65,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
         Optional<ProduktStammdaten> produktStammdaten = produktStammdatenRepository.findById(id);
 
         ProduktStammdatenDTO produktStammdatenDTO = null;
-        if(produktStammdaten.isPresent()) {
+        if (produktStammdaten.isPresent()) {
             produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten.get());
         }
 
@@ -60,7 +78,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
 
         Optional<ProduktStammdaten> produktStammdaten = produktStammdatenRepository.findById(id);
 
-        if(produktStammdaten.isPresent()) {
+        if (produktStammdaten.isPresent()) {
             produktStammdatenRepository.deleteById(produktStammdaten.get().getId());
         }
     }
@@ -69,13 +87,12 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     public List<ProduktStammdatenDTO> findProduktStammdatenByName(String name) {
 
         List<ProduktStammdaten> produktStammdatenByNameList = produktStammdatenRepository.findProduktStammdatenByName(name);
-        List<ProduktStammdatenDTO> produktStammdatenDTOList = new ArrayList<>();
 
-        for(ProduktStammdaten produktStammdaten : produktStammdatenByNameList) {
-            ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
-            produktStammdatenDTOList.add(produktStammdatenDTO);
-        }
-
-        return produktStammdatenDTOList;
+        return produktStammdatenByNameList.stream()
+                .map(produktStammdaten -> {
+                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
+                    return produktStammdatenDTO;
+                })
+                .collect(Collectors.toList());
     }
 }

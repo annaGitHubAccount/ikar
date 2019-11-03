@@ -16,12 +16,14 @@ public class ProduktStammdaten {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "SYMBOL")
     private String symbol;
 
+    @Column(name = "NAME")
     private String name;
 
     // Precision is the total number of digits. Scale is the number of digits after the decimal point.
-    @Column(precision=10, scale=2)
+    @Column(name = "PREIS", precision=10, scale=2)
     private BigDecimal preis;
 
     @Column(name = "IS_AKTIV")

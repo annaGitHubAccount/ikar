@@ -32,12 +32,12 @@ public class RolleWebController {
     @GetMapping("/findrollenvonkunde/{id}")
     public String findRollenVonKunde(@PathVariable Long id, Model model){
 
-        List<RolleDTO> rollenByKundeId = rolleService.findByKundeId(id);
+        List<RolleDTO> rollenVonKunden = rolleService.findByKundeId(id);
 
         RolleDTO rolleDTO = new RolleDTO();
         rolleDTO.setKundeId(id);
 
-        model.addAttribute(ROLLE_LIST, rollenByKundeId);
+        model.addAttribute(ROLLE_LIST, rollenVonKunden);
         model.addAttribute(ROLLE, rolleDTO);
 
         return "listeVonRollen";
@@ -61,9 +61,9 @@ public class RolleWebController {
     }
 
     @PostMapping("/saverolle")
-    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Long kundeId, Model model){
+    public String saveRolle(@ModelAttribute(ROLLE) RolleDTO rolleDTO, Model model){
 
-        rolleService.save(rolleDTO, kundeId);
+        rolleService.save(rolleDTO);
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
@@ -71,17 +71,20 @@ public class RolleWebController {
         return "redirect:/kundesucheform/listevonkunden";
     }
 
-    @ModelAttribute
-    public void provideKundeId(Model model){
-        model.addAttribute("kundeId", 1L);
-    }
 
-    @GetMapping("/deleterolle/{id}")
-    public String deleteRolle(@PathVariable Long id){
+    @GetMapping("/deleterolle/{id}/{kundeId}")
+    public String deleteRolle(@PathVariable Long id, @PathVariable("kundeId") Long kundeId, Model model){
 
         rolleService.deleteRolleById(id);
 
-        return "redirect:/web/findrollenvonkunde/{id}";
+        List<RolleDTO> rollenByKundeId = rolleService.findByKundeId(kundeId);
+        RolleDTO rolleDTO = new RolleDTO();
+        rolleDTO.setKundeId(kundeId);
+
+        model.addAttribute(ROLLE_LIST, rollenByKundeId);
+        model.addAttribute(ROLLE, rolleDTO);
+
+        return "listeVonRollen";
     }
 
     @PostMapping("/addrole")
