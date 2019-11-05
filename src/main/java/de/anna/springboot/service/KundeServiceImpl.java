@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class KundeServiceImpl implements KundeService {
@@ -71,20 +72,14 @@ public class KundeServiceImpl implements KundeService {
     private void clearKundeProduktList(Kunde kundeFromDatenbank) {
 
         List<Produkt> produktList = kundeFromDatenbank.getProduktList();
-
-        for (Produkt produkt : produktList) {
-            produktRepository.delete(produkt);
-        }
+        produktList.forEach(produkt -> produktRepository.delete(produkt));
         produktList.clear();
     }
 
-    private void clearKundeRollenList(Kunde kundeFromDatenbank){
+    private void clearKundeRollenList(Kunde kundeFromDatenbank) {
 
         List<Rolle> rolleList = kundeFromDatenbank.getRolleList();
-
-        for(Rolle rolle : rolleList){
-            rolleRepository.delete(rolle);
-        }
+        rolleList.forEach(rolle -> rolleRepository.delete(rolle));
         rolleList.clear();
     }
 
@@ -92,47 +87,31 @@ public class KundeServiceImpl implements KundeService {
     @Override
     public List<KundeDTO> findAll() {
 
-        List<KundeDTO> kundeDTOList = new ArrayList<>();
-
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
 
-        for (Kunde kunde : kundeList) {
-            KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);
-            kundeDTOList.add(kundeDTO);
-        }
-
-        return kundeDTOList;
+        return kundeList.stream()
+                .map(kunde -> KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<KundeZeileDTO> findAllKundeZeileDTO() {
 
-        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
-
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
 
-        for (Kunde kunde : kundeList) {
-            KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
-            kundeZeileDTOList.add(kundeZeileDTO);
-        }
-
-        return kundeZeileDTOList;
+        return kundeList.stream()
+                .map(kunde -> KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<KundeZeileDTO> findAllKundeZeileDTOByNachname(String nachname) {
 
-        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
-
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findKundeByNachname(nachname);
 
-        for (Kunde kunde : kundeList) {
-
-            KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
-            kundeZeileDTOList.add(kundeZeileDTO);
-        }
-
-        return kundeZeileDTOList;
+        return kundeList.stream()
+                .map(kunde -> KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde))
+                .collect(Collectors.toList());
     }
 
 
@@ -164,30 +143,21 @@ public class KundeServiceImpl implements KundeService {
     @Override
     public List<KundeDTO> findKundenByNachname(String nachname) {
 
-        List<KundeDTO> kundeDTOList = new ArrayList<>();
         List<Kunde> kundenByNachname = kundeRepository.findKundeByNachname(nachname);
 
-        for (Kunde kunde : kundenByNachname) {
-            KundeDTO kundeDTO = KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde);
-            kundeDTOList.add(kundeDTO);
-        }
-
-        return kundeDTOList;
+        return kundenByNachname.stream()
+                .map(kunde -> KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<KundeZeileDTO> findeKunden(Long kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
-        List<KundeZeileDTO> kundeZeileDTOList = new ArrayList<>();
-
         List<Kunde> kundeList = kundeSucheRepository.findKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
 
-        for (Kunde kunde : kundeList) {
-            KundeZeileDTO kundeZeileDTO = KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde);
-            kundeZeileDTOList.add(kundeZeileDTO);
-        }
-
-        return kundeZeileDTOList;
+        return kundeList.stream()
+                .map(kunde -> KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde))
+                .collect(Collectors.toList());
     }
 
 

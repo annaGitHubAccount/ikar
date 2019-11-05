@@ -31,12 +31,4 @@ public class RolleServiceIT {
         Assert.assertEquals("PO123", rolleFromDB.get(0).getName());
 
     }
-
-    public RolleService getRolleService() {
-        return rolleService;
-    }
-
-    public void setRolleService(RolleService rolleService) {
-        this.rolleService = rolleService;
-    }
 }

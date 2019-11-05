@@ -30,6 +30,15 @@
             </td>
         </tr>
         <tr>
+            <td>Symbol :</td>
+            <td>
+                <div class="ui input"><form:input path="symbol"/></div>
+            </td>
+            <td>
+                <form:errors path="symbol" cssClass="error"/>
+            </td>
+        </tr>
+        <tr>
             <td>Is Aktiv ? :</td>
             <td>
                 <form:checkbox path="aktiv" cssClass="ui checkbox"/>

@@ -1,5 +1,6 @@
 package de.anna.springboot.service;
 
+
 import de.anna.springboot.model.assembler.ProduktStammdatenProductStammdatenDTOAssembler;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.entity.ProduktStammdaten;
@@ -19,7 +20,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     @Autowired
     ProduktStammdatenRepository produktStammdatenRepository;
 
-    // TODO
+
     @Override
     @Transactional
     public void save(ProduktStammdatenDTO produktStammdatenDTO) {
@@ -29,17 +30,14 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
         if (produktStammdatenDTO.getId() == null) {
 
             produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
-            //produktStammdaten.setSymbol();
+
 
         } else {
 
             Optional<ProduktStammdaten> produktStammdatenOptional = produktStammdatenRepository.findById(produktStammdatenDTO.getId());
 
             if (produktStammdatenOptional.isPresent()) {
-                ProduktStammdaten produktStammdatenFromDB = produktStammdatenOptional.get();
-                String symbol = produktStammdatenFromDB.getSymbol();
                 produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
-                produktStammdaten.setSymbol(symbol);
             }
         }
 

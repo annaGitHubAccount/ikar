@@ -20,6 +20,7 @@
         <tr>
             <th>Name</th>
             <th>Preis</th>
+            <th>Symbol</th>
             <th>Is Aktiv ?</th>
             <th colspan="2">Operation</th>
         </tr>
@@ -31,6 +32,7 @@
             <tr>
                 <td data-label="Name">${produkt.name}</td>
                 <td data-label="Preis">${produkt.preis}</td>
+                <td data-label="Symbol">${produkt.symbol}</td>
                 <td data-label="Is Aktiv">
                      <c:if test="${produkt.aktiv}">
                          <i class="green check icon"></i>

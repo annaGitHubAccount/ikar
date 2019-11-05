@@ -20,6 +20,8 @@ public class ProduktStammdatenForm {
 
     private String produktArt;
 
+    private String symbol;
+
 
 
     public Long getId() {
@@ -60,5 +62,13 @@ public class ProduktStammdatenForm {
 
     public void setProduktArt(String produktArt) {
         this.produktArt = produktArt;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 }

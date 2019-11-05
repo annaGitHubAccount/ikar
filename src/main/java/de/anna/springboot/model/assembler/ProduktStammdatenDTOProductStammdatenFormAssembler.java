@@ -18,6 +18,7 @@ public final class ProduktStammdatenDTOProductStammdatenFormAssembler {
         produktStammdatenDTO.setName(produktStammdatenForm.getName());
         produktStammdatenDTO.setPreis(produktStammdatenForm.getPreis());
         produktStammdatenDTO.setAktiv(produktStammdatenForm.isAktiv());
+        produktStammdatenDTO.setSymbol(produktStammdatenForm.getSymbol());
 
         String produktArtAlsString = produktStammdatenForm.getProduktArt();
         ProduktArt produktArt = ProduktArt.convertStringToProduktArt(produktArtAlsString);
@@ -35,6 +36,7 @@ public final class ProduktStammdatenDTOProductStammdatenFormAssembler {
         produktStammdatenForm.setName(produktStammdatenDTO.getName());
         produktStammdatenForm.setPreis(produktStammdatenDTO.getPreis());
         produktStammdatenForm.setAktiv(produktStammdatenDTO.isAktiv());
+        produktStammdatenForm.setSymbol(produktStammdatenDTO.getSymbol());
 
         ProduktArt produktArt = produktStammdatenDTO.getProduktArt();
         String produktArtAlsString = ProduktArt.convertProduktArtToString(produktArt);

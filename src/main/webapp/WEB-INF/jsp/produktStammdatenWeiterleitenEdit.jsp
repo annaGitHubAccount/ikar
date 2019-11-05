@@ -14,6 +14,10 @@
             <td>${produktStammdatenForm.preis}</td>
         </tr>
         <tr>
+            <td>Symbol :</td>
+            <td>${produktStammdatenForm.symbol}</td>
+        </tr>
+        <tr>
             <td>Is Aktiv :</td>
             <td>
                 <c:if test="${produktStammdatenForm.aktiv}">
@@ -41,4 +45,5 @@
     <form:hidden path="preis"/>
     <form:hidden path="aktiv"/>
     <form:hidden path="produktArt"/>
+    <form:hidden path="symbol"/>
 </form:form>

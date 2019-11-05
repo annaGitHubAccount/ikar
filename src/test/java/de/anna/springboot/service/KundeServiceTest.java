@@ -1,5 +1,6 @@
 package de.anna.springboot.service;
 
+import de.anna.springboot.model.assembler.KundeKundeDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 import de.anna.springboot.model.entity.Kunde;
@@ -13,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -45,6 +47,9 @@ public class KundeServiceTest {
 
         when(kundeRepository.findAll()).thenReturn(kundeArrayList);
         when(kundeRepository.findKundeByNachname(kunde1.getNachname())).thenReturn(kundeArrayListByNachname);
+
+        Optional<Kunde> kunde1Optional = Optional.of(kunde1);
+        when(kundeRepository.findById(KundeServiceTest.kunde1.getId())).thenReturn(kunde1Optional);
     }
 
 
@@ -72,6 +77,17 @@ public class KundeServiceTest {
 
         assertEquals(1, kundenByNachnameList.size());
         verify(kundeRepository, atLeastOnce()).findKundeByNachname(kunde1.getNachname());
+    }
+
+
+    @Test
+    public void findKundeById(){
+
+        KundeService kundeService = new KundeServiceImpl(kundeRepository);
+        KundeDTO kundeDTO = kundeService.findKundeById(KundeServiceTest.kunde1.getId());
+
+        //assertEquals(kunde1, kundeDTO);
+
     }
 
 }
