@@ -1,8 +1,6 @@
 package de.anna.springboot.model.form;
 
 import de.anna.springboot.model.dto.ProduktDTO;
-import de.anna.springboot.model.dto.ProduktStammdatenDTO;
-import de.anna.springboot.model.dto.RolleDTO;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

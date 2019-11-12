@@ -1,6 +1,7 @@
 package de.anna.springboot.model.dto;
 
 import de.anna.springboot.model.enums.KundeArt;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;

@@ -1,6 +1,7 @@
 package de.anna.springboot.model.dto.xml;
 
 import de.anna.springboot.model.enums.KundeArt;
+
 import java.time.LocalDate;
 
 public class KundeZeileDTO {

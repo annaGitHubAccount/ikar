@@ -2,7 +2,7 @@ package de.anna.springboot.controller.helper;
 
 import de.anna.springboot.model.dto.ProduktDTO;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

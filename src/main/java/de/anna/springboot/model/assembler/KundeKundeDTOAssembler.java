@@ -9,7 +9,6 @@ import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
 import de.anna.springboot.model.entity.Rolle;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

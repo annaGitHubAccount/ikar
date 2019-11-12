@@ -6,7 +6,6 @@ import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.dto.xml.KundeRootDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

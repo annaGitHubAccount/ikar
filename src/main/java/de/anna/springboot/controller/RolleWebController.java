@@ -2,8 +2,6 @@ package de.anna.springboot.controller;
 
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.RolleDTO;
-import de.anna.springboot.model.entity.Rolle;
-import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.service.RolleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller

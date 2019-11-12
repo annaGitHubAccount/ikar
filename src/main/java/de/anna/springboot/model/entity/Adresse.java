@@ -1,6 +1,7 @@
 package de.anna.springboot.model.entity;
 
 import de.anna.springboot.model.enums.AdresseArt;
+
 import javax.persistence.*;
 import java.util.Objects;
 

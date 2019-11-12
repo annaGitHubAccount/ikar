@@ -3,7 +3,6 @@ package de.anna.springboot.model.entity;
 import de.anna.springboot.model.enums.ProduktArt;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Objects;
 

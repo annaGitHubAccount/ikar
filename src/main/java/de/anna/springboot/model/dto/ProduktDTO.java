@@ -1,6 +1,7 @@
 package de.anna.springboot.model.dto;
 
 import de.anna.springboot.model.enums.ProduktArt;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 

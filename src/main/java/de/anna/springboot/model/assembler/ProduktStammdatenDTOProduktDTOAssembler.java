@@ -3,7 +3,6 @@ package de.anna.springboot.model.assembler;
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
