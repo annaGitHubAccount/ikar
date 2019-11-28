@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ButtonNachLinksHelper {
+public class ButtonNachLinksHelperVonProdukt {
 
     public List<ProduktDTO> loescheAusgewaehlteProdukteFromFormularAusProduktList(List<ProduktDTO> produktListFromSession,
                                                                                   List<String> produktAusgewaehlteListFromFormular) {

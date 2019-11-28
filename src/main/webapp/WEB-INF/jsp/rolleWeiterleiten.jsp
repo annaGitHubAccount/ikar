@@ -3,15 +3,21 @@
 
 <h1>Wollen Sie wirklich die Daten speichern?</h1>
 
-<form:form method="post" modelAttribute="rolle" action="/web/saverolle">
+<form:form method="post" modelAttribute="kundeForm" action="/web/saverolle">
 
 
     <table>
 
         <tr>
-            <td>Rolle : </td>
-            <td>${rolle.name}</td>
+            <td>Rollen : </td>
+
+            <td>
+                <c:forEach items="${kundeForm.rolleList}" var="rolle">
+                       ${rolle.name}
+                </c:forEach>
+            </td>
         </tr>
+
         <tr>
             <td> </td>
             <td><input type="submit" value="Save" class="ui button"/></td>

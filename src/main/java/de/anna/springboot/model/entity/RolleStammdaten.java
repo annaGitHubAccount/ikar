@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Rolle {
+public class RolleStammdaten {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,20 +12,16 @@ public class Rolle {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="KUNDE_ID")
-    private Kunde kunde;
 
-
-    public Rolle() {
+    public RolleStammdaten() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Rolle)) return false;
-        Rolle rolle = (Rolle) o;
-        return getName().equals(rolle.getName());
+        if (!(o instanceof RolleStammdaten)) return false;
+        RolleStammdaten that = (RolleStammdaten) o;
+        return getName().equals(that.getName());
     }
 
     @Override
@@ -47,13 +43,5 @@ public class Rolle {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Kunde getKunde() {
-        return kunde;
-    }
-
-    public void setKunde(Kunde kunde) {
-        this.kunde = kunde;
     }
 }

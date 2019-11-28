@@ -3,40 +3,75 @@
 
 
 <h1>
-    Liste von Rollen
+    Rollen
 </h1>
 
 
-<table class="ui celled table striped">
-
-    <thead>
-    <tr>
-        <th>Rolle</th>
-        <th colspan="2">Operation</th>
-    </tr>
-    </thead>
-
-    <tbody>
-
-    <c:forEach var="rolleVar" items="${rolleList}">
-        <tr>
-            <td data-label="Rolle">${rolleVar.name}</td>
-            <td data-label="Operation"><a href="/web/editrolle/${rolleVar.id}">Aendern</a></td>
-            <td data-label="Operation"><a href="/web/deleterolle/${rolleVar.id}/${rolle.kundeId}">Loeschen</a></td>
-        </tr>
-    </c:forEach>
-
-    </tbody>
-</table>
-
-
-<form:form method="post" modelAttribute="rolle" action="/web/addrole">
-
-    <form:hidden path="kundeId"/>
+<form:form method="post" modelAttribute="kundeForm" action="/web/rolleweiterleiten">
 
     <table>
+
         <tr>
-            <td><input type="submit" value="Fuege Rolle hinzu" id="rolleHinzufuegenId" class="ui button"/></td>
+            <td>Alle Rollestammdaten:</td>
+            <td></td>
+            <td>Rollen von Kunden:</td>
         </tr>
+
+        <tr>
+            <td><form:select path="rolleStammdatenGewaehlteList" multiple="true"
+                             items="${kundeForm.rolleStammdatenList}"
+                             itemValue = "name"
+                             itemLabel="name" size="6"/></td>
+            <td>
+                <input type="button" value=">>" id="buttonNachRechts" class="ui button"/>
+
+                <br/>
+                <br/>
+                <br/>
+
+                <input type="button" value="<<" id="buttonNachLinks" class="ui button"/>
+            </td>
+            <td><form:select path="rolleGewaehlteList" multiple="true"
+                             items="${kundeForm.rolleList}"
+                             itemValue = "name"
+                             itemLabel="name" size="6"/></td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="submit" value="Weiter" id="weiterId" class="ui button"/>
+            </td>
+        </tr>
+
     </table>
+
+<%--    <input type="hidden" name="rolle" value="${rolleDTO}"/>--%>
+    <form:hidden path="kundeId" />
+
 </form:form>
+
+
+<script>
+
+    function bedienebuttonNachRechts() {
+        var buttonNachRechts = document.getElementById("buttonNachRechts");
+
+        buttonNachRechts.addEventListener("click", function () {
+            document.forms[0].action = "/web/rollebuttonnachrechts";
+            document.forms[0].submit();
+        })
+    }
+
+    function bedieneButtonNachLinks() {
+        var buttonNachLinks = document.getElementById("buttonNachLinks");
+
+        buttonNachLinks.addEventListener("click", function () {
+            document.forms[0].action = "/web/rollebuttonnachlinks";
+            document.forms[0].submit();
+        });
+    }
+
+    bedienebuttonNachRechts();
+    bedieneButtonNachLinks();
+
+</script>

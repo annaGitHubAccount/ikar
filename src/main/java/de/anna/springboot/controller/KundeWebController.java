@@ -1,7 +1,7 @@
 package de.anna.springboot.controller;
 
-import de.anna.springboot.controller.helper.ButtonNachLinksHelper;
-import de.anna.springboot.controller.helper.ButtonNachRechtsHelper;
+import de.anna.springboot.controller.helper.ButtonNachLinksHelperVonProdukt;
+import de.anna.springboot.controller.helper.ButtonNachRechtsHelperVonProdukt;
 import de.anna.springboot.controller.helper.RolleDTOHelper;
 import de.anna.springboot.model.assembler.KundeDTOKundeFormAssembler;
 import de.anna.springboot.model.assembler.ProduktStammdatenDTOProduktDTOAssembler;
@@ -47,10 +47,10 @@ public class KundeWebController {
     private ProduktStammdatenService produktStammdatenService;
 
     @Autowired
-    private ButtonNachRechtsHelper buttonNachRechtsHelper;
+    private ButtonNachRechtsHelperVonProdukt buttonNachRechtsHelperVonProdukt;
 
     @Autowired
-    private ButtonNachLinksHelper buttonNachLinksHelper;
+    private ButtonNachLinksHelperVonProdukt buttonNachLinksHelperVonProdukt;
 
     @Autowired
     RolleDTOHelper rolleDTOHelper;
@@ -127,10 +127,10 @@ public class KundeWebController {
 
         List<String> produktStammdatenGewaehlteListFromFormular = kundeForm.getProduktStammdatenGewaehlteList();
 
-        List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelper.loescheAusgewaehlteProduktStammdatenVonProduktStammdatenList(
+        List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelperVonProdukt.loescheAusgewaehlteProduktStammdatenVonProduktStammdatenList(
                 produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
 
-        List<ProduktDTO> produktListUpdated = buttonNachRechtsHelper.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(
+        List<ProduktDTO> produktListUpdated = buttonNachRechtsHelperVonProdukt.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(
                 produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
 
         produktListFromSession.addAll(produktListUpdated);
@@ -163,9 +163,9 @@ public class KundeWebController {
 
         List<String> produktAusgewaehlteListFromFormular = kundeForm.getProduktGewaehlteList();
 
-        List<ProduktDTO> produktDTOListUpdated = buttonNachLinksHelper.loescheAusgewaehlteProdukteFromFormularAusProduktList(produktListFromSession, produktAusgewaehlteListFromFormular);
+        List<ProduktDTO> produktDTOListUpdated = buttonNachLinksHelperVonProdukt.loescheAusgewaehlteProdukteFromFormularAusProduktList(produktListFromSession, produktAusgewaehlteListFromFormular);
 
-        List<ProduktDTO> produktStammdatenListUpdated = buttonNachLinksHelper.fuegeAusgewaehlteProduktListFromFormularToProduktStammdatenListHinzu(produktListFromSession, produktAusgewaehlteListFromFormular);
+        List<ProduktDTO> produktStammdatenListUpdated = buttonNachLinksHelperVonProdukt.fuegeAusgewaehlteProduktListFromFormularToProduktStammdatenListHinzu(produktListFromSession, produktAusgewaehlteListFromFormular);
 
         produktStammdatenListFromSession.addAll(produktStammdatenListUpdated);
 

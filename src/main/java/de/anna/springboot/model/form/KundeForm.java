@@ -1,6 +1,7 @@
 package de.anna.springboot.model.form;
 
 import de.anna.springboot.model.dto.ProduktDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -63,8 +64,25 @@ public class KundeForm {
     private List<ProduktDTO> produktList = new ArrayList<>();
     private List<String> produktGewaehlteList = new ArrayList<>();
 
+    private List<RolleDTO> rolleStammdatenList = new ArrayList<>();
+    private List<String> rolleStammdatenGewaehlteList = new ArrayList<>();
+
+    private List<RolleDTO> rolleList = new ArrayList<>();
+    private List<String> rolleGewaehlteList = new ArrayList<>();
+
     private String rolle;
 
+    private Long kundeId;
+
+
+
+    public Long getKundeId() {
+        return kundeId;
+    }
+
+    public void setKundeId(Long kundeId) {
+        this.kundeId = kundeId;
+    }
 
     public String getName() {
         return name;
@@ -232,5 +250,37 @@ public class KundeForm {
 
     public void setRolle(String rolle) {
         this.rolle = rolle;
+    }
+
+    public List<RolleDTO> getRolleList() {
+        return rolleList;
+    }
+
+    public void setRolleList(List<RolleDTO> rolleList) {
+        this.rolleList = rolleList;
+    }
+
+    public List<String> getRolleGewaehlteList() {
+        return rolleGewaehlteList;
+    }
+
+    public void setRolleGewaehlteList(List<String> rolleGewaehlteList) {
+        this.rolleGewaehlteList = rolleGewaehlteList;
+    }
+
+    public List<RolleDTO> getRolleStammdatenList() {
+        return rolleStammdatenList;
+    }
+
+    public void setRolleStammdatenList(List<RolleDTO> rolleStammdatenList) {
+        this.rolleStammdatenList = rolleStammdatenList;
+    }
+
+    public List<String> getRolleStammdatenGewaehlteList() {
+        return rolleStammdatenGewaehlteList;
+    }
+
+    public void setRolleStammdatenGewaehlteList(List<String> rolleStammdatenGewaehlteList) {
+        this.rolleStammdatenGewaehlteList = rolleStammdatenGewaehlteList;
     }
 }

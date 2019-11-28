@@ -9,6 +9,8 @@ import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.util.DateUtils;
 import org.apache.fop.apps.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/kundesucheform")
 public class KundeSucheWebController {
+
+    Logger logger = LoggerFactory.getLogger(KundeSucheWebController.class);
 
     @Autowired
     private KundeService kundeService;
@@ -240,7 +244,7 @@ public class KundeSucheWebController {
             throw new RuntimeException(e);
 
         } catch (SAXException e) {
-            e.printStackTrace();
+            logger.error("XML generierung ist schiefgelaufen", e);
         }
     }
 }

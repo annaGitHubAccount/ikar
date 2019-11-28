@@ -18,6 +18,11 @@ CREATE SEQUENCE ROLLE_SEQ
     START WITH 100
     INCREMENT BY 1;
 
+CREATE SEQUENCE rolle_stammdaten__seq
+    MAXVALUE 99999999999999
+    START WITH 100
+    INCREMENT BY 1;
+
 create table Kunde
 (
     id       long primary key auto_increment not null,
@@ -72,4 +77,10 @@ create table Rolle
   KUNDE_ID NUMBER(10) NOT NULL,
   CONSTRAINT ROLLE_PK primary key (ID),
   CONSTRAINT ROLLE_KUNDE_FK FOREIGN KEY (KUNDE_ID) REFERENCES Kunde(ID)
+);
+
+create table Rolle_Stammdaten
+(
+  id long primary key auto_increment not null,
+  name varchar(100)
 );

@@ -45,9 +45,11 @@ insert into Rolle(id, name, KUNDE_ID) VALUES (1, 'Scrum Master', 1);
 insert into Rolle(id, name, KUNDE_ID) VALUES (2, 'Entwickler', 1);
 insert into Rolle(id, name, KUNDE_ID) VALUES (3, 'Produkt Owner', 2);
 insert into Rolle(id, name, KUNDE_ID) VALUES (4, 'Entwickler', 3);
-insert into Rolle(id, name, KUNDE_ID) VALUES (5, 'PO', 3);
 insert into Rolle(id, name, KUNDE_ID) VALUES (6, 'Scrum Master', 4);
 insert into Rolle(id, name, KUNDE_ID) VALUES (7, 'Entwickler', 5);
 insert into Rolle(id, name, KUNDE_ID) VALUES (8, 'Produkt Owner', 5);
 insert into Rolle(id, name, KUNDE_ID) VALUES (9, 'Entwickler', 6);
-insert into Rolle(id, name, KUNDE_ID) VALUES (10, 'PO', 6);
+
+insert into Rolle_Stammdaten(id, name) VALUES (1, 'Scrum Master');
+insert into Rolle_Stammdaten(id, name) VALUES (2, 'Entwickler');
+insert into Rolle_Stammdaten(id, name) VALUES (3, 'Produkt Owner');
