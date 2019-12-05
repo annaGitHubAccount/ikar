@@ -1,3 +1,5 @@
 target/
 .idea/
 ikar.iml
+.gradle
+/build/
