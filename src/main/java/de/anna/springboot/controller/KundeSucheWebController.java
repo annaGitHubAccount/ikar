@@ -218,7 +218,7 @@ public class KundeSucheWebController {
         }*/
     }
 
-
+    //TODO: AP
     private void generateXMLListeVonKunden(HttpServletRequest request, OutputStream outputStream) {
 
         @SuppressWarnings("unchecked")
@@ -232,9 +232,9 @@ public class KundeSucheWebController {
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema XSDschema = schemaFactory.newSchema(new File("D:\\Workspace\\temp\\xmlToXsd\\kunden_daten.xsd"));
+            //Schema XSDschema = schemaFactory.newSchema(new File("D:\\Workspace\\temp\\xmlToXsd\\kunden_daten.xsd"));
 
-            jaxbMarshaller.setSchema(XSDschema);
+            //jaxbMarshaller.setSchema(XSDschema);
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             jaxbMarshaller.marshal(kundeRootDTO, outputStream);
 
@@ -243,9 +243,9 @@ public class KundeSucheWebController {
         } catch (JAXBException | IOException e) {
             throw new RuntimeException(e);
 
-        } catch (SAXException e) {
+        } /*catch (SAXException e) {
             logger.error("XML generierung ist schiefgelaufen", e);
-        }
+        }*/
     }
 }
 
