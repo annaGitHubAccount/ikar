@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'de.anna.springboot.ikar'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -24,10 +24,10 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "org.springframework.boot:spring-boot-starter-web-services"
-	implementation "org.springframework.boot:spring-boot-starter-tomcat"
-	compile "org.apache.tomcat.embed:tomcat-embed-jasper"
+	compileOnly "org.springframework.boot:spring-boot-starter-tomcat"
+	compileOnly "org.apache.tomcat.embed:tomcat-embed-jasper"
 	compile "javax.servlet:jstl:1.2"
-	compile "com.h2database:h2"
+	runtime "com.h2database:h2"
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -36,10 +36,16 @@ dependencies {
 	compile "org.apache.tiles:tiles-servlet:3.0.8"
 	compile "org.apache.tiles:tiles-jsp:3.0.8"
 	compile "org.apache.tiles:tiles-request-api:1.0.6"
-	compile "org.apache.xmlgraphics:fop:2.3"
+	/*compile ('org.apache.xmlgraphics:fop:2.3') {
+		exclude group: 'org.apache.avalon.framework', module: 'avalon-framework-api'
+		exclude group: 'org.apache.avalon.framework', module: 'avalon-framework-impl'
+	}
+	compile group: 'org.apache.avalon.framework', name: 'avalon-framework-api', version: '4.3.1'
+	compile group: 'org.apache.avalon.framework', name: 'avalon-framework-impl', version: '4.3.1'
+    */
 	compile "junit:junit:4.12"
 	compile "org.wiztools:xsd-gen:0.2.1"
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+	//compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
 }
 
 test {

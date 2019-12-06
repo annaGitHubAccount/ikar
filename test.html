@@ -1,143 +1,102 @@
-<html>
-<head>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-    <title>Add new Produkt Stammdaten</title>
+    <groupId>de.anna.springboot</groupId>
+    <artifactId>ikar</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ikar</name>
+    <description>Demo project for Spring Boot</description>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script>
-        $(function () {
-            var dateFormat = {dateFormat: "dd.mm.yy"};
-            $("#datepickeraddkunde").datepicker(dateFormat);
-            $("#datepickereditkunde").datepicker(dateFormat);
-            $("#tabs").tabs();
-        });
-    </script>
+    <properties>
+        <!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
+        <java.version>1.8</java.version>
+    </properties>
 
-</head>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-core</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-api</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-servlet</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-request-api</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wiztools</groupId>
+            <artifactId>xsd-gen</artifactId>
+            <version>0.2.1</version>
+        </dependency>
 
-<body>
-<table width="100%">
-    <tr>
-        <td colspan="2">
-            <div>
-
-                <div style="float: left">
-                    <h1>Meine Seite</h1>
-                </div>
-
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td width="20%" nowrap="nowrap">
-            <div style="padding: 5px;">
-
-
-                <br>
-                <li><a href="/web/homepage">Homepage</a></li>
-                <br>
-                <li><a href="/web/addkunde">FÃ¼ge neuen Kunden hinzu</a></li>
-                <li><a href="/web/listevonkunden">Liste von Kunden</a></li>
-                <br>
-                <li><a href="/web/addproduktstammdaten">FÃ¼ge neuen Produktstammdaten hinzu</a></li>
-                <li><a href="/web/produktstammdatenlist">Liste von Produktstammdaten</a></li>
-                <br>
-
-
-            </div>
-        </td>
-        <td width="80%">
-
-
-            <h1>FÃ¼ge neuen Produktstammdaten hinzu</h1>
-
-            <style>
-                .error {
-                    color: red
-                }
-            </style>
-
-            <form id="produktStammdatenForm" action="/web/produktstammdatenweiterleiten" method="post">
-                <table>
-
-                    <tr>
-                        <td>Name :</td>
-                        <td>
-                            <div class="ui input"><input id="name" name="name" type="text" value=""/></div>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Preis :</td>
-                        <td>
-                            <div class="ui input"><input id="preis" name="preis" type="text" value=""/></div>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Is Aktiv ? :</td>
-                        <td>
-                            <input id="aktiv1" name="aktiv" class="ui checkbox" type="checkbox" value="true"/><input
-                                type="hidden" name="_aktiv" value="on"/>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Produkt Art :</td>
-                        <td>
-                            <span>
-                                <input id="produktArt1" name="produktArt" class="ui radio checkbox" type="radio"
-                                       value="S"/>
-                                <label for="produktArt1">Small</label></span><span>
-                            <input
-                                    id="produktArt2" name="produktArt" class="ui radio checkbox" type="radio"
-                                    value="L"/><label for="produktArt2">Large</label></span><span><input
-                                id="produktArt3"
-                                name="produktArt"
-                                class="ui radio checkbox"
-                                type="radio"
-                                value="M"/><label
-                                for="produktArt3">Medium</label></span>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Save" class="ui button"/></td>
-                    </tr>
-                </table>
-
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <div>
-
-                @Copyright A.Polanska
-
-            </div>
-        </td>
-    </tr>
-</table>
-</body>
-</html>
+    </dependencies>

@@ -46,7 +46,7 @@ create table Produkt_Stammdaten
 
 create table Adresse
 (
-    ID number(10) NOT NULL,
+    id       long primary key auto_increment not null,
     LAND VARCHAR(50) NOT NULL,
     ORT VARCHAR(50) NOT NULL,
     STRASSE VARCHAR2(50) NOT NULL,

@@ -8,7 +8,7 @@ import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.util.DateUtils;
-import org.apache.fop.apps.*;
+//import org.apache.fop.apps.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,7 +179,7 @@ public class KundeSucheWebController {
     @GetMapping("/generatepdflistevonkunden")
     public void generatePDFlisteVonKunden(HttpServletRequest request, HttpServletResponse response) {
 
-        response.setContentType("application/pdf");
+        /*response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "attachment; filename=kunden_daten.pdf");
 
         ByteArrayOutputStream outStreamXML = new ByteArrayOutputStream();
@@ -215,7 +215,7 @@ public class KundeSucheWebController {
 
         } catch (TransformerException | IOException | FOPException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
 
