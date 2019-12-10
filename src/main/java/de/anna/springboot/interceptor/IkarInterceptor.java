@@ -11,7 +11,7 @@ public class IkarInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         Principal userPrincipal = request.getUserPrincipal();
-        if(userPrincipal != null) {
+        if(userPrincipal != null && modelAndView != null) {
             String userName = userPrincipal.getName();
             modelAndView.getModel().put("loggedUser", userName);
         }
