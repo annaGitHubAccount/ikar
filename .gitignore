@@ -2,6 +2,6 @@ target/
 .idea/
 ikar.iml
 .gradle
-/build/
-/gradle/
+build/
+gradle/
 logfile.log
