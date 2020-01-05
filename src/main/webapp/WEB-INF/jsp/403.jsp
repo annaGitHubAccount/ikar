@@ -1,3 +1,3 @@
 
-Die Seite ist forbitten!
+Die Seite ist verbotten!
 
