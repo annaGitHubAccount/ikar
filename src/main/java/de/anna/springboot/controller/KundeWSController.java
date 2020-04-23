@@ -6,11 +6,14 @@ import de.anna.springboot.service.KundeService;
 import de.anna.springboot.webantwort.KundeListServiceAntwort;
 import de.anna.springboot.webantwort.KundeServiceAntwort;
 import de.anna.springboot.webantwort.KundeZeileListServiceAntwort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(produces = "application/json", value = "/ws")
@@ -21,10 +24,15 @@ public class KundeWSController {
 
 
     @PostMapping("/addkunde")
-    public KundeServiceAntwort addKunde(@RequestBody KundeDTO kundeDTO) {
+    public KundeServiceAntwort addKunde(@RequestBody KundeDTO kundeDTO, @RequestHeader Map<String, String> headers) {
 
+        // loggen auf die Konsole:
+        Logger logger = LoggerFactory.getLogger(this.getClass());
         try {
             kundeService.save(kundeDTO);
+            headers.forEach((key, value) -> {
+                logger.info(key + ": " + value);
+            });
 
         } catch (Exception exception) {
             return new KundeServiceAntwort(false, exception.getMessage());

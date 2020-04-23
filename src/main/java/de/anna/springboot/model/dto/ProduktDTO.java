@@ -1,5 +1,6 @@
 package de.anna.springboot.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.anna.springboot.model.enums.ProduktArt;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ public class ProduktDTO {
 
     private ProduktArt produktArt;
 
+    @JsonIgnore
     private KundeDTO kundeDTO;
 
 
