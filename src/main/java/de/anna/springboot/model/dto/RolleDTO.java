@@ -1,5 +1,7 @@
 package de.anna.springboot.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 public class RolleDTO {
@@ -8,6 +10,7 @@ public class RolleDTO {
 
     private String name;
 
+    @JsonIgnore
     private KundeDTO kundeDTO;
 
     private Long kundeId;

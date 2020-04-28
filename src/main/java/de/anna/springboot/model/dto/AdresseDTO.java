@@ -1,5 +1,6 @@
 package de.anna.springboot.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.anna.springboot.model.enums.AdresseArt;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ public class AdresseDTO {
     private String strasse;
     private String hausNr;
     private AdresseArt adresseArt;
+    @JsonIgnore
     private KundeDTO kundeDTO;
 
 

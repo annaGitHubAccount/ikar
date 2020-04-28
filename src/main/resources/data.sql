@@ -53,3 +53,10 @@ insert into Rolle(id, name, KUNDE_ID) VALUES (9, 'Entwickler', 6);
 insert into Rolle_Stammdaten(id, name) VALUES (1, 'Scrum Master');
 insert into Rolle_Stammdaten(id, name) VALUES (2, 'Entwickler');
 insert into Rolle_Stammdaten(id, name) VALUES (3, 'Produkt Owner');
+
+insert into users(username, password, enabled) values('robert', '$2y$12$VDL36qc/EEBJF8nBDa0ejefecheX2t3DGPgv9.dv2PCVIFS/MofOm', true);
+insert into users(username, password, enabled) values('anna', '$2y$12$VDL36qc/EEBJF8nBDa0ejefecheX2t3DGPgv9.dv2PCVIFS/MofOm', true);
+
+insert into authorities(username, authority) values ('robert', 'ROLE_USER');
+insert into authorities(username, authority) values ('anna', 'ROLE_USER');
+insert into authorities(username, authority) values ('anna', 'ROLE_ADMIN');

@@ -62,12 +62,6 @@ public class KundeWebController {
     }
 
 
-    @GetMapping({"/", "/homepage"})
-    public String homePage() {
-
-        return "homePage";
-    }
-
 
     @GetMapping("/addkunde")
     public String kundeFormularZeigen(Model model, HttpServletRequest request) {
