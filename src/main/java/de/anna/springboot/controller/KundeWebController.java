@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,29 +83,33 @@ public class KundeWebController {
 
 
     @PostMapping("/kundeweiterleiten")
-    public String kundeWeiterleiten(Model model, @Valid @Validated @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation, HttpServletRequest request) {
+    public String kundeWeiterleiten(Model model, @Valid @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation, HttpServletRequest request) {
 
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         if (resultOfValidation.hasErrors()) {
 
+            setzenProduktStammdatenUndProduktenImKundeForm(kundeForm, request);
             model.addAttribute(KUNDE_FORM, kundeForm);
             return "addKunde";
 
         } else {
 
-            @SuppressWarnings("unchecked")
-            List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
-
-            @SuppressWarnings("unchecked")
-            List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
-
-            kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
-            kundeForm.setProduktList(produktListFromSession);
-
+            setzenProduktStammdatenUndProduktenImKundeForm(kundeForm, request);
             model.addAttribute(KUNDE_FORM, kundeForm);
             return "kundeWeiterleiten";
         }
+    }
+
+    private void setzenProduktStammdatenUndProduktenImKundeForm(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, HttpServletRequest request) {
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+
+        @SuppressWarnings("unchecked")
+        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+
+        kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
+        kundeForm.setProduktList(produktListFromSession);
     }
 
 

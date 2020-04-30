@@ -3,6 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
+<style>
+    .error {
+        color: red
+    }
+</style>
+
 <form:form method="post" modelAttribute="kundeSucheForm" action="/kundesucheform/findekunden">
 
     <fieldset>
@@ -11,40 +17,50 @@
         <table>
 
             <tr>
+                <td>
+                    <form:errors path="kundeNummer" cssClass="error"/>
+                </td>
+            </tr>
+            <tr>
                 <td>Kunde Nummer :</td>
                 <td>
                     <div class="ui input"><form:input path="kundeNummer"/></div>
                 </td>
 
-                <td>Steuer ID :</td>
+            <tr>
                 <td>
-                    <div class="ui input"><form:input path="steuerId"/></div>
+                    <form:errors path="steuerId" cssClass="error"/>
                 </td>
+            </tr>
+            <td>Steuer ID :</td>
+            <td>
+                <div class="ui input"><form:input path="steuerId"/></div>
+            </td>
 
-                <td>Nachname :</td>
-                <td>
-                    <div class="ui input"><form:input path="nachname"/></div>
-                </td>
-                <td></td>
+            <td>Nachname :</td>
+            <td>
+                <div class="ui input"><form:input path="nachname"/></div>
+            </td>
+            <td></td>
 
-                <td>KundeArt :</td>
-                <td>
-                    <form:select path="kundeArt">
-                        <form:option value="">--keine KundeArt--</form:option>
-                        <form:options cssClass="ui dropdown" items="${kundeSucheForm.kundeArtMap}"/>
-                    </form:select>
-                </td>
+            <td>KundeArt :</td>
+            <td>
+                <form:select path="kundeArt">
+                    <form:option value="">--keine KundeArt--</form:option>
+                    <form:options cssClass="ui dropdown" items="${kundeSucheForm.kundeArtMap}"/>
+                </form:select>
+            </td>
             </tr>
 
             <tr>
                 <td>Geburtsdatum ab:</td>
                 <td>
-                    <div class="ui input"><form:input path="geburtsdatumAB" id="datepickergeburtsdatumab"/></div>
+                    <div class="ui input"><form:input path="geburtsdatumAB" id="datepickergeburtsdatumab" autocomplete="false"/></div>
                 </td>
 
                 <td>Geburtsdatum bis:</td>
                 <td>
-                    <div class="ui input"><form:input path="geburtsdatumBIS" id="datepickergeburtsdatumbis"/></div>
+                    <div class="ui input"><form:input path="geburtsdatumBIS" id="datepickergeburtsdatumbis" autocomplete="false"/></div>
                 </td>
                 <td colspan="3"></td>
             </tr>
@@ -96,7 +112,7 @@
                 <td data-label="Steuer ID">${kunde.steuerId}</td>
                 <td data-label="Name">${kunde.name}</td>
                 <td data-label="Nachname">${kunde.nachname}</td>
-                <td data-label = "Rolle">${kunde.rolle}</td>
+                <td data-label="Rolle">${kunde.rolle}</td>
 
                 <fmt:parseDate value="${kunde.birthDate}" type="date" pattern="yyyy-MM-dd" var="parsedDate"/>
                 <fmt:formatDate value="${parsedDate}" var="formattedBirthDate" type="date" pattern="dd.MM.yyyy"/>
@@ -119,7 +135,7 @@
 
 <a href="${pageContext.request.contextPath}/kundesucheform/generatexmllistevonkunden">Generate XML Liste von Kunden</a>
 <br>
-<a href="${pageContext.request.contextPath}/kundesucheform/generatepdflistevonkunden">Generate PDF Liste von Kunden</a>
+<%--<a href="${pageContext.request.contextPath}/kundesucheform/generatepdflistevonkunden">Generate PDF Liste von Kunden</a>--%>
 
 <script>
 

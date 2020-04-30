@@ -10,5 +10,13 @@
         <put-attribute name="title" value="Forbitten" />
         <put-attribute name="body" value="/WEB-INF/jsp/403.jsp" />
     </definition>
+    <definition name="404" extends="base.definition">
+        <put-attribute name="title" value="Nicht gefunden" />
+        <put-attribute name="body" value="/WEB-INF/jsp/404.jsp" />
+    </definition>
+    <definition name="errors" extends="base.definition">
+        <put-attribute name="title" value="Unknown Error" />
+        <put-attribute name="body" value="/WEB-INF/jsp/errors.jsp" />
+    </definition>
 
 </tiles-definitions>

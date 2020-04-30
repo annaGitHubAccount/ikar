@@ -1,14 +1,17 @@
 package de.anna.springboot.model.form;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class KundeSucheForm {
 
-    //@Size(min = 3, max = 9, message = "{steuerId.mussMind3DigitsHaben}")
+    @Pattern(regexp = "(^$)|(^[0-9]{3,9}$)", message = "{steuerId.mussNummerSein}")
     private String steuerId;
 
-    private Long kundeNummer;
+    @Pattern(regexp = "^[0-9]{0,8}$", message = "{kundeNummer.mussNummerSein}")
+    private String kundeNummer;
 
     private String nachname;
 
@@ -69,11 +72,11 @@ public class KundeSucheForm {
         this.geburtsdatumBIS = geburtsdatumBIS;
     }
 
-    public Long getKundeNummer() {
+    public String getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(Long kundeNummer) {
+    public void setKundeNummer(String kundeNummer) {
         this.kundeNummer = kundeNummer;
     }
 }

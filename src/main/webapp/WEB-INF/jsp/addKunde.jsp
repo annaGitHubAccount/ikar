@@ -68,7 +68,7 @@
                                             <td>Geburtsdatum :</td>
                                             <td>
                                                 <div class="ui input"><form:input path="birthDate"
-                                                                                  id="datepickeraddkunde"/></div>
+                                                                                  id="datepickeraddkunde" autocomplete="false"/></div>
                                             </td>
                                             <td>
                                                 <form:errors path="birthDate" cssClass="error"/>

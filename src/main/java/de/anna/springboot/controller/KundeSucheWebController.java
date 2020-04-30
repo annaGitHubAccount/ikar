@@ -8,19 +8,21 @@ import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.util.DateUtils;
-//import org.apache.fop.apps.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.xml.sax.SAXException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -31,7 +33,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.*;
 import java.time.LocalDate;
@@ -84,42 +85,52 @@ public class KundeSucheWebController {
 
 
     @PostMapping("/findekunden")
-    public String findeKunden(KundeSucheForm kundeSucheForm, Model model, HttpServletRequest request) {
+    public String findeKunden(@ModelAttribute("kundeSucheForm") @Valid KundeSucheForm kundeSucheForm, BindingResult resultOfValidation, Model model, HttpServletRequest request) {
 
-        kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
+        if (resultOfValidation.hasErrors()) {
 
-        String steuerId = kundeSucheForm.getSteuerId();
-        String nachname = kundeSucheForm.getNachname();
-        String kundeArt = kundeSucheForm.getKundeArt();
-        String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
-        String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
-        Long kundeNummer = kundeSucheForm.getKundeNummer();
+            model.addAttribute("kundeSucheForm", kundeSucheForm);
+            return "listeVonKunden";
 
-        LocalDate geburtsdatumABlocalDate = null;
-        LocalDate geburtsdatumBISlocalDate = null;
+        } else {
 
-        if (geburtsdatumAB != null && !geburtsdatumAB.isEmpty()) {
-            geburtsdatumABlocalDate = DateUtils.stringToLocalDate(geburtsdatumAB);
+            kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
+
+            String steuerId = kundeSucheForm.getSteuerId();
+            String nachname = kundeSucheForm.getNachname();
+            String kundeArt = kundeSucheForm.getKundeArt();
+            String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
+            String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
+            String kundeNummer = kundeSucheForm.getKundeNummer();
+
+            LocalDate geburtsdatumABlocalDate = null;
+            LocalDate geburtsdatumBISlocalDate = null;
+
+            if (geburtsdatumAB != null && !geburtsdatumAB.isEmpty()) {
+                geburtsdatumABlocalDate = DateUtils.stringToLocalDate(geburtsdatumAB);
+            }
+
+            if (geburtsdatumBIS != null && !geburtsdatumBIS.isEmpty()) {
+                geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
+            }
+
+            Long kundeNummerLong = StringUtils.isEmpty(kundeNummer) ? null : Long.valueOf(kundeNummer);
+            List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummerLong, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+
+            request.getSession().setAttribute(KUNDE_LIST, kundeZeileDTOList);
+
+            model.addAttribute(KUNDE_LIST, kundeZeileDTOList);
+            model.addAttribute("kundeSucheForm", kundeSucheForm);
+
+            return "listeVonKunden";
         }
-
-        if (geburtsdatumBIS != null && !geburtsdatumBIS.isEmpty()) {
-            geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
-        }
-
-        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
-
-        request.getSession().setAttribute(KUNDE_LIST, kundeZeileDTOList);
-
-        model.addAttribute(KUNDE_LIST, kundeZeileDTOList);
-        model.addAttribute("kundeSucheForm", kundeSucheForm);
-
-        return "listeVonKunden";
     }
 
 
     @PostMapping("/generatexml")
     public void generateXML(KundeSucheForm kundeSucheForm, HttpServletResponse response) {
 
+        Long kundeNUmmerLong = null;
         kundeSucheForm.setKundeArtMap(KundeArt.convertKundeArtEnumToKodeTextMap());
 
         String steuerId = kundeSucheForm.getSteuerId();
@@ -127,7 +138,7 @@ public class KundeSucheWebController {
         String kundeArt = kundeSucheForm.getKundeArt();
         String geburtsdatumAB = kundeSucheForm.getGeburtsdatumAB();
         String geburtsdatumBIS = kundeSucheForm.getGeburtsdatumBIS();
-        Long kundeNummer = kundeSucheForm.getKundeNummer();
+        String kundeNummer = kundeSucheForm.getKundeNummer();
 
         LocalDate geburtsdatumABlocalDate = null;
         LocalDate geburtsdatumBISlocalDate = null;
@@ -140,7 +151,10 @@ public class KundeSucheWebController {
             geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
         }
 
-        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+        if (kundeNummer != null && !kundeNummer.equals("")) {
+            kundeNUmmerLong = Long.valueOf(kundeNummer);
+        }
+        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNUmmerLong, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
         KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundeZeileDTOList);
 
