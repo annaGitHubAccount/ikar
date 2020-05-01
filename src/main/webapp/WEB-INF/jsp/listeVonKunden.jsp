@@ -7,6 +7,16 @@
     .error {
         color: red
     }
+    .textGold{
+        color: gold;
+    }
+    .textSilber{
+        color: silver;
+    }
+    .textBronze{
+        color: brown;
+    }
+
 </style>
 
 <form:form method="post" modelAttribute="kundeSucheForm" action="/kundesucheform/findekunden">
@@ -118,7 +128,15 @@
                 <fmt:formatDate value="${parsedDate}" var="formattedBirthDate" type="date" pattern="dd.MM.yyyy"/>
                 <td data-label="Geburtsdatum">${formattedBirthDate}</td>
 
-                <td data-label="KundeArt">${kunde.kundeArt.text}</td>
+                <c:if test = "${kunde.kundeArt.text == 'Gold'}">
+                    <td class="textGold" data-label="KundeArt">${kunde.kundeArt.text}</td>
+                </c:if>
+                <c:if test = "${kunde.kundeArt.text == 'Silber'}">
+                    <td class=textSilber data-label="KundeArt">${kunde.kundeArt.text}</td>
+                </c:if>
+                <c:if test = "${kunde.kundeArt.text == 'Bronze'}">
+                    <td class=textBronze data-label="KundeArt">${kunde.kundeArt.text}</td>
+                </c:if>
 
                 <td data-label="Operation"><a href="/web/editkunde/${kunde.id}">Aendern</a></td>
                 <td data-label="Operation"><a href="/web/deletekunde/${kunde.id}">Loeschen</a></td>
