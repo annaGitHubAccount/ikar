@@ -50,7 +50,7 @@ public class KundeSucheWebController {
     private static final String KUNDE_LIST = "kundeList";
 
 
-    @GetMapping("/listevonkunden")
+    @RequestMapping("/listevonkunden")
     public String listeVonKunden(Model model, HttpServletRequest request) {
 
         KundeSucheForm kundeSucheForm = new KundeSucheForm();

@@ -237,6 +237,12 @@
                 </fieldset>
             </td>
         </tr>
+        <tr>
+            <td>
+                <br/>
+                <input type="button" value="Abbrechen" id="buttonAbbrechen" class="ui button" />
+            </td>
+        </tr>
 
 
     </table>
@@ -272,7 +278,7 @@
         buttonNachRechts.addEventListener("click", function () {
             document.forms[0].action = "/web/buttonnachrechts";
             document.forms[0].submit();
-        })
+        });
     }
 
     function bedieneButtonNachLinks() {
@@ -284,8 +290,18 @@
         });
     }
 
+    function bedieneButtonAbbrechen() {
+        var buttonAbbrechen = document.getElementById("buttonAbbrechen");
+
+        buttonAbbrechen.onclick = function () {
+            document.forms[0].action = "/kundesucheform/listevonkunden";
+            document.forms[0].submit();
+        };
+    }
+
     checkboxChange();
     bedienebuttonNachRechts();
     bedieneButtonNachLinks();
+    bedieneButtonAbbrechen();
 
 </script>
