@@ -108,6 +108,15 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Postleitzahl :</td>
+                                            <td>
+                                                <div class="ui input"><form:input path="postleitzahlVonMeldeanschrift"/></div>
+                                            </td>
+                                            <td>
+                                                <form:errors path="postleitzahlVonMeldeanschrift" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Strasse :</td>
                                             <td>
                                                 <div class="ui input"><form:input
@@ -156,6 +165,17 @@
                                             </td>
                                             <td>
                                                 <form:errors path="ortVonPostanschrift" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Postleitzahl :</td>
+                                            <td>
+                                                <div class="ui input"><form:input path="postleitzahlVonPostanschrift"
+                                                                                  id="postleitzahlVonPostanschriftID"
+                                                                                  disabled="true"/></div>
+                                            </td>
+                                            <td>
+                                                <form:errors path="postleitzahlVonPostanschrift" cssClass="error"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -260,11 +280,13 @@
             if (checkbox.checked) {
                 document.getElementById("landVonPostanschriftID").disabled = false;
                 document.getElementById("ortVonPostanschriftID").disabled = false;
+                document.getElementById("postleitzahlVonPostanschriftID").disabled = false;
                 document.getElementById("strasseVonPostanschriftID").disabled = false;
                 document.getElementById("hausNrVonPostanschriftID").disabled = false;
             } else {
                 document.getElementById("landVonPostanschriftID").disabled = true;
                 document.getElementById("ortVonPostanschriftID").disabled = true;
+                document.getElementById("postleitzahlVonPostanschriftID").disabled = true;
                 document.getElementById("strasseVonPostanschriftID").disabled = true;
                 document.getElementById("hausNrVonPostanschriftID").disabled = true;
             }

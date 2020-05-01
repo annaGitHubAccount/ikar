@@ -10,6 +10,7 @@ public class AdresseDTO {
     private Long id;
     private String land;
     private String ort;
+    private String postleitzahl;
     private String strasse;
     private String hausNr;
     private AdresseArt adresseArt;
@@ -91,5 +92,13 @@ public class AdresseDTO {
 
     public void setKundeDTO(KundeDTO kundeDTO) {
         this.kundeDTO = kundeDTO;
+    }
+
+    public String getPostleitzahl() {
+        return postleitzahl;
+    }
+
+    public void setPostleitzahl(String postleitzahl) {
+        this.postleitzahl = postleitzahl;
     }
 }

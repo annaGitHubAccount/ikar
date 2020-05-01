@@ -46,6 +46,10 @@
             <td>${kundeForm.ortVonMeldeanschrift}</td>
         </tr>
         <tr>
+            <td>Postleitzahl :</td>
+            <td>${kundeForm.postleitzahlVonMeldeanschrift}</td>
+        </tr>
+        <tr>
             <td>Strasse :</td>
             <td>${kundeForm.strasseVonMeldeanschrift}</td>
         </tr>
@@ -67,6 +71,10 @@
         <tr>
             <td>Ort :</td>
             <td>${kundeForm.ortVonPostanschrift}</td>
+        </tr>
+        <tr>
+            <td>Postleitzahl :</td>
+            <td>${kundeForm.postleitzahlVonPostanschrift}</td>
         </tr>
         <tr>
             <td>Strasse :</td>
@@ -111,11 +119,13 @@
 
     <form:hidden path="landVonMeldeanschrift"/>
     <form:hidden path="ortVonMeldeanschrift"/>
+    <form:hidden path="postleitzahlVonMeldeanschrift"/>
     <form:hidden path="strasseVonMeldeanschrift"/>
     <form:hidden path="hausNrVonMeldeanschrift"/>
 
     <form:hidden path="landVonPostanschrift"/>
     <form:hidden path="ortVonPostanschrift"/>
+    <form:hidden path="postleitzahlVonPostanschrift"/>
     <form:hidden path="strasseVonPostanschrift"/>
     <form:hidden path="hausNrVonPostanschrift"/>
 </form:form>

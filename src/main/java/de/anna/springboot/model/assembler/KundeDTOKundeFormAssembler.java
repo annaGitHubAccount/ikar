@@ -61,6 +61,7 @@ public final class KundeDTOKundeFormAssembler {
         AdresseDTO adresseVonMeldeanschrift = new AdresseDTO();
         adresseVonMeldeanschrift.setLand(kundeForm.getLandVonMeldeanschrift());
         adresseVonMeldeanschrift.setOrt(kundeForm.getOrtVonMeldeanschrift());
+        adresseVonMeldeanschrift.setPostleitzahl(kundeForm.getPostleitzahlVonMeldeanschrift());
         adresseVonMeldeanschrift.setStrasse(kundeForm.getStrasseVonMeldeanschrift());
         adresseVonMeldeanschrift.setHausNr(kundeForm.getHausNrVonMeldeanschrift());
         adresseVonMeldeanschrift.setAdresseArt(AdresseArt.MELDEANSCHRIFT);
@@ -70,6 +71,7 @@ public final class KundeDTOKundeFormAssembler {
             AdresseDTO adresseVonPostanschrift = new AdresseDTO();
             adresseVonPostanschrift.setLand(kundeForm.getLandVonPostanschrift());
             adresseVonPostanschrift.setOrt(kundeForm.getOrtVonPostanschrift());
+            adresseVonPostanschrift.setPostleitzahl(kundeForm.getPostleitzahlVonPostanschrift());
             adresseVonPostanschrift.setStrasse(kundeForm.getStrasseVonPostanschrift());
             adresseVonPostanschrift.setHausNr(kundeForm.getHausNrVonPostanschrift());
             adresseVonPostanschrift.setAdresseArt(AdresseArt.POSTANSCHRIFT);
@@ -114,6 +116,7 @@ public final class KundeDTOKundeFormAssembler {
             if (adresseDTO.getAdresseArt().getKode().equals("MA")) {
                 kundeForm.setLandVonMeldeanschrift(adresseDTO.getLand());
                 kundeForm.setOrtVonMeldeanschrift(adresseDTO.getOrt());
+                kundeForm.setPostleitzahlVonMeldeanschrift(adresseDTO.getPostleitzahl());
                 kundeForm.setStrasseVonMeldeanschrift(adresseDTO.getStrasse());
                 kundeForm.setHausNrVonMeldeanschrift(adresseDTO.getHausNr());
             }
@@ -121,6 +124,7 @@ public final class KundeDTOKundeFormAssembler {
             if (adresseDTO.getAdresseArt().getKode().equals("PA")) {
                 kundeForm.setLandVonPostanschrift(adresseDTO.getLand());
                 kundeForm.setOrtVonPostanschrift(adresseDTO.getLand());
+                kundeForm.setPostleitzahlVonPostanschrift(adresseDTO.getPostleitzahl());
                 kundeForm.setStrasseVonPostanschrift(adresseDTO.getStrasse());
                 kundeForm.setHausNrVonPostanschrift(adresseDTO.getHausNr());
             }

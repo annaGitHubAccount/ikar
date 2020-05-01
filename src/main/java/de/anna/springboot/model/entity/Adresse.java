@@ -20,6 +20,9 @@ public class Adresse {
     @Column(name = "ORT")
     private String ort;
 
+    @Column(name = "POSTLEITZAHL")
+    private String postleitzahl;
+
     @Column(name = "STRASSE")
     private String strasse;
 
@@ -109,5 +112,13 @@ public class Adresse {
 
     public void setHausNr(String hausNr) {
         this.hausNr = hausNr;
+    }
+
+    public String getPostleitzahl() {
+        return postleitzahl;
+    }
+
+    public void setPostleitzahl(String postleitzahl) {
+        this.postleitzahl = postleitzahl;
     }
 }

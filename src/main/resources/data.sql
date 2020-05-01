@@ -12,23 +12,23 @@ insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) v
 insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (5, 'P05', 'Produkt5', 1000, false, 'M');
 insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (6, 'P06', 'Produkt6', 1000, true, 'S');
 
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(1, 'Polska' ,'Warszawa', 'Solidarnosci', '54a', 'MA', 1);
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(2, 'Polska','Rzeszow', 'Siemiradzkiego', '76', 'PA', 1);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(1, 'Polska' ,'Warszawa', '21458', 'Solidarnosci', '54a', 'MA', 1);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(2, 'Polska','Rzeszow', '45632', 'Siemiradzkiego', '76', 'PA', 1);
 
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(3, 'Deutschland', 'Nürnberg', 'Lange Str.', '11b', 'MA', 2);
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(4, 'Deutschland', 'München', 'Kurze Str.', '13', 'PA', 2);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(3, 'Deutschland', 'Nürnberg', '45987','Lange Str.', '11b', 'MA', 2);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(4, 'Deutschland', 'München', '12589', 'Kurze Str.', '13', 'PA', 2);
 
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(5, 'Polska', 'Warszawa', 'Wojska Polskiego', '11', 'MA', 3);
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(6, 'Polska', 'Krakow', 'Nowotki', '13', 'PA', 3);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(5, 'Polska', 'Warszawa', '32586', 'Wojska Polskiego', '11', 'MA', 3);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(6, 'Polska', 'Krakow', '05479', 'Nowotki', '13', 'PA', 3);
 
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(7, 'Deutschland', 'Frankfurt', 'Bahnhof Str.', '13', 'MA', 4);
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(8, 'Deutschland', 'Frankfurt', 'Bahnhof Str.', '13', 'PA', 4);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(7, 'Deutschland', 'Frankfurt', '75896', 'Bahnhof Str.', '13', 'MA', 4);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(8, 'Deutschland', 'Frankfurt', '25896', 'Bahnhof Str.', '13', 'PA', 4);
 
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(9, 'Polska', 'Warszawa', 'Chelmonskiego', '21', 'MA', 5);
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(10, 'Polska', 'Warszawa', 'Chelmonskiego', '21', 'PA', 5);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(9, 'Polska', 'Warszawa', '45836', 'Chelmonskiego', '21', 'MA', 5);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(10, 'Polska', 'Warszawa', '65896', 'Chelmonskiego', '21', 'PA', 5);
 
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(11, 'Deutschland', 'München', 'Blumen Str.', '4', 'MA', 6);
-insert into Adresse(ID, LAND, ORT, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(12, 'Deutschland', 'München', 'Blumen Str.', '4', 'PA', 6);
+insert into Adresse(ID, LAND, ORT, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(11, 'Deutschland', 'München', '58741', 'Blumen Str.', '4', 'MA', 6);
+insert into Adresse(ID, LAND, ORT,  POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(12, 'Deutschland', 'München', '96325', 'Blumen Str.', '4', 'PA', 6);
 
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES (1, 'PO1', 'Produkt1', 100, true, 'L', 1);
 insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES (2, 'PO2', 'Produkt2', 250, true, 'S', 1);

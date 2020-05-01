@@ -49,6 +49,7 @@ create table Adresse
     id       long primary key auto_increment not null,
     LAND VARCHAR(50) NOT NULL,
     ORT VARCHAR(50) NOT NULL,
+    POSTLEITZAHL VARCHAR(5) NOT NULL,
     STRASSE VARCHAR2(50) NOT NULL,
     HAUS_NR VARCHAR(10) NOT NULL,
     KUNDE_ID NUMBER(10) NOT NULL,

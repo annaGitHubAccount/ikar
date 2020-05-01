@@ -47,6 +47,11 @@ public class KundeForm {
 
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
+    @Pattern(regexp = "[0-9]{5}", message = "{postleitzahlVonMeldeanschrift.muss5Zifferhaben}")
+    private String postleitzahlVonMeldeanschrift;
+
+    @NotNull(message = "{feld.isErfordelich}")
+    @NotEmpty(message = "{feld.isErfordelich}")
     private String strasseVonMeldeanschrift;
 
     @NotNull(message = "{feld.isErfordelich}")
@@ -55,6 +60,7 @@ public class KundeForm {
 
     private String landVonPostanschrift;
     private String ortVonPostanschrift;
+    private String postleitzahlVonPostanschrift;
     private String strasseVonPostanschrift;
     private String hausNrVonPostanschrift;
 
@@ -282,5 +288,21 @@ public class KundeForm {
 
     public void setRolleStammdatenGewaehlteList(List<String> rolleStammdatenGewaehlteList) {
         this.rolleStammdatenGewaehlteList = rolleStammdatenGewaehlteList;
+    }
+
+    public String getPostleitzahlVonMeldeanschrift() {
+        return postleitzahlVonMeldeanschrift;
+    }
+
+    public void setPostleitzahlVonMeldeanschrift(String postleitzahlVonMeldeanschrift) {
+        this.postleitzahlVonMeldeanschrift = postleitzahlVonMeldeanschrift;
+    }
+
+    public String getPostleitzahlVonPostanschrift() {
+        return postleitzahlVonPostanschrift;
+    }
+
+    public void setPostleitzahlVonPostanschrift(String postleitzahlVonPostanschrift) {
+        this.postleitzahlVonPostanschrift = postleitzahlVonPostanschrift;
     }
 }
