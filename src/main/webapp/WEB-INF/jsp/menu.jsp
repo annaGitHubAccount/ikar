@@ -10,7 +10,7 @@
     <li><a href="${pageContext.request.contextPath}/kundesucheform/listevonkunden">Liste von Kunden</a></li>
     <br>
     <li><a href="${pageContext.request.contextPath}/web/addproduktstammdaten">Fuege neuen Produktstammdaten hinzu</a></li>
-    <li><a href="${pageContext.request.contextPath}/web/produktstammdatenlist">Liste von Produktstammdaten</a></li>
+    <li><a href="${pageContext.request.contextPath}/produktstammdatensucheform/produktstammdatenlist">Liste von Produktstammdaten</a></li>
     <br>
     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 

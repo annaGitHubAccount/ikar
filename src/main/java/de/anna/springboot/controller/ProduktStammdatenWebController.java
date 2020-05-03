@@ -71,15 +71,6 @@ public class ProduktStammdatenWebController {
         return "produktStammdatenList";
     }
 
-    @GetMapping("/produktstammdatenlist")
-    public String produktStammdatenListZeigen(Model model) {
-
-        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
-        model.addAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenDTOList);
-
-        return "produktStammdatenList";
-    }
-
     @GetMapping("/editproduktstammdaten/{id}")
     public String editProduktStammdaten(@PathVariable Long id, Model model) {
 

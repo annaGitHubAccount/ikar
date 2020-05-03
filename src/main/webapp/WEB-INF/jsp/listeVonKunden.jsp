@@ -27,31 +27,22 @@
         <table>
 
             <tr>
-                <td>
-                    <form:errors path="kundeNummer" cssClass="error"/>
-                </td>
+                <td></td>
+                <td><form:errors path="kundeNummer" cssClass="error"/></td>
+                <td></td>
+                <td><form:errors path="steuerId" cssClass="error"/></td>
             </tr>
             <tr>
                 <td>Kunde Nummer :</td>
-                <td>
-                    <div class="ui input"><form:input path="kundeNummer"/></div>
-                </td>
+                <td><div class="ui input"><form:input path="kundeNummer"/></div></td>
+
+                <td>Steuer ID :</td>
+                <td><div class="ui input"><form:input path="steuerId"/></div></td>
+            <tr>
 
             <tr>
-                <td>
-                    <form:errors path="steuerId" cssClass="error"/>
-                </td>
-            </tr>
-            <td>Steuer ID :</td>
-            <td>
-                <div class="ui input"><form:input path="steuerId"/></div>
-            </td>
-
             <td>Nachname :</td>
-            <td>
-                <div class="ui input"><form:input path="nachname"/></div>
-            </td>
-            <td></td>
+            <td><div class="ui input"><form:input path="nachname"/></div></td>
 
             <td>KundeArt :</td>
             <td>

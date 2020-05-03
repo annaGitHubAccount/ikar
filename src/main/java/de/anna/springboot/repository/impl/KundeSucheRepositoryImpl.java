@@ -4,6 +4,7 @@ import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.repository.KundeSucheRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,21 +38,21 @@ public class KundeSucheRepositoryImpl implements KundeSucheRepository {
             predicateList.add(kundeNummerPredicate);
         }
 
-        if (steuerId != null && !steuerId.isEmpty()) {
+        if (!StringUtils.isEmpty(steuerId)) {
 
             String steuerIdReplace = steuerId.replace('*', '%');
             Predicate steuerIdPredicate = criteriaBuilder.like(kundeRoot.get("steuerId"), "%" + steuerIdReplace + "%");
             predicateList.add(steuerIdPredicate);
         }
 
-        if(nachname != null && !nachname.isEmpty()){
+        if(!StringUtils.isEmpty(nachname)){
 
             String nachnameReplace = nachname.replace('*', '%');
             Predicate nachnamePredicate = criteriaBuilder.like(kundeRoot.get("nachname"), "%" + nachnameReplace + "%");
             predicateList.add(nachnamePredicate);
         }
 
-        if(kundeArt != null && !kundeArt.isEmpty()){
+        if(!StringUtils.isEmpty(kundeArt)){
 
             KundeArt kundeArtEnum = KundeArt.convertToKundeArtByCode(kundeArt);
             Predicate kundeArtPredicate = criteriaBuilder.equal(kundeRoot.get("kundeArt"), kundeArtEnum);

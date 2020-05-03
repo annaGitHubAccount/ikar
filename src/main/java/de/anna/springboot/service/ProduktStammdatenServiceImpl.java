@@ -5,10 +5,12 @@ import de.anna.springboot.model.assembler.ProduktStammdatenProductStammdatenDTOA
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.entity.ProduktStammdaten;
 import de.anna.springboot.repository.ProduktStammdatenRepository;
+import de.anna.springboot.repository.ProduktstammdatenSucheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +21,9 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
 
     @Autowired
     ProduktStammdatenRepository produktStammdatenRepository;
+
+    @Autowired
+    ProduktstammdatenSucheRepository produktstammdatenSucheRepository;
 
 
     @Override
@@ -87,6 +92,19 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
         List<ProduktStammdaten> produktStammdatenByNameList = produktStammdatenRepository.findProduktStammdatenByName(name);
 
         return produktStammdatenByNameList.stream()
+                .map(produktStammdaten -> {
+                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
+                    return produktStammdatenDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProduktStammdatenDTO> findProduktStammdaten(String name, BigDecimal preisAB, BigDecimal preisBIS, String symbol, Boolean aktiv) {
+
+        List<ProduktStammdaten> produktStammdatenList = produktstammdatenSucheRepository.findProduktStammdaten(name, preisAB, preisBIS, symbol, aktiv);
+
+        return produktStammdatenList.stream()
                 .map(produktStammdaten -> {
                     ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
                     return produktStammdatenDTO;

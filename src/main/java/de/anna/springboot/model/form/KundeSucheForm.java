@@ -1,7 +1,6 @@
 package de.anna.springboot.model.form;
 
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -27,14 +27,9 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -106,11 +101,11 @@ public class KundeSucheWebController {
             LocalDate geburtsdatumABlocalDate = null;
             LocalDate geburtsdatumBISlocalDate = null;
 
-            if (geburtsdatumAB != null && !geburtsdatumAB.isEmpty()) {
+            if (!StringUtils.isEmpty(geburtsdatumAB)) {
                 geburtsdatumABlocalDate = DateUtils.stringToLocalDate(geburtsdatumAB);
             }
 
-            if (geburtsdatumBIS != null && !geburtsdatumBIS.isEmpty()) {
+            if (!StringUtils.isEmpty(geburtsdatumBIS)) {
                 geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
             }
 
