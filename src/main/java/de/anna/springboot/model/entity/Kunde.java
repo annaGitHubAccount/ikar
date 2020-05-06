@@ -12,10 +12,11 @@ public class Kunde {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "KundeGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "KundeGenerator", sequenceName = "kunde_id_seq", allocationSize = 1)
     private Long id;
 
-    private Long kundeNummer;
+    private String kundeNummer;
 
     private String steuerId;
 
@@ -118,11 +119,11 @@ public class Kunde {
         this.produktList = produktList;
     }
 
-    public Long getKundeNummer() {
+    public String getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(Long kundeNummer) {
+    public void setKundeNummer(String kundeNummer) {
         this.kundeNummer = kundeNummer;
     }
 

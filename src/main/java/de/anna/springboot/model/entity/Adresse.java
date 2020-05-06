@@ -10,7 +10,7 @@ public class Adresse {
 
     @Id
     @GeneratedValue(generator = "AdresseGenerator", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "AdresseGenerator", sequenceName = "ADRESSE_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "AdresseGenerator", sequenceName = "adresse_id_seq", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 

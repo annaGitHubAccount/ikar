@@ -7,7 +7,8 @@ import java.util.Objects;
 public class Rolle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "RolleGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "RolleGenerator", sequenceName = "rolle_id_seq", allocationSize = 1)
     private Long id;
 
     private String name;

@@ -8,7 +8,7 @@ public class KundeZeileDTO {
 
     private Long id;
 
-    private Long kundeNummer;
+    private String kundeNummer;
 
     private String steuerId;
 
@@ -74,11 +74,11 @@ public class KundeZeileDTO {
         this.kundeArt = kundeArt;
     }
 
-    public Long getKundeNummer() {
+    public String getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(Long kundeNummer) {
+    public void setKundeNummer(String kundeNummer) {
         this.kundeNummer = kundeNummer;
     }
 

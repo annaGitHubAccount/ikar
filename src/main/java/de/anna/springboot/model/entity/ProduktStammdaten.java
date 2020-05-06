@@ -12,7 +12,8 @@ public class ProduktStammdaten {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "ProduktStammdatenGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ProduktStammdatenGenerator", sequenceName = "produkt_stammdaten_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "SYMBOL")

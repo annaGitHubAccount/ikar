@@ -10,7 +10,8 @@ import java.util.Objects;
 public class Produkt {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "ProduktGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ProduktGenerator", sequenceName = "produkt_id_seq", allocationSize = 1)
     private Long id;
 
     private String symbol;

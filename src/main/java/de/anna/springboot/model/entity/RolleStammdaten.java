@@ -7,7 +7,8 @@ import java.util.Objects;
 public class RolleStammdaten {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "RolleStammdatenGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "RolleStammdatenGenerator", sequenceName = "rolle_stammdaten_id_seq", allocationSize = 1)
     private Long id;
 
     private String name;

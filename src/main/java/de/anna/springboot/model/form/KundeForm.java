@@ -16,7 +16,7 @@ public class KundeForm {
 
     private Long id;
 
-    private Long kundeNummer;
+    private String kundeNummer;
 
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
@@ -242,11 +242,11 @@ public class KundeForm {
         this.produktGewaehlteList = produktGewaehlteList;
     }
 
-    public Long getKundeNummer() {
+    public String getKundeNummer() {
         return kundeNummer;
     }
 
-    public void setKundeNummer(Long kundeNummer) {
+    public void setKundeNummer(String kundeNummer) {
         this.kundeNummer = kundeNummer;
     }
 

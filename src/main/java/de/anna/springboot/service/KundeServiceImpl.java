@@ -11,6 +11,8 @@ import de.anna.springboot.repository.KundeRepository;
 import de.anna.springboot.repository.KundeSucheRepository;
 import de.anna.springboot.repository.ProduktRepository;
 import de.anna.springboot.repository.RolleRepository;
+import de.anna.springboot.util.KundeNummerUtils;
+import de.anna.springboot.util.MathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,9 @@ public class KundeServiceImpl implements KundeService {
         if (kundeDTO.getId() == null) {
 
             Kunde kunde = KundeKundeDTOAssembler.mapKundeDTOToKunde(kundeDTO, new Kunde());
+            Long kundeNummerSequence = kundeRepository.getKundeNummerSequence();
+            String kundeNummerAlsString = KundeNummerUtils.generateKundeNummerAlsString(kundeNummerSequence);
+            kunde.setKundeNummer(kundeNummerAlsString);
             kundeRepository.save(kunde);
 
         } else {
