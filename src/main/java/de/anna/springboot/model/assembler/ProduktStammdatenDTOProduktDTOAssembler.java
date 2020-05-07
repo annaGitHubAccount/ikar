@@ -13,7 +13,7 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
     }
 
 
-    public static ProduktDTO convertProduktStammdatenDTOToProduktDTO(ProduktStammdatenDTO produktStammdatenDTO){
+    private static ProduktDTO convertProduktStammdatenDTOToProduktDTO(ProduktStammdatenDTO produktStammdatenDTO){
 
         ProduktDTO produktDTO = new ProduktDTO();
 

@@ -13,9 +13,9 @@
     <li><a href="${pageContext.request.contextPath}/produktstammdatensucheform/produktstammdatenlist">Liste von Produktstammdaten</a></li>
     <br>
 
-    <li style="color: darkblue">Statistiken
+    <li style="color: #4183C4">Statistiken
         <ul>
-            <li><a href="${pageContext.request.contextPath}/web/kundeStatistik">Kundezahl pro Land</a></li>
+            <li><a href="${pageContext.request.contextPath}/web/findanzahlvonkundenimland">Kunden Statistiken</a></li>
         </ul>
     </li>
 
