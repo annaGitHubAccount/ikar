@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface KundeRepository extends CrudRepository<Kunde, Long> {
 
-    List<Kunde> findKundeByNachname(String nacrudhname);
+    List<Kunde> findKundeByNachname(String nachname);
 
     @Query(value = "SELECT nextval('kunde_nummer_seq')", nativeQuery = true)
     Long getKundeNummerSequence();

@@ -27,7 +27,8 @@ public class TilesConfig {
                 "/WEB-INF/tiles/kunde.xml",
                 "/WEB-INF/tiles/produktStammdaten.xml",
                 "/WEB-INF/tiles/rolle.xml",
-                "/WEB-INF/tiles/httpStatus.xml");
+                "/WEB-INF/tiles/httpStatus.xml",
+                "/WEB-INF/tiles/statistik.xml");
 
         return tilesConfigurer;
     }

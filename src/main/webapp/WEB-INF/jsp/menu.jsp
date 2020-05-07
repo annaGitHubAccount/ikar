@@ -12,6 +12,14 @@
     <li><a href="${pageContext.request.contextPath}/web/addproduktstammdaten">Fuege neuen Produktstammdaten hinzu</a></li>
     <li><a href="${pageContext.request.contextPath}/produktstammdatensucheform/produktstammdatenlist">Liste von Produktstammdaten</a></li>
     <br>
+
+    <li style="color: darkblue">Statistiken
+        <ul>
+            <li><a href="${pageContext.request.contextPath}/web/kundeStatistik">Kundezahl pro Land</a></li>
+        </ul>
+    </li>
+
+    <br>
     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 
 </div>
