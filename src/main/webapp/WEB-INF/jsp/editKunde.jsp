@@ -78,7 +78,10 @@
                                         <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="landVonMeldeanschrift"/></div>
+                                                <form:select path="landVonMeldeanschrift">
+                                                    <form:option value="" label="Waehle ein Land"/>
+                                                    <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
+                                                </form:select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -128,7 +131,10 @@
                                         <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="landVonPostanschrift"/></div>
+                                                <form:select path="landVonPostanschrift">
+                                                    <form:option value="" label="Waehle ein Land"/>
+                                                    <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
+                                                </form:select>
                                             </td>
                                         </tr>
                                         <tr>

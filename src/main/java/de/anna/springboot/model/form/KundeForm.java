@@ -1,5 +1,6 @@
 package de.anna.springboot.model.form;
 
+import de.anna.springboot.model.dto.LandDTO;
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.RolleDTO;
 
@@ -41,6 +42,8 @@ public class KundeForm {
     @NotEmpty(message = "{feld.isErfordelich}")
     private String landVonMeldeanschrift;
 
+    private String landVonMeldeanschriftName;
+
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
     private String ortVonMeldeanschrift;
@@ -59,6 +62,7 @@ public class KundeForm {
     private String hausNrVonMeldeanschrift;
 
     private String landVonPostanschrift;
+    private String landVonPostanschriftName;
     private String ortVonPostanschrift;
     private String postleitzahlVonPostanschrift;
     private String strasseVonPostanschrift;
@@ -79,6 +83,8 @@ public class KundeForm {
     private String rolle;
 
     private Long kundeId;
+
+    private List<LandDTO> landDTOList = new ArrayList<>();
 
 
 
@@ -304,5 +310,29 @@ public class KundeForm {
 
     public void setPostleitzahlVonPostanschrift(String postleitzahlVonPostanschrift) {
         this.postleitzahlVonPostanschrift = postleitzahlVonPostanschrift;
+    }
+
+    public List<LandDTO> getLandDTOList() {
+        return landDTOList;
+    }
+
+    public void setLandDTOList(List<LandDTO> landDTOList) {
+        this.landDTOList = landDTOList;
+    }
+
+    public String getLandVonMeldeanschriftName() {
+        return landVonMeldeanschriftName;
+    }
+
+    public void setLandVonMeldeanschriftName(String landVonMeldeanschriftName) {
+        this.landVonMeldeanschriftName = landVonMeldeanschriftName;
+    }
+
+    public String getLandVonPostanschriftName() {
+        return landVonPostanschriftName;
+    }
+
+    public void setLandVonPostanschriftName(String landVonPostanschriftName) {
+        this.landVonPostanschriftName = landVonPostanschriftName;
     }
 }

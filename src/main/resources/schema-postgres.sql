@@ -73,6 +73,14 @@ create table if not exists Rolle_Stammdaten
   CONSTRAINT Rolle_Stammdaten_PK PRIMARY KEY(ID)
 );
 
+create table if not exists Land
+(
+    id INTEGER,
+    symbol varchar(3),
+    name varchar(50),
+    CONSTRAINT Land_PK PRIMARY KEY (ID)
+);
+
 create table if not exists users(
 	username varchar(50) not null primary key,
 	password varchar(100) not null,

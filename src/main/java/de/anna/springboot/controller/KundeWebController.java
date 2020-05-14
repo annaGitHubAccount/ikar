@@ -5,13 +5,12 @@ import de.anna.springboot.controller.helper.ButtonNachRechtsHelperVonProdukt;
 import de.anna.springboot.controller.helper.RolleDTOHelper;
 import de.anna.springboot.model.assembler.KundeDTOKundeFormAssembler;
 import de.anna.springboot.model.assembler.ProduktStammdatenDTOProduktDTOAssembler;
-import de.anna.springboot.model.dto.KundeDTO;
-import de.anna.springboot.model.dto.ProduktDTO;
-import de.anna.springboot.model.dto.ProduktStammdatenDTO;
+import de.anna.springboot.model.dto.*;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
 import de.anna.springboot.service.KundeService;
+import de.anna.springboot.service.LandService;
 import de.anna.springboot.service.ProduktStammdatenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-// jede Methode muss immer alle Daten, die ich zeigen möchte, enthalten !!!! Daten leite ich in Model weiter!!!
 
 @Controller
 @RequestMapping("/web")
@@ -52,7 +50,10 @@ public class KundeWebController {
     private ButtonNachLinksHelperVonProdukt buttonNachLinksHelperVonProdukt;
 
     @Autowired
-    RolleDTOHelper rolleDTOHelper;
+    private RolleDTOHelper rolleDTOHelper;
+
+    @Autowired
+    private LandService landService;
 
 
     @InitBinder
@@ -69,9 +70,11 @@ public class KundeWebController {
 
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
         List<ProduktDTO> produktStammdatenToProduktDTOList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
+        List<LandDTO> landDTOList = landService.findAll();
 
         kundeForm.setProduktStammdatenList(produktStammdatenToProduktDTOList);
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
+        kundeForm.setLandDTOList(landDTOList);
 
         request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenToProduktDTOList);
         request.getSession().setAttribute(PRODUKT_LIST, new ArrayList<>());
@@ -86,6 +89,13 @@ public class KundeWebController {
     public String kundeWeiterleiten(Model model, @Valid @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation, HttpServletRequest request) {
 
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
+
+        LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
+        kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
+        LandDTO landDTOPostanschrift = landService.findLandBySymbol(kundeForm.getLandVonPostanschrift());
+        kundeForm.setLandVonPostanschriftName(landDTOPostanschrift.getName());
+        List<LandDTO> landDTOList = landService.findAll();
+        kundeForm.setLandDTOList(landDTOList);
 
         if (resultOfValidation.hasErrors()) {
 
@@ -116,6 +126,8 @@ public class KundeWebController {
     @PostMapping("/buttonnachrechts")
     public String bedienebuttonNachRechts(Model model, KundeForm kundeForm, HttpServletRequest request) {
 
+        List<LandDTO> landDTOList = landService.findAll();
+
         @SuppressWarnings("unchecked")
         List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
 
@@ -135,6 +147,7 @@ public class KundeWebController {
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenListUpdated);
         kundeForm.setProduktList(produktListFromSession);
+        kundeForm.setLandDTOList(landDTOList);
 
         request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListUpdated);
         request.getSession().setAttribute(PRODUKT_LIST, produktListFromSession);
@@ -151,6 +164,8 @@ public class KundeWebController {
 
     @PostMapping("/buttonnachlinks")
     public String bedienebuttonNachLinks(Model model, KundeForm kundeForm, HttpServletRequest request) {
+
+        List<LandDTO> landDTOList = landService.findAll();
 
         @SuppressWarnings("unchecked")
         List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
@@ -169,6 +184,7 @@ public class KundeWebController {
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
         kundeForm.setProduktList(produktDTOListUpdated);
+        kundeForm.setLandDTOList(landDTOList);
 
         request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListFromSession);
         request.getSession().setAttribute(PRODUKT_LIST, produktDTOListUpdated);
@@ -213,6 +229,9 @@ public class KundeWebController {
 
         KundeForm kundeForm = KundeDTOKundeFormAssembler.mapKundeDTOToKundeForm(kundeDTOById);
 
+        List<LandDTO> landDTOList = landService.findAll();
+        kundeForm.setLandDTOList(landDTOList);
+
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenList);
 
@@ -233,6 +252,13 @@ public class KundeWebController {
 
         @SuppressWarnings("unchecked")
         List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+
+        LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
+        kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
+        LandDTO landDTOPostanschrift = landService.findLandBySymbol(kundeForm.getLandVonPostanschrift());
+        kundeForm.setLandVonPostanschriftName(landDTOPostanschrift.getName());
+        List<LandDTO> landDTOList = landService.findAll();
+        kundeForm.setLandDTOList(landDTOList);
 
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);

@@ -92,7 +92,10 @@
                                         <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="landVonMeldeanschrift"/></div>
+                                                <form:select path="landVonMeldeanschrift">
+                                                    <form:option value="" label="Waehle ein Land"/>
+                                                    <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
+                                                </form:select>
                                             </td>
                                             <td>
                                                 <form:errors path="landVonMeldeanschrift" cssClass="error"/>
@@ -148,9 +151,10 @@
                                         <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="landVonPostanschrift"
-                                                                                  id="landVonPostanschriftID"
-                                                                                  disabled="true"/></div>
+                                                <form:select path="landVonPostanschrift" id="landVonPostanschriftID" disabled="true">
+                                                    <form:option value="0" label="Waehle ein Land"/>
+                                                    <form:options items="${kundeForm.landDTOList}" itemLabel="name" itemValue="symbol"/>
+                                                </form:select>
                                             </td>
                                             <td>
                                                 <form:errors path="landVonPostanschrift" cssClass="error"/>

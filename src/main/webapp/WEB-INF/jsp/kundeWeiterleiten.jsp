@@ -3,7 +3,6 @@
 
 <h1>Wollen Sie wirklich die Daten von dem Kunden speichern?</h1>
 
-<form:form method="post" modelAttribute="kundeForm" action="/web/savekunde">
     <table>
         <tr>
             <td>Steuer ID :</td>
@@ -38,7 +37,7 @@
         </tr>
         <tr>
             <td>Land :</td>
-            <td>${kundeForm.landVonMeldeanschrift}</td>
+            <td>${kundeForm.landVonMeldeanschriftName}</td>
         </tr>
         <tr>
             <td>Ort :</td>
@@ -65,7 +64,7 @@
         </tr>
         <tr>
             <td>Land :</td>
-            <td>${kundeForm.landVonPostanschrift}</td>
+            <td>${kundeForm.landVonPostanschriftName}</td>
         </tr>
         <tr>
             <td>Ort :</td>
@@ -107,6 +106,8 @@
             <td colspan="2"><input type="submit" value="Save" class="ui button"/></td>
         </tr>
     </table>
+
+<form:form method="post" modelAttribute="kundeForm" action="/web/savekunde">
 
     <form:hidden path="name"/>
     <form:hidden path="nachname"/>
