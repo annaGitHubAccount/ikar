@@ -236,7 +236,7 @@
                         <tr>
                             <td><form:select path="produktStammdatenGewaehlteList" multiple="true"
                                              items="${kundeForm.produktStammdatenList}" itemValue="symbol"
-                                             itemLabel="name" size="6"/></td>
+                                             itemLabel="name" size="6" id="produktStammdaten"/></td>
                             <td>
                                 <input type="button" value=">>" id="buttonNachRechts" class="ui button"/>
 
@@ -248,7 +248,7 @@
                             </td>
                             <td><form:select path="produktGewaehlteList" multiple="true"
                                              items="${kundeForm.produktList}"
-                                             itemValue="symbol" itemLabel="name" size="6"/></td>
+                                             itemValue="symbol" itemLabel="name" size="6" id="produkten"/></td>
                         </tr>
 
                         <tr>
@@ -299,7 +299,15 @@
 
 
     function bedienebuttonNachRechts() {
-        var buttonNachRechts = document.getElementById("buttonNachRechts");
+
+        let buttonNachRechts = document.getElementById("buttonNachRechts");
+
+        let produktStammdatenSelect = document.getElementById("produktStammdaten");
+        let produktStammdatenOptions = produktStammdatenSelect.options;
+
+        let produktenSelect = document.getElementById("produkten");
+
+        let selectedProduktStammdatenMap = new Map();
 
         buttonNachRechts.addEventListener("click", function () {
             document.forms[0].action = "/web/buttonnachrechts";
@@ -308,11 +316,37 @@
     }
 
     function bedieneButtonNachLinks() {
+
         var buttonNachLinks = document.getElementById("buttonNachLinks");
 
+        let produktenSelect = document.getElementById("produkten");
+        let produktenOptions = produktenSelect.options;
+
+        let produktStammdatenSelect = document.getElementById("produktStammdaten");
+
+        let selectedProduktMap = new Map();
+
         buttonNachLinks.addEventListener("click", function () {
-            document.forms[0].action = "/web/buttonnachlinks";
-            document.forms[0].submit();
+
+            for(let i = 0; i < produktenOptions.length; i++){
+                let produktenOption = produktenOptions[i];
+                if(produktenOption.selected){
+                    selectedProduktMap.set(produktenOption.value, produktenOption.text);
+                    produktenSelect.removeChild(produktenOptions[i]);
+                    i--; // // options have now less element, then decrease i
+                }
+            }
+
+            // Map iteration
+            for(let [key, value] of selectedProduktMap) {
+                let htmlOptionElement = document.createElement("option");
+                htmlOptionElement.value = key;
+                htmlOptionElement.innerHTML = value;
+                produktStammdatenSelect.appendChild(htmlOptionElement);
+            }
+
+            selectedProduktMap.clear();
+
         });
     }
 
