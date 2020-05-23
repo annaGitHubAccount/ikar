@@ -1,8 +1,6 @@
 package de.anna.springboot.model.form;
 
-import de.anna.springboot.model.dto.LandDTO;
-import de.anna.springboot.model.dto.ProduktDTO;
-import de.anna.springboot.model.dto.RolleDTO;
+import de.anna.springboot.model.dto.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -44,6 +42,8 @@ public class KundeForm {
 
     private String landVonMeldeanschriftName;
 
+    private String bundeslandVonMeldeanschrift;
+
     @NotNull(message = "{feld.isErfordelich}")
     @NotEmpty(message = "{feld.isErfordelich}")
     private String ortVonMeldeanschrift;
@@ -63,16 +63,15 @@ public class KundeForm {
 
     private String landVonPostanschrift;
     private String landVonPostanschriftName;
+    private String bundeslandVonPostanschrift;
     private String ortVonPostanschrift;
     private String postleitzahlVonPostanschrift;
     private String strasseVonPostanschrift;
     private String hausNrVonPostanschrift;
 
-    private List<ProduktDTO> produktStammdatenList = new ArrayList<>();
-    private List<String> produktStammdatenGewaehlteList = new ArrayList<>();
+    private List<String> produktStammdatenList = new ArrayList<>();
 
-    private List<ProduktDTO> produktList = new ArrayList<>();
-    private List<String> produktGewaehlteList = new ArrayList<>();
+    private List<String> produktList = new ArrayList<>();
 
     private List<RolleDTO> rolleStammdatenList = new ArrayList<>();
     private List<String> rolleStammdatenGewaehlteList = new ArrayList<>();
@@ -86,6 +85,15 @@ public class KundeForm {
 
     private List<LandDTO> landDTOList = new ArrayList<>();
 
+    private List<BundeslandDTO> bundeslandDTOList = new ArrayList<>();
+
+    private List<OrtDTO> ortDTOList = new ArrayList<>();
+
+    private List<LandDTO> landDTOListPostanschrift = new ArrayList<>();
+
+    private List<BundeslandDTO> bundeslandDTOListPostanschrift = new ArrayList<>();
+
+    private List<OrtDTO> ortDTOListPostanschrift = new ArrayList<>();
 
 
     public Long getKundeId() {
@@ -216,36 +224,21 @@ public class KundeForm {
         this.kundeArt = kundeArt;
     }
 
-    public List<ProduktDTO> getProduktStammdatenList() {
+
+    public List<String> getProduktStammdatenList() {
         return produktStammdatenList;
     }
 
-    public void setProduktStammdatenList(List<ProduktDTO> produktStammdatenList) {
+    public void setProduktStammdatenList(List<String> produktStammdatenList) {
         this.produktStammdatenList = produktStammdatenList;
     }
 
-    public List<String> getProduktStammdatenGewaehlteList() {
-        return produktStammdatenGewaehlteList;
-    }
-
-    public void setProduktStammdatenGewaehlteList(List<String> produktStammdatenGewaehlteList) {
-        this.produktStammdatenGewaehlteList = produktStammdatenGewaehlteList;
-    }
-
-    public List<ProduktDTO> getProduktList() {
+    public List<String> getProduktList() {
         return produktList;
     }
 
-    public void setProduktList(List<ProduktDTO> produktList) {
+    public void setProduktList(List<String> produktList) {
         this.produktList = produktList;
-    }
-
-    public List<String> getProduktGewaehlteList() {
-        return produktGewaehlteList;
-    }
-
-    public void setProduktGewaehlteList(List<String> produktGewaehlteList) {
-        this.produktGewaehlteList = produktGewaehlteList;
     }
 
     public String getKundeNummer() {
@@ -334,5 +327,61 @@ public class KundeForm {
 
     public void setLandVonPostanschriftName(String landVonPostanschriftName) {
         this.landVonPostanschriftName = landVonPostanschriftName;
+    }
+
+    public String getBundeslandVonMeldeanschrift() {
+        return bundeslandVonMeldeanschrift;
+    }
+
+    public void setBundeslandVonMeldeanschrift(String bundeslandVonMeldeanschrift) {
+        this.bundeslandVonMeldeanschrift = bundeslandVonMeldeanschrift;
+    }
+
+    public List<BundeslandDTO> getBundeslandDTOList() {
+        return bundeslandDTOList;
+    }
+
+    public void setBundeslandDTOList(List<BundeslandDTO> bundeslandDTOList) {
+        this.bundeslandDTOList = bundeslandDTOList;
+    }
+
+    public List<OrtDTO> getOrtDTOList() {
+        return ortDTOList;
+    }
+
+    public void setOrtDTOList(List<OrtDTO> ortDTOList) {
+        this.ortDTOList = ortDTOList;
+    }
+
+    public String getBundeslandVonPostanschrift() {
+        return bundeslandVonPostanschrift;
+    }
+
+    public void setBundeslandVonPostanschrift(String bundeslandVonPostanschrift) {
+        this.bundeslandVonPostanschrift = bundeslandVonPostanschrift;
+    }
+
+    public List<BundeslandDTO> getBundeslandDTOListPostanschrift() {
+        return bundeslandDTOListPostanschrift;
+    }
+
+    public void setBundeslandDTOListPostanschrift(List<BundeslandDTO> bundeslandDTOListPostanschrift) {
+        this.bundeslandDTOListPostanschrift = bundeslandDTOListPostanschrift;
+    }
+
+    public List<OrtDTO> getOrtDTOListPostanschrift() {
+        return ortDTOListPostanschrift;
+    }
+
+    public void setOrtDTOListPostanschrift(List<OrtDTO> ortDTOListPostanschrift) {
+        this.ortDTOListPostanschrift = ortDTOListPostanschrift;
+    }
+
+    public List<LandDTO> getLandDTOListPostanschrift() {
+        return landDTOListPostanschrift;
+    }
+
+    public void setLandDTOListPostanschrift(List<LandDTO> landDTOListPostanschrift) {
+        this.landDTOListPostanschrift = landDTOListPostanschrift;
     }
 }

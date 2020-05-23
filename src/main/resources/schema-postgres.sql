@@ -34,6 +34,7 @@ create table if not exists Adresse
 (
     id INTEGER DEFAULT NEXTVAL('adresse_id_seq'),
     LAND VARCHAR(50) NOT NULL,
+    BUNDESLAND VARCHAR(50) NOT NULL,
     ORT VARCHAR(50) NOT NULL,
     POSTLEITZAHL VARCHAR(5) NOT NULL,
     STRASSE VARCHAR(50) NOT NULL,
@@ -79,6 +80,24 @@ create table if not exists Land
     symbol varchar(3),
     name varchar(50),
     CONSTRAINT Land_PK PRIMARY KEY (ID)
+);
+
+create table if not exists Bundesland
+(
+    id INTEGER,
+    name varchar(50),
+    LAND_ID INTEGER NOT NULL,
+    CONSTRAINT Bundesland_PK PRIMARY KEY (ID),
+    CONSTRAINT BUNDESLAND_LAND_FK FOREIGN KEY (LAND_ID) REFERENCES Land(ID)
+);
+
+create table if not exists Ort
+(
+    id INTEGER,
+    name varchar(50),
+    BUNDESLAND_ID INTEGER NOT NULL,
+    CONSTRAINT Ort_PK PRIMARY KEY (ID),
+    CONSTRAINT ORT_BUNDESLAND_FK FOREIGN KEY (BUNDESLAND_ID) REFERENCES Bundesland(ID)
 );
 
 create table if not exists users(

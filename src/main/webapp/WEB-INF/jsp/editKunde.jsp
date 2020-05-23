@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1>Edit Kunde</h1>
 
@@ -25,6 +26,12 @@
                                         <tr>
                                             <td>
                                                 <div class="ui input"><form:hidden path="id"/></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kunde Nummer :</td>
+                                            <td>
+                                                <div class="ui input"><form:input path="kundeNummer"/></div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -69,25 +76,61 @@
 
                                 <div id="meldeanschrift">
                                     <table>
-                                        <tr>
-                                            <td>
-                                                <h1>Meldeanschrift</h1>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
+                                       <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <form:select path="landVonMeldeanschrift">
+                                                <form:select path="landVonMeldeanschrift" id="landVonMeldeanschriftID">
                                                     <form:option value="" label="Waehle ein Land"/>
                                                     <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
                                                 </form:select>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Ort :</td>
+                                            <td>Bundesland :</td>
+                                            <c:choose>
+                                                <c:when test="${empty kundeForm.bundeslandDTOList}">
+                                                    <td>
+                                                        <select disabled="true">
+                                                            <option>Waehle ein Bundesland</option>
+                                                        </select>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form:select path="bundeslandVonMeldeanschrift" id="bundeslandVonMeldeanschriftID">
+                                                            <form:option value="" label="Waehle ein Bundesland"/>
+                                                            <form:options items="${kundeForm.bundeslandDTOList}"
+                                                                          itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td>
-                                                <div class="ui input"><form:input path="ortVonMeldeanschrift"/></div>
+                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ort :</td>
+                                            <c:choose>
+                                                <c:when test="${empty kundeForm.ortDTOList}">
+                                                    <td>
+                                                        <select disabled="true">
+                                                            <option>Waehle ein Ort</option>
+                                                        </select>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form:select path="ortVonMeldeanschrift">
+                                                            <form:option value="" label="Waehle ein Ort"/>
+                                                            <form:options items="${kundeForm.ortDTOList}"
+                                                                          itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <td>
+                                                <form:errors path="ortVonMeldeanschrift" cssClass="error"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -123,31 +166,44 @@
                                             <td><input type="checkbox" id="checkboxPostanschriftID"></td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                <h1>Postanschrift</h1>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <form:select path="landVonPostanschrift">
+                                                <form:select path="landVonPostanschrift" id="landVonPostanschriftID" disabled="true">
                                                     <form:option value="" label="Waehle ein Land"/>
                                                     <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
                                                 </form:select>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Ort :</td>
+                                            <td>Bundesland :</td>
+                                                    <td>
+                                                        <form:select path="bundeslandVonPostanschrift" id="bundeslandVonPostanschriftID" disabled="true">
+                                                            <form:option value="" label="Waehle ein Bundesland"/>
+                                                            <form:options items="${kundeForm.bundeslandDTOListPostanschrift}" itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
                                             <td>
-                                                <div class="ui input"><form:input path="ortVonPostanschrift"/></div>
+                                                <form:errors path="bundeslandVonPostanschrift" cssClass="error"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ort :</td>
+                                                    <td>
+                                                        <form:select path="ortVonPostanschrift" id="ortVonPostanschriftID" disabled="true">
+                                                            <form:option value="" label="Waehle ein Ort"/>
+                                                            <form:options items="${kundeForm.ortDTOListPostanschrift}"
+                                                                          itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                            <td>
+                                                <form:errors path="ortVonPostanschrift" cssClass="error"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Postleitzahl :</td>
                                             <td>
                                                 <div class="ui input"><form:input path="postleitzahlVonPostanschrift"
-                                                                                  id="postleitzahlVonPostanschriftID"/></div>
+                                                                                  id="postleitzahlVonPostanschriftID" disabled="true"/></div>
                                             </td>
                                             <td>
                                                 <form:errors path="postleitzahlVonPostanschrift" cssClass="error"/>
@@ -156,13 +212,13 @@
                                         <tr>
                                             <td>Strasse :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="strasseVonPostanschrift"/></div>
+                                                <div class="ui input"><form:input path="strasseVonPostanschrift" id= "strasseVonPostanschriftID" disabled="true"/></div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Haus Nr. :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="hausNrVonPostanschrift"/></div>
+                                                <div class="ui input"><form:input path="hausNrVonPostanschrift" id= "hausNrVonPostanschriftID" disabled="true"/></div>
                                             </td>
                                         </tr>
                                     </table>
@@ -189,9 +245,8 @@
                     </tr>
 
                     <tr>
-                        <td><form:select path="produktStammdatenGewaehlteList" multiple="true" size="10"
-                                         items="${kundeForm.produktStammdatenList}" itemValue="symbol"
-                                         itemLabel="name"/></td>
+                        <td><form:select path="produktStammdatenList" multiple="true" size="6"
+                                         items="${kundeForm.produktStammdatenList}" id="produktStammdaten"/></td>
                         <td>
                             <input type="button" value=">>" id="buttonNachRechts" class="ui button"/>
 
@@ -201,9 +256,8 @@
 
                             <input type="button" value="<<" id="buttonNachLinks" class="ui button"/>
                         </td>
-                        <td><form:select path="produktGewaehlteList" multiple="true" items="${kundeForm.produktList}"
-                                         size="10"
-                                         itemValue="symbol" itemLabel="name"/></td>
+                        <td><form:select path="produktList" multiple="true" size="6"
+                                         items="${kundeForm.produktList}" id="produkten"/></td>
                     </tr>
 
                     <tr>
@@ -223,6 +277,66 @@
 
 <script>
 
+    function checkLandVonPostanschriftChange() {
+
+        let land = document.getElementById("landVonPostanschriftID");
+
+        if(land) {
+            land.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/bundeslaenderVonPostanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
+    function checkBundeslandVonPostanschriftChange() {
+
+        let bundesland = document.getElementById("bundeslandVonPostanschriftID");
+
+        if(bundesland) {
+            bundesland.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/orteVonPostanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
+    function checkLandVonMeldeanschriftChange() {
+
+        let land = document.getElementById("landVonMeldeanschriftID");
+
+        if(land) {
+            land.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/bundeslaenderVonMeldeanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
+    function checkBundeslandVonMeldeanschriftChange() {
+
+        let bundesland = document.getElementById("bundeslandVonMeldeanschriftID");
+
+        if(bundesland) {
+            bundesland.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/orteVonMeldeanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
     function checkboxChange() {
         var checkbox = document.getElementById("checkboxPostanschriftID");
 
@@ -230,12 +344,14 @@
 
             if (checkbox.checked) {
                 document.getElementById("landVonPostanschriftID").disabled = false;
+                document.getElementById("bundeslandVonPostanschriftID").disabled = false;
                 document.getElementById("ortVonPostanschriftID").disabled = false;
                 document.getElementById("postleitzahlVonPostanschriftID").disabled = false;
                 document.getElementById("strasseVonPostanschriftID").disabled = false;
                 document.getElementById("hausNrVonPostanschriftID").disabled = false;
             } else {
                 document.getElementById("landVonPostanschriftID").disabled = true;
+                document.getElementById("bundeslandVonPostanschriftID").disabled = true;
                 document.getElementById("ortVonPostanschriftID").disabled = true;
                 document.getElementById("postleitzahlVonPostanschriftID").disabled = true;
                 document.getElementById("strasseVonPostanschriftID").disabled = true;
@@ -262,8 +378,33 @@
         });
     }
 
+    function sammleAlleProduktstammdatenUndProdukten(){
+
+        let produktStammdatenSelect = document.getElementById("produktStammdaten");
+        let produktStammdatenOptions = produktStammdatenSelect.options;
+
+        for (let i = 0; i < produktStammdatenOptions.length; i++) {
+            let produktStammdatenOption = produktStammdatenOptions[i];
+            produktStammdatenOption.selected = true;
+        }
+
+
+        let produktenSelect = document.getElementById("produkten");
+        let produktenOptions = produktenSelect.options;
+
+        for (let i = 0; i < produktenOptions.length; i++) {
+            let produktOption = produktenOptions[i];
+            produktOption.selected = true;
+        }
+    }
+
     checkboxChange();
     bedienebuttonNachRechts();
     bedieneButtonNachLinks();
+    checkLandVonMeldeanschriftChange();
+    checkBundeslandVonMeldeanschriftChange();
+    checkLandVonPostanschriftChange();
+    checkBundeslandVonPostanschriftChange();
+    sammleAlleProduktstammdatenUndProdukten();
 
 </script>

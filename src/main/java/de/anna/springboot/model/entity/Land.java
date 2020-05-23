@@ -1,6 +1,7 @@
 package de.anna.springboot.model.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,9 @@ public class Land {
 
     @Column(name = "NAME")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "land")
+    private List<Bundesland> bundeslandList;
 
 
     public Land() {
@@ -56,5 +60,13 @@ public class Land {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Bundesland> getBundeslandList() {
+        return bundeslandList;
+    }
+
+    public void setBundeslandList(List<Bundesland> bundeslandList) {
+        this.bundeslandList = bundeslandList;
     }
 }

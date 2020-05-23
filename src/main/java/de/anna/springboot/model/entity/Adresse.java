@@ -17,6 +17,9 @@ public class Adresse {
     @Column(name = "LAND")
     private String land;
 
+    @Column(name = "BUNDESLAND")
+    private String bundesland;
+
     @Column(name = "ORT")
     private String ort;
 
@@ -120,5 +123,13 @@ public class Adresse {
 
     public void setPostleitzahl(String postleitzahl) {
         this.postleitzahl = postleitzahl;
+    }
+
+    public String getBundesland() {
+        return bundesland;
+    }
+
+    public void setBundesland(String bundesland) {
+        this.bundesland = bundesland;
     }
 }

@@ -7,6 +7,10 @@
 
     <table >
         <tr>
+            <td>Kunde Nummer : </td>
+            <td>${kundeForm.kundeNummer}</td>
+        </tr>
+        <tr>
             <td>Steuer ID : </td>
             <td>${kundeForm.steuerId}</td>
         </tr>
@@ -43,6 +47,10 @@
             <td>${kundeForm.landVonMeldeanschriftName}</td>
         </tr>
         <tr>
+            <td>Bundesland :</td>
+            <td>${kundeForm.bundeslandVonMeldeanschrift}</td>
+        </tr>
+        <tr>
             <td>Ort :</td>
             <td>${kundeForm.ortVonMeldeanschrift}</td>
         </tr>
@@ -68,6 +76,10 @@
         <tr>
             <td>Land :</td>
             <td>${kundeForm.landVonPostanschriftName}</td>
+        </tr>
+        <tr>
+            <td>Bundesland :</td>
+            <td>${kundeForm.bundeslandVonPostanschrift}</td>
         </tr>
         <tr>
             <td>Ort :</td>
@@ -96,7 +108,7 @@
                 <c:forEach items="${kundeForm.produktList}" var="produkt">
 
                     <ul>
-                        <li>${produkt.name}</li>
+                        <li>${produkt}</li>
                     </ul>
 
                 </c:forEach>
@@ -119,12 +131,14 @@
     <form:hidden path="kundeArt"/>
 
     <form:hidden path="landVonMeldeanschrift"/>
+    <form:hidden path="bundeslandVonMeldeanschrift"/>
     <form:hidden path="ortVonMeldeanschrift"/>
     <form:hidden path="postleitzahlVonMeldeanschrift"/>
     <form:hidden path="strasseVonMeldeanschrift"/>
     <form:hidden path="hausNrVonMeldeanschrift"/>
 
     <form:hidden path="landVonPostanschrift"/>
+    <form:hidden path="bundeslandVonPostanschrift"/>
     <form:hidden path="ortVonPostanschrift"/>
     <form:hidden path="postleitzahlVonPostanschrift"/>
     <form:hidden path="strasseVonPostanschrift"/>

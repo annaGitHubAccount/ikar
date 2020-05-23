@@ -9,9 +9,7 @@ import de.anna.springboot.model.dto.*;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.model.validator.KundeFormValidator;
-import de.anna.springboot.service.KundeService;
-import de.anna.springboot.service.LandService;
-import de.anna.springboot.service.ProduktStammdatenService;
+import de.anna.springboot.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +31,7 @@ public class KundeWebController {
     private static final String KUNDE_LIST = "kundeList";
     private static final String PRODUKT_STAMMDATEN_LIST = "produktStammdatenList";
     private static final String PRODUKT_LIST = "produktList";
+    private static final String TAB_NUMMER = "TabNummer";
 
     @Autowired
     private KundeService kundeService;
@@ -55,6 +54,12 @@ public class KundeWebController {
     @Autowired
     private LandService landService;
 
+    @Autowired
+    private BundeslandService bundeslandService;
+
+    @Autowired
+    private OrtService ortService;
+
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -64,20 +69,22 @@ public class KundeWebController {
 
 
     @GetMapping("/addkunde")
-    public String kundeFormularZeigen(Model model, HttpServletRequest request) {
+    public String kundeFormularZeigen(Model model) {
 
         KundeForm kundeForm = new KundeForm();
 
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
-        List<ProduktDTO> produktStammdatenToProduktDTOList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
+        List<String> produkStammdatenListAlsName = new ArrayList<>();
+        for(ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList){
+           produkStammdatenListAlsName.add(produktStammdatenDTO.getName());
+        }
+        kundeForm.setProduktStammdatenList(produkStammdatenListAlsName);
+
         List<LandDTO> landDTOList = landService.findAll();
-
-        kundeForm.setProduktStammdatenList(produktStammdatenToProduktDTOList);
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
         kundeForm.setLandDTOList(landDTOList);
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
 
-        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenToProduktDTOList);
-        request.getSession().setAttribute(PRODUKT_LIST, new ArrayList<>());
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         model.addAttribute(KUNDE_FORM, kundeForm);
 
@@ -86,127 +93,90 @@ public class KundeWebController {
 
 
     @PostMapping("/kundeweiterleiten")
-    public String kundeWeiterleiten(Model model, @Valid @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation, HttpServletRequest request) {
+    public String kundeWeiterleiten(Model model, @Valid @ModelAttribute(KUNDE_FORM) KundeForm kundeForm, BindingResult resultOfValidation) {
+
+        List<LandDTO> landDTOList = landService.findAll();
+
+        setAuswahllistenVonPostanschriftFuerKundeForm(kundeForm, landDTOList);
+
+        setAuswahllistenVonMeldeanschriftFuerKundeForm(kundeForm, landDTOList);
 
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
-        LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
-        kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
-        LandDTO landDTOPostanschrift = landService.findLandBySymbol(kundeForm.getLandVonPostanschrift());
-        kundeForm.setLandVonPostanschriftName(landDTOPostanschrift.getName());
-        List<LandDTO> landDTOList = landService.findAll();
-        kundeForm.setLandDTOList(landDTOList);
-
         if (resultOfValidation.hasErrors()) {
 
-            setzenProduktStammdatenUndProduktenImKundeForm(kundeForm, request);
             model.addAttribute(KUNDE_FORM, kundeForm);
             return "addKunde";
 
         } else {
 
-            setzenProduktStammdatenUndProduktenImKundeForm(kundeForm, request);
             model.addAttribute(KUNDE_FORM, kundeForm);
             return "kundeWeiterleiten";
         }
     }
 
-    private void setzenProduktStammdatenUndProduktenImKundeForm(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, HttpServletRequest request) {
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+    private void setAuswahllistenVonMeldeanschriftFuerKundeForm(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, List<LandDTO> landDTOList) {
 
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
+        LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
+        kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
 
-        kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
-        kundeForm.setProduktList(produktListFromSession);
+        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+        kundeForm.setOrtDTOList(ortByBundesland);
+
+        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+        List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+        kundeForm.setBundeslandDTOList(bundeslandByLandList);
+
+        kundeForm.setLandDTOList(landDTOList);
     }
 
+    private void setAuswahllistenVonPostanschriftFuerKundeForm(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, List<LandDTO> landDTOList) {
 
-    @PostMapping("/buttonnachrechts")
-    public String bedienebuttonNachRechts(Model model, KundeForm kundeForm, HttpServletRequest request) {
-
-        List<LandDTO> landDTOList = landService.findAll();
-
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
-
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
-
-        List<String> produktStammdatenGewaehlteListFromFormular = kundeForm.getProduktStammdatenGewaehlteList();
-
-        List<ProduktDTO> produktStammdatenListUpdated = buttonNachRechtsHelperVonProdukt.loescheAusgewaehlteProduktStammdatenVonProduktStammdatenList(
-                produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
-
-        List<ProduktDTO> produktListUpdated = buttonNachRechtsHelperVonProdukt.fuegeAusgewaehlteProduktStammdatenToProduktListHinzu(
-                produktStammdatenListFromSession, produktStammdatenGewaehlteListFromFormular);
-
-        produktListFromSession.addAll(produktListUpdated);
-
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
-        kundeForm.setProduktStammdatenList(produktStammdatenListUpdated);
-        kundeForm.setProduktList(produktListFromSession);
-        kundeForm.setLandDTOList(landDTOList);
-
-        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListUpdated);
-        request.getSession().setAttribute(PRODUKT_LIST, produktListFromSession);
-
-        model.addAttribute(KUNDE_FORM, kundeForm);
-
-        if (kundeForm.getId() == null) {
-            return "addKunde";
-        } else {
-            return "editKunde";
+        if(kundeForm.getLandVonPostanschrift() != null) {
+            LandDTO landDTOPostanschrift = landService.findLandBySymbol(kundeForm.getLandVonPostanschrift());
+            kundeForm.setLandVonPostanschriftName(landDTOPostanschrift.getName());
         }
+
+        if(kundeForm.getBundeslandVonPostanschrift() != null) {
+            String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
+            List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
+            kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);
+        }
+
+        if(kundeForm.getLandVonPostanschrift() != null) {
+            String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
+            List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
+            kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
+        }
+
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
     }
 
+    private List<ProduktDTO> createProduktListDTOFromKundeForm(KundeForm kundeForm) {
 
-    @PostMapping("/buttonnachlinks")
-    public String bedienebuttonNachLinks(Model model, KundeForm kundeForm, HttpServletRequest request) {
+        List<ProduktDTO> produktGewaehlteList = new ArrayList<>();
+        List<String> produktGewaehlteListAlsName = kundeForm.getProduktList();
 
-        List<LandDTO> landDTOList = landService.findAll();
+        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
 
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
+        for(ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList){
 
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
-
-        List<String> produktAusgewaehlteListFromFormular = kundeForm.getProduktGewaehlteList();
-
-        List<ProduktDTO> produktDTOListUpdated = buttonNachLinksHelperVonProdukt.loescheAusgewaehlteProdukteFromFormularAusProduktList(produktListFromSession, produktAusgewaehlteListFromFormular);
-
-        List<ProduktDTO> produktStammdatenListUpdated = buttonNachLinksHelperVonProdukt.fuegeAusgewaehlteProduktListFromFormularToProduktStammdatenListHinzu(produktListFromSession, produktAusgewaehlteListFromFormular);
-
-        produktStammdatenListFromSession.addAll(produktStammdatenListUpdated);
-
-        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
-        kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
-        kundeForm.setProduktList(produktDTOListUpdated);
-        kundeForm.setLandDTOList(landDTOList);
-
-        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListFromSession);
-        request.getSession().setAttribute(PRODUKT_LIST, produktDTOListUpdated);
-
-        model.addAttribute(KUNDE_FORM, kundeForm);
-
-        if (kundeForm.getId() == null) {
-            return "addKunde";
-        } else {
-            return "editKunde";
+            for(String gewaehlteProduktAlsName : produktGewaehlteListAlsName){
+               if(gewaehlteProduktAlsName.equals(produktStammdatenDTO.getName())){
+                   produktGewaehlteList.add(new ProduktDTO(produktStammdatenDTO.getSymbol(), gewaehlteProduktAlsName, produktStammdatenDTO.getPreis(), produktStammdatenDTO.isAktiv()));
+               }
+            }
         }
+        return produktGewaehlteList;
     }
 
 
     @PostMapping("/savekunde")
-    public String saveKunde(@ModelAttribute(KUNDE_FORM) KundeForm kundeForm, Model model, HttpServletRequest request) {
+    public String saveKunde(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, Model model) {
 
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
-        kundeForm.setProduktList(produktListFromSession);
-
-        KundeDTO kundeDTO = KundeDTOKundeFormAssembler.mapKundeFormToKundeDTO(kundeForm);
+        List<ProduktDTO> produktListDTOFromKundeForm = createProduktListDTOFromKundeForm(kundeForm);
+        KundeDTO kundeDTO = KundeDTOKundeFormAssembler.mapKundeFormToKundeDTO(kundeForm, produktListDTOFromKundeForm);
         kundeService.save(kundeDTO);
 
         List<KundeDTO> kundeDTOList = kundeService.findAll();
@@ -217,55 +187,77 @@ public class KundeWebController {
 
 
     @GetMapping("/editkunde/{id}")
-    public String editKunde(@PathVariable Long id, Model model, HttpServletRequest request) {
-
-        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
-        List<ProduktDTO> produktStammdatenList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
+    public String editKunde(@PathVariable Long id, Model model) {
 
         KundeDTO kundeDTOById = kundeService.findKundeById(id);
-        List<ProduktDTO> produktDTOListVonKunden = kundeDTOById.getProduktDTOList();
-
-        produktStammdatenList.removeAll(produktDTOListVonKunden);
-
         KundeForm kundeForm = KundeDTOKundeFormAssembler.mapKundeDTOToKundeForm(kundeDTOById);
+
+        List<String> produkStammdatenListAlsName = setProduktStammdatenFuerKundeFormular(kundeDTOById);
+        kundeForm.setProduktStammdatenList(produkStammdatenListAlsName);
+
+        List<String> produkListAlsName = setProduktenFuerKundeFormular(kundeDTOById);
+        kundeForm.setProduktList(produkListAlsName);
 
         List<LandDTO> landDTOList = landService.findAll();
         kundeForm.setLandDTOList(landDTOList);
+        String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
+        List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
+        String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
+        List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
+        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+        List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+        kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
+        kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
+        kundeForm.setLandDTOList(landDTOList);
+        kundeForm.setOrtDTOList(ortByBundesland);
+        kundeForm.setBundeslandDTOList(bundeslandByLandList);
 
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
-        kundeForm.setProduktStammdatenList(produktStammdatenList);
-
-        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenList);
-        request.getSession().setAttribute(PRODUKT_LIST, produktDTOListVonKunden);
 
         model.addAttribute(KUNDE_FORM, kundeForm);
 
         return "editKunde";
     }
 
+    private List<String> setProduktenFuerKundeFormular(KundeDTO kundeDTOById) {
+
+        List<ProduktDTO> produktDTOListVonKunden = kundeDTOById.getProduktDTOList();
+
+        List<String> produkListAlsName = new ArrayList<>();
+        for(ProduktDTO produktDTO : produktDTOListVonKunden){
+            produkListAlsName.add(produktDTO.getName());
+        }
+        return produkListAlsName;
+    }
+
+    private List<String> setProduktStammdatenFuerKundeFormular(KundeDTO kundeDTOById) {
+
+        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
+        List<ProduktDTO> produktStammdatenList = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTOList);
+        List<ProduktDTO> produktDTOListVonKunden = kundeDTOById.getProduktDTOList();
+        produktStammdatenList.removeAll(produktDTOListVonKunden);
+
+        List<String> produkStammdatenListAlsName = new ArrayList<>();
+        for(ProduktDTO produktStammdaten : produktStammdatenList){
+            produkStammdatenListAlsName.add(produktStammdaten.getName());
+        }
+        return produkStammdatenListAlsName;
+    }
+
 
     @PostMapping("/kundeweiterleitenedit")
-    public String kundeWeiterleitenEdit(Model model, KundeForm kundeForm, HttpServletRequest request) {
+    public String kundeWeiterleitenEdit(Model model, KundeForm kundeForm) {
 
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktStammdatenListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_STAMMDATEN_LIST);
-
-        @SuppressWarnings("unchecked")
-        List<ProduktDTO> produktListFromSession = (List<ProduktDTO>) request.getSession().getAttribute(PRODUKT_LIST);
-
-        LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
-        kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
-        LandDTO landDTOPostanschrift = landService.findLandBySymbol(kundeForm.getLandVonPostanschrift());
-        kundeForm.setLandVonPostanschriftName(landDTOPostanschrift.getName());
         List<LandDTO> landDTOList = landService.findAll();
-        kundeForm.setLandDTOList(landDTOList);
+
+        setAuswahllistenVonPostanschriftFuerKundeForm(kundeForm, landDTOList);
+
+        setAuswahllistenVonMeldeanschriftFuerKundeForm(kundeForm, landDTOList);
 
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
-        kundeForm.setProduktStammdatenList(produktStammdatenListFromSession);
-        kundeForm.setProduktList(produktListFromSession);
-
-        request.getSession().setAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenListFromSession);
-        request.getSession().setAttribute(PRODUKT_LIST, produktListFromSession);
 
         model.addAttribute(KUNDE_FORM, kundeForm);
 
@@ -282,5 +274,148 @@ public class KundeWebController {
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
         return "redirect:/kundesucheform/listevonkunden";
+    }
+
+
+    @PostMapping("/bundeslaenderVonMeldeanschrift")
+    public String showBundeslaenderVonMeldeanschrift(Model model, KundeForm kundeForm){
+
+        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+        List<BundeslandDTO> bundeslandByLandListMeldeanschrift = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+
+        String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
+        List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
+
+        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+
+        List<LandDTO> landDTOList = landService.findAll();
+
+        kundeForm.setBundeslandDTOList(bundeslandByLandListMeldeanschrift);
+        kundeForm.setLandDTOList(landDTOList);
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
+
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
+        kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
+
+        kundeForm.setOrtDTOList(ortByBundesland);
+        kundeForm.setLandDTOList(landDTOList);
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
+        model.addAttribute(TAB_NUMMER, 1);
+
+        if(kundeForm.getId() == null) {
+            return "addKunde";
+        }else {
+            return "editKunde";
+        }
+    }
+
+    @PostMapping("/orteVonMeldeanschrift")
+    public String showOrteVonMeldeanschrift(Model model, KundeForm kundeForm){
+
+        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+
+        String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
+        List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
+
+        List<LandDTO> landDTOList = landService.findAll();
+
+        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+        List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+
+        String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
+        List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
+
+        kundeForm.setOrtDTOList(ortByBundesland);
+        kundeForm.setLandDTOList(landDTOList);
+        kundeForm.setBundeslandDTOList(bundeslandByLandList);
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
+
+        kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
+        kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
+        kundeForm.setLandDTOList(landDTOList);
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
+        model.addAttribute(TAB_NUMMER, 1);
+
+        if(kundeForm.getId() == null) {
+            return "addKunde";
+        }else {
+            return "editKunde";
+        }
+    }
+
+    @PostMapping("/bundeslaenderVonPostanschrift")
+    public String showBundeslaenderVonPostanschrift(Model model, KundeForm kundeForm){
+
+        String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
+        List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
+
+        List<LandDTO> landDTOList = landService.findAll();
+
+        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+
+        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+        List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
+
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
+        kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
+
+        kundeForm.setOrtDTOList(ortByBundesland);
+        kundeForm.setLandDTOList(landDTOList);
+        kundeForm.setBundeslandDTOList(bundeslandByLandList);
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
+        model.addAttribute(TAB_NUMMER, 2);
+
+        if(kundeForm.getId() == null) {
+            return "addKunde";
+        }else {
+            return "editKunde";
+        }
+    }
+
+    @PostMapping("/orteVonPostanschrift")
+    public String showOrteVonPostanschrift(Model model, KundeForm kundeForm){
+
+        String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
+        List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
+
+        List<LandDTO> landDTOList = landService.findAll();
+
+        String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
+        List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
+
+        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+
+        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+        List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+
+        kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
+
+        kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);
+        kundeForm.setLandDTOListPostanschrift(landDTOList);
+        kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
+        kundeForm.setLandDTOList(landDTOList);
+
+        kundeForm.setOrtDTOList(ortByBundesland);
+        kundeForm.setLandDTOList(landDTOList);
+        kundeForm.setBundeslandDTOList(bundeslandByLandList);
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
+        model.addAttribute(TAB_NUMMER, 2);
+
+        if(kundeForm.getId() == null) {
+            return "addKunde";
+        }else {
+            return "editKunde";
+        }
     }
 }

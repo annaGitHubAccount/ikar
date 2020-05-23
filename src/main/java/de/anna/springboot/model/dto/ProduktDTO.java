@@ -27,6 +27,13 @@ public class ProduktDTO {
     public ProduktDTO() {
     }
 
+    public ProduktDTO(String symbol, String name, BigDecimal preis, boolean aktiv) {
+        this.symbol = symbol;
+        this.name = name;
+        this.preis = preis;
+        this.aktiv = aktiv;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

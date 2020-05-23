@@ -3,6 +3,7 @@
 
 <h1>Wollen Sie wirklich die Daten von dem Kunden speichern?</h1>
 
+<form:form method="post" modelAttribute="kundeForm" action="/web/savekunde">
     <table>
         <tr>
             <td>Steuer ID :</td>
@@ -94,7 +95,7 @@
                 <c:forEach items="${kundeForm.produktList}" var="produkt">
 
                     <ul>
-                        <li>${produkt.name}</li>
+                        <li>${produkt}</li>
                     </ul>
 
                 </c:forEach>
@@ -107,7 +108,6 @@
         </tr>
     </table>
 
-<form:form method="post" modelAttribute="kundeForm" action="/web/savekunde">
 
     <form:hidden path="name"/>
     <form:hidden path="nachname"/>
@@ -118,15 +118,19 @@
     <form:hidden path="kundeNummer"/>
 
     <form:hidden path="landVonMeldeanschrift"/>
+    <form:hidden path="bundeslandVonMeldeanschrift"/>
     <form:hidden path="ortVonMeldeanschrift"/>
     <form:hidden path="postleitzahlVonMeldeanschrift"/>
     <form:hidden path="strasseVonMeldeanschrift"/>
     <form:hidden path="hausNrVonMeldeanschrift"/>
 
     <form:hidden path="landVonPostanschrift"/>
+    <form:hidden path="bundeslandVonPostanschrift"/>
     <form:hidden path="ortVonPostanschrift"/>
     <form:hidden path="postleitzahlVonPostanschrift"/>
     <form:hidden path="strasseVonPostanschrift"/>
     <form:hidden path="hausNrVonPostanschrift"/>
+
+    <form:hidden path="produktList"/>
 
 </form:form>
