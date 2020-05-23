@@ -1,4 +1,5 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,16 @@
             $( "#datepickereditkunde" ).datepicker(dateFormat);
             $( "#datepickergeburtsdatumab" ).datepicker(dateFormat);
             $( "#datepickergeburtsdatumbis" ).datepicker(dateFormat);
-            $( "#tabs" ).tabs();
+
+            <c:if test="${empty TabNummer}">
+                $( "#tabs" ).tabs();
+            </c:if>
+
+            <c:if test="${not empty TabNummer}">
+                $( "#tabs" ).tabs({
+                    active: "${TabNummer}"
+                });
+            </c:if>
         } );
     </script>
 

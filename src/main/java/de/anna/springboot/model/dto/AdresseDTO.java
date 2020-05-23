@@ -9,6 +9,7 @@ public class AdresseDTO {
 
     private Long id;
     private String land;
+    private String bundesland;
     private String ort;
     private String postleitzahl;
     private String strasse;
@@ -100,5 +101,13 @@ public class AdresseDTO {
 
     public void setPostleitzahl(String postleitzahl) {
         this.postleitzahl = postleitzahl;
+    }
+
+    public String getBundesland() {
+        return bundesland;
+    }
+
+    public void setBundesland(String bundesland) {
+        this.bundesland = bundesland;
     }
 }

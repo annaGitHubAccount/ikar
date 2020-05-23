@@ -18,5 +18,14 @@ public final class LandDTOLandAssembler {
         return landDTO;
     }
 
+    public static Land mapLandDTOToLand(LandDTO landDTO){
+
+        Land land = new Land();
+
+        land.setName(landDTO.getName());
+
+        return land;
+    }
+
 
 }

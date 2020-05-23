@@ -16,6 +16,7 @@ public final class AdresseAdresseDTOAssembler {
 
         adresseDTO.setLand(adresse.getLand());
         adresseDTO.setOrt(adresse.getOrt());
+        adresseDTO.setBundesland(adresse.getBundesland());
         adresseDTO.setPostleitzahl(adresse.getPostleitzahl());
         adresseDTO.setAdresseArt(adresse.getAdresseArt());
         adresseDTO.setStrasse(adresse.getStrasse());
@@ -31,6 +32,7 @@ public final class AdresseAdresseDTOAssembler {
         Adresse adresse = new Adresse();
 
         adresse.setLand(adresseDTO.getLand());
+        adresse.setBundesland(adresseDTO.getBundesland());
         adresse.setOrt(adresseDTO.getOrt());
         adresse.setPostleitzahl(adresseDTO.getPostleitzahl());
         adresse.setAdresseArt(adresseDTO.getAdresseArt());

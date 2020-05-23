@@ -1,16 +1,15 @@
 package de.anna.springboot.model.assembler;
 
 import de.anna.springboot.controller.helper.RolleDTOHelper;
-import de.anna.springboot.model.dto.AdresseDTO;
-import de.anna.springboot.model.dto.KundeDTO;
-import de.anna.springboot.model.dto.ProduktDTO;
-import de.anna.springboot.model.dto.RolleDTO;
+import de.anna.springboot.model.dto.*;
 import de.anna.springboot.model.enums.AdresseArt;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.util.DateUtils;
 import de.anna.springboot.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public final class KundeDTOKundeFormAssembler {
     }
 
 
-    public static KundeDTO mapKundeFormToKundeDTO(KundeForm kundeForm) {
+    public static KundeDTO mapKundeFormToKundeDTO(KundeForm kundeForm, List<ProduktDTO> produktListDTOFromKundeForm) {
 
         KundeDTO kundeDTO = new KundeDTO();
 
@@ -42,10 +41,9 @@ public final class KundeDTOKundeFormAssembler {
         List<AdresseDTO> adresseDTOList = convertKundeFormAdresseToKundeDTOAdresse(kundeForm);
         kundeDTO.setAdresseList(adresseDTOList);
 
-        kundeDTO.setProduktDTOList(kundeForm.getProduktList());
+        kundeDTO.setProduktDTOList(produktListDTOFromKundeForm);
 
-        List<ProduktDTO> produktDTOListFromForm = kundeForm.getProduktList();
-        produktDTOListFromForm.forEach(produktDTO -> produktDTO.setKundeDTO(kundeDTO));
+        produktListDTOFromKundeForm.forEach(produktDTO -> produktDTO.setKundeDTO(kundeDTO));
 
         String rolle = kundeForm.getRolle();
         List<RolleDTO> rolleDTOList = convertStringVonRollenToRolleDTOList(rolle);
@@ -60,6 +58,7 @@ public final class KundeDTOKundeFormAssembler {
 
         AdresseDTO adresseVonMeldeanschrift = new AdresseDTO();
         adresseVonMeldeanschrift.setLand(kundeForm.getLandVonMeldeanschrift());
+        adresseVonMeldeanschrift.setBundesland(kundeForm.getBundeslandVonMeldeanschrift());
         adresseVonMeldeanschrift.setOrt(kundeForm.getOrtVonMeldeanschrift());
         adresseVonMeldeanschrift.setPostleitzahl(kundeForm.getPostleitzahlVonMeldeanschrift());
         adresseVonMeldeanschrift.setStrasse(kundeForm.getStrasseVonMeldeanschrift());
@@ -70,6 +69,7 @@ public final class KundeDTOKundeFormAssembler {
         if(kundeForm.getLandVonPostanschrift() != null && !kundeForm.getLandVonPostanschrift().equals("")) {
             AdresseDTO adresseVonPostanschrift = new AdresseDTO();
             adresseVonPostanschrift.setLand(kundeForm.getLandVonPostanschrift());
+            adresseVonPostanschrift.setBundesland(kundeForm.getBundeslandVonPostanschrift());
             adresseVonPostanschrift.setOrt(kundeForm.getOrtVonPostanschrift());
             adresseVonPostanschrift.setPostleitzahl(kundeForm.getPostleitzahlVonPostanschrift());
             adresseVonPostanschrift.setStrasse(kundeForm.getStrasseVonPostanschrift());
@@ -98,7 +98,12 @@ public final class KundeDTOKundeFormAssembler {
 
         convertKundeDTOAdresseToKundeFormAdresse(kundeDTO, kundeForm);
 
-        kundeForm.setProduktList(kundeDTO.getProduktDTOList());
+        List<String> produktListAlsName = new ArrayList<>();
+        List<ProduktDTO> produktDTOList = kundeDTO.getProduktDTOList();
+        for(ProduktDTO produktDTO : produktDTOList){
+            produktListAlsName.add(produktDTO.getName());
+        }
+        kundeForm.setProduktList(produktListAlsName);
 
         List<RolleDTO> rolleDTOList = kundeDTO.getRolleDTOList();
         String rolle = RolleDTOHelper.convertRolleDTOListToString(rolleDTOList);
@@ -115,6 +120,7 @@ public final class KundeDTOKundeFormAssembler {
 
             if (adresseDTO.getAdresseArt().getKode().equals("MA")) {
                 kundeForm.setLandVonMeldeanschrift(adresseDTO.getLand());
+                kundeForm.setBundeslandVonMeldeanschrift(adresseDTO.getBundesland());
                 kundeForm.setOrtVonMeldeanschrift(adresseDTO.getOrt());
                 kundeForm.setPostleitzahlVonMeldeanschrift(adresseDTO.getPostleitzahl());
                 kundeForm.setStrasseVonMeldeanschrift(adresseDTO.getStrasse());
@@ -123,7 +129,8 @@ public final class KundeDTOKundeFormAssembler {
 
             if (adresseDTO.getAdresseArt().getKode().equals("PA")) {
                 kundeForm.setLandVonPostanschrift(adresseDTO.getLand());
-                kundeForm.setOrtVonPostanschrift(adresseDTO.getLand());
+                kundeForm.setBundeslandVonPostanschrift(adresseDTO.getBundesland());
+                kundeForm.setOrtVonPostanschrift(adresseDTO.getOrt());
                 kundeForm.setPostleitzahlVonPostanschrift(adresseDTO.getPostleitzahl());
                 kundeForm.setStrasseVonPostanschrift(adresseDTO.getStrasse());
                 kundeForm.setHausNrVonPostanschrift(adresseDTO.getHausNr());

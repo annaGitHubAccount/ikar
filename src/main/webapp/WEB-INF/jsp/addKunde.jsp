@@ -92,7 +92,7 @@
                                         <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <form:select path="landVonMeldeanschrift">
+                                                <form:select path="landVonMeldeanschrift" id="landVonMeldeanschriftID">
                                                     <form:option value="" label="Waehle ein Land"/>
                                                     <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
                                                 </form:select>
@@ -102,10 +102,49 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Ort :</td>
+                                            <td>Bundesland :</td>
+                                            <c:choose>
+                                                <c:when test="${empty kundeForm.bundeslandDTOList}">
+                                                    <td>
+                                                        <select disabled="true">
+                                                           <option>Waehle ein Bundesland</option>
+                                                        </select>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form:select path="bundeslandVonMeldeanschrift" id="bundeslandVonMeldeanschriftID">
+                                                            <form:option value="" label="Waehle ein Bundesland"/>
+                                                            <form:options items="${kundeForm.bundeslandDTOList}"
+                                                                          itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td>
-                                                <div class="ui input"><form:input path="ortVonMeldeanschrift"/></div>
+                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="error"/>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ort :</td>
+                                            <c:choose>
+                                                <c:when test="${empty kundeForm.ortDTOList}">
+                                                    <td>
+                                                        <select disabled="true">
+                                                            <option>Waehle ein Ort</option>
+                                                        </select>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form:select path="ortVonMeldeanschrift">
+                                                            <form:option value="" label="Waehle ein Ort"/>
+                                                            <form:options items="${kundeForm.ortDTOList}"
+                                                                          itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td>
                                                 <form:errors path="ortVonMeldeanschrift" cssClass="error"/>
                                             </td>
@@ -144,16 +183,21 @@
                                 <div id="postanschrift">
                                     <table>
                                         <tr>
+                                            <td>
+                                                <h1>Postanschrift</h1>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><label for="checkboxPostanschriftID">Aktiviere Postanschrift:</label>
                                             </td>
-                                            <td><input type="checkbox" id="checkboxPostanschriftID"></td>
+                                            <td><input type="checkbox" id="checkboxPostanschriftID" ></td>
                                         </tr>
                                         <tr>
                                             <td>Land :</td>
                                             <td>
                                                 <form:select path="landVonPostanschrift" id="landVonPostanschriftID" disabled="true">
                                                     <form:option value="0" label="Waehle ein Land"/>
-                                                    <form:options items="${kundeForm.landDTOList}" itemLabel="name" itemValue="symbol"/>
+                                                    <form:options items="${kundeForm.landDTOListPostanschrift}" itemLabel="name" itemValue="symbol"/>
                                                 </form:select>
                                             </td>
                                             <td>
@@ -161,12 +205,49 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Ort :</td>
+                                            <td>Bundesland :</td>
+                                            <c:choose>
+                                                <c:when test="${empty kundeForm.bundeslandDTOListPostanschrift}">
+                                                    <td>
+                                                        <select disabled="true">
+                                                            <option>Waehle ein Bundesland</option>
+                                                        </select>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form:select path="bundeslandVonPostanschrift" id="bundeslandVonPostanschriftID">
+                                                            <form:option value="" label="Waehle ein Bundesland"/>
+                                                            <form:options items="${kundeForm.bundeslandDTOListPostanschrift}" itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td>
-                                                <div class="ui input"><form:input path="ortVonPostanschrift"
-                                                                                  id="ortVonPostanschriftID"
-                                                                                  disabled="true"/></div>
+                                                <form:errors path="bundeslandVonPostanschrift" cssClass="error"/>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ort :</td>
+                                            <c:choose>
+                                                <c:when test="${empty kundeForm.ortDTOListPostanschrift}">
+                                                    <td>
+                                                        <select disabled="true">
+                                                            <option>Waehle ein Ort</option>
+                                                        </select>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <form:select path="ortVonPostanschrift"
+                                                                     id="ortVonPostanschriftID">
+                                                            <form:option value="" label="Waehle ein Ort"/>
+                                                            <form:options items="${kundeForm.ortDTOListPostanschrift}"
+                                                                          itemValue="name" itemLabel="name"/>
+                                                        </form:select>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td>
                                                 <form:errors path="ortVonPostanschrift" cssClass="error"/>
                                             </td>
@@ -234,9 +315,9 @@
                         </tr>
 
                         <tr>
-                            <td><form:select path="produktStammdatenGewaehlteList" multiple="true"
-                                             items="${kundeForm.produktStammdatenList}" itemValue="symbol"
-                                             itemLabel="name" size="6" id="produktStammdaten"/></td>
+                            <td><form:select path="produktStammdatenList" multiple="true"
+                                             items="${kundeForm.produktStammdatenList}"
+                                             size="6" id="produktStammdaten"/></td>
                             <td>
                                 <input type="button" value=">>" id="buttonNachRechts" class="ui button"/>
 
@@ -246,14 +327,14 @@
 
                                 <input type="button" value="<<" id="buttonNachLinks" class="ui button"/>
                             </td>
-                            <td><form:select path="produktGewaehlteList" multiple="true"
+                            <td><form:select path="produktList" multiple="true"
                                              items="${kundeForm.produktList}"
-                                             itemValue="symbol" itemLabel="name" size="6" id="produkten"/></td>
+                                             size="6" id="produkten"/></td>
                         </tr>
 
                         <tr>
                             <td>
-                                <input type="submit" value="Weiter" id="saveId" class="ui button"/>
+                                <input type="submit" value="Weiter" id="weiterButtonID" class="ui button"/>
                             </td>
                         </tr>
 
@@ -276,25 +357,89 @@
 
 <script>
 
+    function checkLandVonPostanschriftChange() {
+
+        let land = document.getElementById("landVonPostanschriftID");
+
+        if(land) {
+            land.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/bundeslaenderVonPostanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
+    function checkBundeslandVonPostanschriftChange() {
+
+        let bundesland = document.getElementById("bundeslandVonPostanschriftID");
+
+        if(bundesland) {
+            bundesland.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/orteVonPostanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
+    function checkLandVonMeldeanschriftChange() {
+
+        let land = document.getElementById("landVonMeldeanschriftID");
+
+        if(land) {
+            land.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/bundeslaenderVonMeldeanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
+    function checkBundeslandVonMeldeanschriftChange() {
+
+        let bundesland = document.getElementById("bundeslandVonMeldeanschriftID");
+
+        if(bundesland) {
+            bundesland.addEventListener("change", function () {
+
+                sammleAlleProduktstammdatenUndProdukten();
+
+                document.forms[0].action = "/web/orteVonMeldeanschrift";
+                document.forms[0].submit();
+            });
+        }
+    }
+
     function checkboxChange() {
         var checkbox = document.getElementById("checkboxPostanschriftID");
 
-        checkbox.addEventListener("change", function () {
+        if(checkbox) {
+            checkbox.addEventListener("change", function () {
 
-            if (checkbox.checked) {
-                document.getElementById("landVonPostanschriftID").disabled = false;
-                document.getElementById("ortVonPostanschriftID").disabled = false;
-                document.getElementById("postleitzahlVonPostanschriftID").disabled = false;
-                document.getElementById("strasseVonPostanschriftID").disabled = false;
-                document.getElementById("hausNrVonPostanschriftID").disabled = false;
-            } else {
-                document.getElementById("landVonPostanschriftID").disabled = true;
-                document.getElementById("ortVonPostanschriftID").disabled = true;
-                document.getElementById("postleitzahlVonPostanschriftID").disabled = true;
-                document.getElementById("strasseVonPostanschriftID").disabled = true;
-                document.getElementById("hausNrVonPostanschriftID").disabled = true;
-            }
-        });
+                if (checkbox.checked) {
+                    document.getElementById("landVonPostanschriftID").disabled = false;
+                    document.getElementById("bundeslandVonPostanschriftID").disabled = false;
+                    document.getElementById("ortVonPostanschriftID").disabled = false;
+                    document.getElementById("postleitzahlVonPostanschriftID").disabled = false;
+                    document.getElementById("strasseVonPostanschriftID").disabled = false;
+                    document.getElementById("hausNrVonPostanschriftID").disabled = false;
+                } else {
+                    document.getElementById("landVonPostanschriftID").disabled = true;
+                    document.getElementById("bundeslandVonPostanschriftID").disabled = true;
+                    document.getElementById("ortVonPostanschriftID").disabled = true;
+                    document.getElementById("postleitzahlVonPostanschriftID").disabled = true;
+                    document.getElementById("strasseVonPostanschriftID").disabled = true;
+                    document.getElementById("hausNrVonPostanschriftID").disabled = true;
+                }
+            });
+        }
     }
 
 
@@ -309,10 +454,29 @@
 
         let selectedProduktStammdatenMap = new Map();
 
-        buttonNachRechts.addEventListener("click", function () {
-            document.forms[0].action = "/web/buttonnachrechts";
-            document.forms[0].submit();
-        });
+        if(buttonNachRechts) {
+            buttonNachRechts.addEventListener("click", function () {
+
+                for (let i = 0; i < produktStammdatenOptions.length; i++) {
+                    let produktStammdatenOption = produktStammdatenOptions[i];
+                    if (produktStammdatenOption.selected) {
+                        selectedProduktStammdatenMap.set(produktStammdatenOption.value, produktStammdatenOption.text);
+                        produktStammdatenSelect.removeChild(produktStammdatenOptions[i]);
+                        i--;
+                    }
+                }
+
+                // Map iteration
+                for (let [key, value] of selectedProduktStammdatenMap) {
+                    let htmlOptionElement = document.createElement("option");
+                    htmlOptionElement.value = key;
+                    htmlOptionElement.innerHTML = value;
+                    produktenSelect.appendChild(htmlOptionElement);
+                }
+
+                selectedProduktStammdatenMap.clear();
+            });
+        }
     }
 
     function bedieneButtonNachLinks() {
@@ -326,42 +490,86 @@
 
         let selectedProduktMap = new Map();
 
-        buttonNachLinks.addEventListener("click", function () {
+        if(buttonNachLinks) {
+            buttonNachLinks.addEventListener("click", function () {
 
-            for(let i = 0; i < produktenOptions.length; i++){
-                let produktenOption = produktenOptions[i];
-                if(produktenOption.selected){
-                    selectedProduktMap.set(produktenOption.value, produktenOption.text);
-                    produktenSelect.removeChild(produktenOptions[i]);
-                    i--; // // options have now less element, then decrease i
+                for (let i = 0; i < produktenOptions.length; i++) {
+                    let produktenOption = produktenOptions[i];
+                    if (produktenOption.selected) {
+                        selectedProduktMap.set(produktenOption.value, produktenOption.text);
+                        produktenSelect.removeChild(produktenOptions[i]);
+                        i--;
+                    }
                 }
-            }
 
-            // Map iteration
-            for(let [key, value] of selectedProduktMap) {
-                let htmlOptionElement = document.createElement("option");
-                htmlOptionElement.value = key;
-                htmlOptionElement.innerHTML = value;
-                produktStammdatenSelect.appendChild(htmlOptionElement);
-            }
+                // Map iteration
+                for (let [key, value] of selectedProduktMap) {
+                    let htmlOptionElement = document.createElement("option");
+                    htmlOptionElement.value = key;
+                    htmlOptionElement.innerHTML = value;
+                    produktStammdatenSelect.appendChild(htmlOptionElement);
+                }
 
-            selectedProduktMap.clear();
-
-        });
+                selectedProduktMap.clear();
+            });
+        }
     }
 
     function bedieneButtonAbbrechen() {
         var buttonAbbrechen = document.getElementById("buttonAbbrechen");
 
-        buttonAbbrechen.onclick = function () {
-            document.forms[0].action = "/kundesucheform/listevonkunden";
-            document.forms[0].submit();
-        };
+        if(buttonAbbrechen) {
+            buttonAbbrechen.onclick = function () {
+                document.forms[0].action = "/kundesucheform/listevonkunden";
+                document.forms[0].submit();
+            };
+        }
+    }
+
+    function sammelnGewahlteProdukten() {
+
+        let buttonWeiter = document.getElementById("weiterButtonID");
+        let produktenSelect = document.getElementById("produkten");
+        let produktenOptions = produktenSelect.options;
+
+        buttonWeiter.onclick = function(){
+
+            for (let i = 0; i < produktenOptions.length; i++) {
+                let produktOption = produktenOptions[i];
+                produktOption.selected = true;
+            }
+        }
+    }
+
+    function sammleAlleProduktstammdatenUndProdukten(){
+
+        let produktStammdatenSelect = document.getElementById("produktStammdaten");
+        let produktStammdatenOptions = produktStammdatenSelect.options;
+
+        for (let i = 0; i < produktStammdatenOptions.length; i++) {
+            let produktStammdatenOption = produktStammdatenOptions[i];
+            produktStammdatenOption.selected = true;
+        }
+
+
+        let produktenSelect = document.getElementById("produkten");
+        let produktenOptions = produktenSelect.options;
+
+        for (let i = 0; i < produktenOptions.length; i++) {
+            let produktOption = produktenOptions[i];
+            produktOption.selected = true;
+        }
     }
 
     checkboxChange();
     bedienebuttonNachRechts();
     bedieneButtonNachLinks();
     bedieneButtonAbbrechen();
+    checkLandVonMeldeanschriftChange();
+    checkBundeslandVonMeldeanschriftChange();
+    checkLandVonPostanschriftChange();
+    checkBundeslandVonPostanschriftChange();
+    sammelnGewahlteProdukten();
+    sammleAlleProduktstammdatenUndProdukten();
 
 </script>
