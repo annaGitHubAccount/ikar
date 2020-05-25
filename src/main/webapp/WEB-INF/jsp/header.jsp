@@ -1,7 +1,7 @@
 <div>
 
     <div style="float: left">
-        <h1>Meine Seite</h1>
+        <h1>Ikar</h1>
     </div>
 
 </div>

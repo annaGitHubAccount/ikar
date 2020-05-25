@@ -34,19 +34,30 @@
                 });
             </c:if>
         } );
-    </script>
 
+        $( function() {
+            $( "#menu" ).menu({
+                items: "> :not(.ui-widget-header)"
+            });
+        } );
+    </script>
+    <style>
+        body {background-color: #f6f6f6;}
+        .ui-menu { width: 320px; }
+        .ui-widget-header { padding: 0.2em; }
+    </style>
 </head>
 
 <body>
-<table width="100%">
+<table width="100%" cellpadding="15">
     <tr>
-        <td colspan="2">
+        <td></td>
+        <td>
             <tiles:insertAttribute name="header" />
         </td>
     </tr>
     <tr>
-        <td width="20%" nowrap="nowrap">
+        <td width="20%" valign="top">
             <tiles:insertAttribute name="menu" />
         </td>
         <td width="80%">
