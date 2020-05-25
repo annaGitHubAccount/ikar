@@ -452,18 +452,23 @@
 
         let produktenSelect = document.getElementById("produkten");
 
-        let selectedProduktStammdatenMap = new Map();
-
         if(buttonNachRechts) {
             buttonNachRechts.addEventListener("click", function () {
+
+                let selectedProduktStammdatenMap = new Map();
+
+                let selectedProduktStammdaten = [];
 
                 for (let i = 0; i < produktStammdatenOptions.length; i++) {
                     let produktStammdatenOption = produktStammdatenOptions[i];
                     if (produktStammdatenOption.selected) {
                         selectedProduktStammdatenMap.set(produktStammdatenOption.value, produktStammdatenOption.text);
-                        produktStammdatenSelect.removeChild(produktStammdatenOptions[i]);
-                        i--;
+                        selectedProduktStammdaten.push(produktStammdatenOption);
                     }
+                }
+
+                for(let i = 0; i < selectedProduktStammdaten.length; i++) {
+                    produktStammdatenSelect.removeChild(selectedProduktStammdaten[i]);
                 }
 
                 // Map iteration
@@ -474,7 +479,6 @@
                     produktenSelect.appendChild(htmlOptionElement);
                 }
 
-                selectedProduktStammdatenMap.clear();
             });
         }
     }
@@ -488,18 +492,23 @@
 
         let produktStammdatenSelect = document.getElementById("produktStammdaten");
 
-        let selectedProduktMap = new Map();
-
         if(buttonNachLinks) {
             buttonNachLinks.addEventListener("click", function () {
+
+                let selectedProduktMap = new Map();
+
+                let selectedProdukten = [];
 
                 for (let i = 0; i < produktenOptions.length; i++) {
                     let produktenOption = produktenOptions[i];
                     if (produktenOption.selected) {
                         selectedProduktMap.set(produktenOption.value, produktenOption.text);
-                        produktenSelect.removeChild(produktenOptions[i]);
-                        i--;
+                        selectedProdukten.push(produktenOption);
                     }
+                }
+
+                for(let i = 0; i < selectedProdukten.length; i++) {
+                    produktenSelect.removeChild(selectedProdukten[i]);
                 }
 
                 // Map iteration
@@ -510,7 +519,6 @@
                     produktStammdatenSelect.appendChild(htmlOptionElement);
                 }
 
-                selectedProduktMap.clear();
             });
         }
     }
