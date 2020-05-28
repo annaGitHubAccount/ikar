@@ -19,7 +19,7 @@ public class KundeDTOTestDatenGenerator {
         KundeDTO kundeDTO = new KundeDTO();
 
         kundeDTO.setId((long) 1);
-        kundeDTO.setKundeNummer((long) 1);
+        kundeDTO.setKundeNummer("2003K0006");
         kundeDTO.setName("Adam");
         kundeDTO.setNachname("Niezgodka");
 

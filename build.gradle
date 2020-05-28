@@ -40,6 +40,8 @@ dependencies {
 	compile "org.apache.tiles:tiles-request-api:1.0.6"
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
+	annotationProcessor  "org.springframework.boot:spring-boot-configuration-processor"
+
 	/*compile ('org.apache.xmlgraphics:fop:2.3') {
 		exclude group: 'org.apache.avalon.framework', module: 'avalon-framework-api'
 		exclude group: 'org.apache.avalon.framework', module: 'avalon-framework-impl'
@@ -51,6 +53,7 @@ dependencies {
 	compile "org.wiztools:xsd-gen:0.2.1"
 	//compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
 }
+compileJava.dependsOn(processResources)
 
 test {
 	useJUnitPlatform()

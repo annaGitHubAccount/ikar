@@ -18,7 +18,7 @@ public class KundeTestDatenGenerator {
         Kunde kunde = new Kunde();
 
         kunde.setId((long) 1);
-        kunde.setKundeNummer((long) 1);
+        kunde.setKundeNummer("2003K0006");
         kunde.setName("Adam");
         kunde.setNachname("Niezgodka");
 
@@ -65,7 +65,7 @@ public class KundeTestDatenGenerator {
         Kunde kunde = new Kunde();
 
         kunde.setId((long) 1);
-        kunde.setKundeNummer((long) 1);
+        kunde.setKundeNummer("1706K0004");
         kunde.setName("Agata");
         kunde.setNachname("Maciag");
 

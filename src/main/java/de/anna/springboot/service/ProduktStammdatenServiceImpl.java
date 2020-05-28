@@ -6,6 +6,7 @@ import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.entity.ProduktStammdaten;
 import de.anna.springboot.repository.ProduktStammdatenRepository;
 import de.anna.springboot.repository.ProduktstammdatenSucheRepository;
+import de.anna.springboot.webservice.ProduktStammdatenRestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,13 @@ import java.util.stream.Collectors;
 public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
 
     @Autowired
-    ProduktStammdatenRepository produktStammdatenRepository;
+    private ProduktStammdatenRepository produktStammdatenRepository;
 
     @Autowired
-    ProduktstammdatenSucheRepository produktstammdatenSucheRepository;
+    private ProduktstammdatenSucheRepository produktstammdatenSucheRepository;
+
+    @Autowired
+    private ProduktStammdatenRestClient produktStammdatenRestClient;
 
 
     @Override
@@ -52,14 +56,8 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     @Override
     public List<ProduktStammdatenDTO> findAll() {
 
-        ArrayList<ProduktStammdaten> produktStammdatenArrayList = (ArrayList<ProduktStammdaten>) produktStammdatenRepository.findAll();
-
-        return produktStammdatenArrayList.stream()
-                .map(produktStammdaten -> {
-                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
-                    return produktStammdatenDTO;
-                })
-                .collect(Collectors.toList());
+        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenRestClient.findAll();
+        return produktStammdatenDTOList;
     }
 
     @Override
