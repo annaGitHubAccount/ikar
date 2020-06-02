@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div>
     <ul id="menu">
         <li class="ui-widget-header">
@@ -12,12 +14,15 @@
         <li>
             <div id="listeVonKunden">Liste von Kunden</div>
         </li>
-        <li>
-            <div id="addproduktstammdaten">Fuege neuen Produktstammdaten hinzu</div>
-        </li>
-        <li>
-            <div id="produktstammdatenlist">Liste von Produktstammdaten</div>
-        </li>
+
+        <c:if test="${zeigeProduktStammdaten == 'show'}">
+            <li>
+                <div id="addproduktstammdaten">Fuege neuen Produktstammdaten hinzu</div>
+            </li>
+            <li>
+                <div id="produktstammdatenlist">Liste von Produktstammdaten</div>
+            </li>
+        </c:if>
 
         <li class="ui-widget-header">
             <div>Statistiken</div>
@@ -46,7 +51,7 @@
         let homepage = document.getElementById("homepage");
 
         homepage.onclick = function () {
-            window.location = "${pageContext.request.contextPath}/web/homepage";
+            window.location = "${pageContext.request.contextPath}/ikar/web/homepage";
         }
     }
 
@@ -55,7 +60,7 @@
         let addKunde = document.getElementById("addKunde");
 
         addKunde.onclick = function () {
-            window.location = "${pageContext.request.contextPath}/web/addkunde";
+            window.location = "${pageContext.request.contextPath}/ikar/web/addkunde";
         }
     }
 
@@ -64,7 +69,7 @@
         let listeVonKunden = document.getElementById("listeVonKunden");
 
         listeVonKunden.onclick = function () {
-            window.location = "${pageContext.request.contextPath}/kundesucheform/listevonkunden";
+            window.location = "${pageContext.request.contextPath}/ikar/kundesucheform/listevonkunden";
         }
     }
 
@@ -72,8 +77,10 @@
 
         let addproduktstammdaten = document.getElementById("addproduktstammdaten");
 
-        addproduktstammdaten.onclick = function () {
-            window.location = "${pageContext.request.contextPath}/web/addproduktstammdaten";
+        if (addproduktstammdaten !== null) {
+            addproduktstammdaten.onclick = function () {
+                window.location = "${pageContext.request.contextPath}/ikar/web/addproduktstammdaten";
+            }
         }
     }
 
@@ -81,8 +88,10 @@
 
         let produktstammdatenlist = document.getElementById("produktstammdatenlist");
 
-        produktstammdatenlist.onclick = function () {
-            window.location = "${pageContext.request.contextPath}/produktstammdatensucheform/produktstammdatenlist";
+        if (produktstammdatenlist !== null) {
+            produktstammdatenlist.onclick = function () {
+                window.location = "${pageContext.request.contextPath}/ikar/produktstammdatensucheform/produktstammdatenlist";
+            }
         }
     }
 

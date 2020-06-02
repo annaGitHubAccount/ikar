@@ -8,7 +8,7 @@
     }
 </style>
 
-<form:form method="post" modelAttribute="kundeForm" action="/web/kundeweiterleiten">
+<form:form method="post" modelAttribute="kundeForm" action="/ikar/web/kundeweiterleiten">
 
     <table id="outerGlobal">
 

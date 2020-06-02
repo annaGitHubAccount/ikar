@@ -20,7 +20,7 @@
 <body>
 Welcome to Ikar!
 
-<a href="/web/homepage" >Go to Ikar</a>
+<a href="/ikar/web/homepage" >Go to Ikar</a>
 
 </body>
 </html>

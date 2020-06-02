@@ -34,7 +34,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/kundesucheform")
+@RequestMapping("/ikar/kundesucheform")
 public class KundeSucheWebController {
 
     Logger logger = LoggerFactory.getLogger(KundeSucheWebController.class);
@@ -75,7 +75,7 @@ public class KundeSucheWebController {
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
-        return "redirect:/kundesucheform/listevonkunden";
+        return "redirect:/ikar/kundesucheform/listevonkunden";
     }
 
 

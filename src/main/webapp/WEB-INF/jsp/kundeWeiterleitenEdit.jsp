@@ -3,7 +3,7 @@
 
 <h1>Wollen Sie wirklich die Daten von dem Kunden speichern?</h1>
 
-<form:form method="post" modelAttribute="kundeForm" action="/web/savekunde">
+<form:form method="post" modelAttribute="kundeForm" action="/ikar/web/savekunde">
 
     <table >
         <tr>

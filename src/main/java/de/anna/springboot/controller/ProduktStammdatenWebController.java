@@ -5,18 +5,20 @@ import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.enums.ProduktArt;
 import de.anna.springboot.model.form.ProduktStammdatenForm;
 import de.anna.springboot.service.ProduktStammdatenService;
+import de.anna.springboot.webservice.IkarWebServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/ikar/web")
 public class ProduktStammdatenWebController {
 
     @Autowired

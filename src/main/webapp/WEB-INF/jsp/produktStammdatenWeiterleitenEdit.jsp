@@ -3,7 +3,7 @@
 
 <h1>Wollen Sie wirklich die Produkt Stammdaten speichern?</h1>
 
-<form:form method="post" modelAttribute="produktStammdatenForm" action="/web/saveproduktstammdaten">
+<form:form method="post" modelAttribute="produktStammdatenForm" action="/ikar/web/saveproduktstammdaten">
     <table>
         <tr>
             <td>Name :</td>

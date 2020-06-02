@@ -6,13 +6,12 @@ import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.entity.ProduktStammdaten;
 import de.anna.springboot.repository.ProduktStammdatenRepository;
 import de.anna.springboot.repository.ProduktstammdatenSucheRepository;
-import de.anna.springboot.webservice.ProduktStammdatenRestClient;
+import de.anna.springboot.service.fabrik.ProduktStammdatenServiceFabrik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +26,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     private ProduktstammdatenSucheRepository produktstammdatenSucheRepository;
 
     @Autowired
-    private ProduktStammdatenRestClient produktStammdatenRestClient;
+    private ProduktStammdatenServiceFabrik produktStammdatenServiceFabrik;
 
 
     @Override
@@ -56,7 +55,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     @Override
     public List<ProduktStammdatenDTO> findAll() {
 
-        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenRestClient.findAll();
+        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenServiceFabrik.findAll();
         return produktStammdatenDTOList;
     }
 

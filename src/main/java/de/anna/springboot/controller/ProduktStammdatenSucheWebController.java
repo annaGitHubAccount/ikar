@@ -1,11 +1,9 @@
 package de.anna.springboot.controller;
 
-import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
-import de.anna.springboot.model.enums.KundeArt;
-import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.model.form.ProduktStammdatenSucheForm;
 import de.anna.springboot.service.ProduktStammdatenService;
+import de.anna.springboot.webservice.IkarWebServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/produktstammdatensucheform")
+@RequestMapping("/ikar/produktstammdatensucheform")
 public class ProduktStammdatenSucheWebController {
 
     @Autowired
-    ProduktStammdatenService produktStammdatenService;
+    private ProduktStammdatenService produktStammdatenService;
 
     private static final String PRODUKT_STAMMDATEN_LIST = "produktStammdatenList";
     private static final String PRODUKT_STAMMDATEN_SUCHE_FORM = "produktStammdatenSucheForm";
@@ -101,15 +99,15 @@ public class ProduktStammdatenSucheWebController {
         return aktivMap;
     }
 
-    private static Boolean convertStringToBoolean(String string){
+    private static Boolean convertStringToBoolean(String string) {
 
-        if(string.equals("")){
+        if (string.equals("")) {
             return null;
         }
-        if(string.equals("true")){
+        if (string.equals("true")) {
             return true;
         }
-        if(string.equals("false")){
+        if (string.equals("false")) {
             return false;
         }
         return null;

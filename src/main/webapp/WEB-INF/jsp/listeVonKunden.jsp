@@ -19,7 +19,7 @@
 
 </style>
 
-<form:form method="post" modelAttribute="kundeSucheForm" action="/kundesucheform/findekunden">
+<form:form method="post" modelAttribute="kundeSucheForm" action="/ikar/kundesucheform/findekunden">
 
     <fieldset>
         <legend>Suchmachine</legend>

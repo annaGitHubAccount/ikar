@@ -24,7 +24,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/ikar/web")
 public class KundeWebController {
 
     private static final String KUNDE_FORM = "kundeForm";
@@ -182,7 +182,7 @@ public class KundeWebController {
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
-        return "redirect:/kundesucheform/listevonkunden";
+        return "redirect:/ikar/kundesucheform/listevonkunden";
     }
 
 
@@ -273,7 +273,7 @@ public class KundeWebController {
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
-        return "redirect:/kundesucheform/listevonkunden";
+        return "redirect:/ikar/kundesucheform/listevonkunden";
     }
 
 

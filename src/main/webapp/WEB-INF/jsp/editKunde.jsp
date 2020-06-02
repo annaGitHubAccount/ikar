@@ -3,7 +3,7 @@
 
 <h1>Edit Kunde</h1>
 
-<form:form modelAttribute="kundeForm" action="/web/kundeweiterleitenedit">
+<form:form modelAttribute="kundeForm" action="/ikar/web/kundeweiterleitenedit">
 
     <table id="outerGlobal">
 

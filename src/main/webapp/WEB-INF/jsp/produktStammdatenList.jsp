@@ -8,7 +8,7 @@
     }
 </style>
 
-<form:form method="post" modelAttribute="produktStammdatenSucheForm" action="/produktstammdatensucheform/findeproduktstammdaten">
+<form:form method="post" modelAttribute="produktStammdatenSucheForm" action="/ikar/produktstammdatensucheform/findeproduktstammdaten">
 
     <fieldset>
         <legend>Suchmachine</legend>

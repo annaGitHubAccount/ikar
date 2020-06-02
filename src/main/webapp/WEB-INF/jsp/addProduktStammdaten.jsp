@@ -8,7 +8,7 @@
     }
 </style>
 
-<form:form method="post" modelAttribute="produktStammdatenForm" action="/web/produktstammdatenweiterleiten">
+<form:form method="post" modelAttribute="produktStammdatenForm" action="/ikar/web/produktstammdatenweiterleiten">
     <table>
 
         <tr>
