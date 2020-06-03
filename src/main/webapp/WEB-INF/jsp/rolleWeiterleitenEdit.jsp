@@ -3,7 +3,7 @@
 
 <h1>Wollen Sie wirklich die Daten speichern?</h1>
 
-<form:form method="post" modelAttribute="rolle" action="/web/saverolle">
+<form:form method="post" modelAttribute="rolle" action="/ikar/web/saverolle">
 
 
     <table>

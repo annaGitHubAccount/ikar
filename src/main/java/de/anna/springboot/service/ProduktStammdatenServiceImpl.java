@@ -37,7 +37,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
 
         if (produktStammdatenDTO.getId() == null) {
 
-            produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
+            produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(new ProduktStammdaten(), produktStammdatenDTO);
 
 
         } else {
@@ -45,8 +45,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
             Optional<ProduktStammdaten> produktStammdatenOptional = produktStammdatenRepository.findById(produktStammdatenDTO.getId());
 
             if (produktStammdatenOptional.isPresent()) {
-                produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenDTO);
-            }
+                produktStammdaten = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenDTOToProduktStammdaten(produktStammdatenOptional.get(), produktStammdatenDTO);            }
         }
 
         produktStammdatenRepository.save(produktStammdaten);

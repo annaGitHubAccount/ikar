@@ -129,9 +129,9 @@
                     <td class=textBronze data-label="KundeArt">${kunde.kundeArt.text}</td>
                 </c:if>
 
-                <td data-label="Operation"><a href="/web/editkunde/${kunde.id}">Aendern</a></td>
-                <td data-label="Operation"><a href="/web/deletekunde/${kunde.id}">Loeschen</a></td>
-                <td data-label="Operation"><a href="/web/findrollenvonkunde/${kunde.id}">Manage von Rollen</a></td>
+                <td data-label="Operation"><a href="/ikar/web/editkunde/${kunde.id}">Aendern</a></td>
+                <td data-label="Operation"><a href="/ikar/web/deletekunde/${kunde.id}">Loeschen</a></td>
+                <td data-label="Operation"><a href="/ikar/web/findrollenvonkunde/${kunde.id}">Manage von Rollen</a></td>
             </tr>
 
         </c:forEach>
@@ -142,7 +142,7 @@
 
 </c:if>
 
-<a href="${pageContext.request.contextPath}/kundesucheform/generatexmllistevonkunden">Generate XML Liste von Kunden</a>
+<a href="${pageContext.request.contextPath}/ikar/kundesucheform/generatexmllistevonkunden">Generate XML Liste von Kunden</a>
 <br>
 <%--<a href="${pageContext.request.contextPath}/kundesucheform/generatepdflistevonkunden">Generate PDF Liste von Kunden</a>--%>
 
@@ -153,7 +153,7 @@
         var buttonReset = document.getElementById("resetId");
 
         buttonReset.addEventListener("click", function () {
-            document.forms[0].action = "/kundesucheform/resetbutton";
+            document.forms[0].action = "/ikar/kundesucheform/resetbutton";
             document.forms[0].submit();
         });
     }
@@ -164,7 +164,7 @@
         var buttonXML = document.getElementById("generateXMLButtonId");
 
         buttonXML.addEventListener("click", function () {
-            document.forms[0].action = "/kundesucheform/generatexml";
+            document.forms[0].action = "/ikar/kundesucheform/generatexml";
             document.forms[0].submit();
         });
     }
@@ -175,7 +175,7 @@
         var sucheButton = document.getElementById("sucheButtonId");
 
         sucheButton.addEventListener("click", function () {
-            document.forms[0].action = "/kundesucheform/findekunden";
+            document.forms[0].action = "/ikar/kundesucheform/findekunden";
             document.forms[0].submit();
         });
     }

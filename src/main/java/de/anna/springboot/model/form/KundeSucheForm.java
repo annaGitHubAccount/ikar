@@ -9,7 +9,6 @@ public class KundeSucheForm {
     @Pattern(regexp = "(^$)|(^[0-9]{3,9}$)", message = "{steuerId.mussNummerSein}")
     private String steuerId;
 
-    @Pattern(regexp = "^[0-9]{0,8}$", message = "{kundeNummer.mussNummerSein}")
     private String kundeNummer;
 
     private String nachname;

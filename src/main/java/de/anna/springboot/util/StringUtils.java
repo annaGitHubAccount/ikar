@@ -1,5 +1,8 @@
 package de.anna.springboot.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class StringUtils {
 
     private StringUtils() {
@@ -29,5 +32,15 @@ public final class StringUtils {
         }
 
         return arrayTrimmed;
+    }
+
+    public static Map<String, String> setzenAktivMapWerten() {
+
+        Map<String, String> aktivMap = new HashMap<>();
+        aktivMap.put("", "wähle eine Option aus");
+        aktivMap.put("true", "ja");
+        aktivMap.put("false", "nein");
+
+        return aktivMap;
     }
 }

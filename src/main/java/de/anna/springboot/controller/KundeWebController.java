@@ -17,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,6 @@ public class KundeWebController {
     }
 
 
-
     @GetMapping("/addkunde")
     public String kundeFormularZeigen(Model model) {
 
@@ -75,8 +73,8 @@ public class KundeWebController {
 
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
         List<String> produkStammdatenListAlsName = new ArrayList<>();
-        for(ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList){
-           produkStammdatenListAlsName.add(produktStammdatenDTO.getName());
+        for (ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList) {
+            produkStammdatenListAlsName.add(produktStammdatenDTO.getName());
         }
         kundeForm.setProduktStammdatenList(produkStammdatenListAlsName);
 
@@ -133,18 +131,18 @@ public class KundeWebController {
 
     private void setAuswahllistenVonPostanschriftFuerKundeForm(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, List<LandDTO> landDTOList) {
 
-        if(kundeForm.getLandVonPostanschrift() != null) {
+        if (kundeForm.getLandVonPostanschrift() != null) {
             LandDTO landDTOPostanschrift = landService.findLandBySymbol(kundeForm.getLandVonPostanschrift());
             kundeForm.setLandVonPostanschriftName(landDTOPostanschrift.getName());
         }
 
-        if(kundeForm.getBundeslandVonPostanschrift() != null) {
+        if (kundeForm.getBundeslandVonPostanschrift() != null) {
             String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
             List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
             kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);
         }
 
-        if(kundeForm.getLandVonPostanschrift() != null) {
+        if (kundeForm.getLandVonPostanschrift() != null) {
             String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
             List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
             kundeForm.setBundeslandDTOListPostanschrift(bundeslandByLandListPostanschrift);
@@ -160,12 +158,12 @@ public class KundeWebController {
 
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
 
-        for(ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList){
+        for (ProduktStammdatenDTO produktStammdatenDTO : produktStammdatenDTOList) {
 
-            for(String gewaehlteProduktAlsName : produktGewaehlteListAlsName){
-               if(gewaehlteProduktAlsName.equals(produktStammdatenDTO.getName())){
-                   produktGewaehlteList.add(new ProduktDTO(produktStammdatenDTO.getSymbol(), gewaehlteProduktAlsName, produktStammdatenDTO.getPreis(), produktStammdatenDTO.isAktiv()));
-               }
+            for (String gewaehlteProduktAlsName : produktGewaehlteListAlsName) {
+                if (gewaehlteProduktAlsName.equals(produktStammdatenDTO.getName())) {
+                    produktGewaehlteList.add(new ProduktDTO(produktStammdatenDTO.getSymbol(), gewaehlteProduktAlsName, produktStammdatenDTO.getPreis(), produktStammdatenDTO.isAktiv()));
+                }
             }
         }
         return produktGewaehlteList;
@@ -227,7 +225,7 @@ public class KundeWebController {
         List<ProduktDTO> produktDTOListVonKunden = kundeDTOById.getProduktDTOList();
 
         List<String> produkListAlsName = new ArrayList<>();
-        for(ProduktDTO produktDTO : produktDTOListVonKunden){
+        for (ProduktDTO produktDTO : produktDTOListVonKunden) {
             produkListAlsName.add(produktDTO.getName());
         }
         return produkListAlsName;
@@ -241,7 +239,7 @@ public class KundeWebController {
         produktStammdatenList.removeAll(produktDTOListVonKunden);
 
         List<String> produkStammdatenListAlsName = new ArrayList<>();
-        for(ProduktDTO produktStammdaten : produktStammdatenList){
+        for (ProduktDTO produktStammdaten : produktStammdatenList) {
             produkStammdatenListAlsName.add(produktStammdaten.getName());
         }
         return produkStammdatenListAlsName;
@@ -278,7 +276,7 @@ public class KundeWebController {
 
 
     @PostMapping("/bundeslaenderVonMeldeanschrift")
-    public String showBundeslaenderVonMeldeanschrift(Model model, KundeForm kundeForm){
+    public String showBundeslaenderVonMeldeanschrift(Model model, KundeForm kundeForm) {
 
         String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
         List<BundeslandDTO> bundeslandByLandListMeldeanschrift = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
@@ -304,15 +302,15 @@ public class KundeWebController {
         model.addAttribute(KUNDE_FORM, kundeForm);
         model.addAttribute(TAB_NUMMER, 1);
 
-        if(kundeForm.getId() == null) {
+        if (kundeForm.getId() == null) {
             return "addKunde";
-        }else {
+        } else {
             return "editKunde";
         }
     }
 
     @PostMapping("/orteVonMeldeanschrift")
-    public String showOrteVonMeldeanschrift(Model model, KundeForm kundeForm){
+    public String showOrteVonMeldeanschrift(Model model, KundeForm kundeForm) {
 
         String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
         List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
@@ -341,15 +339,15 @@ public class KundeWebController {
         model.addAttribute(KUNDE_FORM, kundeForm);
         model.addAttribute(TAB_NUMMER, 1);
 
-        if(kundeForm.getId() == null) {
+        if (kundeForm.getId() == null) {
             return "addKunde";
-        }else {
+        } else {
             return "editKunde";
         }
     }
 
     @PostMapping("/bundeslaenderVonPostanschrift")
-    public String showBundeslaenderVonPostanschrift(Model model, KundeForm kundeForm){
+    public String showBundeslaenderVonPostanschrift(Model model, KundeForm kundeForm) {
 
         String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
         List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
@@ -374,15 +372,15 @@ public class KundeWebController {
         model.addAttribute(KUNDE_FORM, kundeForm);
         model.addAttribute(TAB_NUMMER, 2);
 
-        if(kundeForm.getId() == null) {
+        if (kundeForm.getId() == null) {
             return "addKunde";
-        }else {
+        } else {
             return "editKunde";
         }
     }
 
     @PostMapping("/orteVonPostanschrift")
-    public String showOrteVonPostanschrift(Model model, KundeForm kundeForm){
+    public String showOrteVonPostanschrift(Model model, KundeForm kundeForm) {
 
         String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
         List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
@@ -412,9 +410,9 @@ public class KundeWebController {
         model.addAttribute(KUNDE_FORM, kundeForm);
         model.addAttribute(TAB_NUMMER, 2);
 
-        if(kundeForm.getId() == null) {
+        if (kundeForm.getId() == null) {
             return "addKunde";
-        }else {
+        } else {
             return "editKunde";
         }
     }

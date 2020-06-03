@@ -99,8 +99,8 @@
                     </c:if>
                 </td>
 
-                <td data-label="Operation"><a href="/web/editproduktstammdaten/${produkt.id}">Aendern</a></td>
-                <td data-label="Operation"><a href="/web/deleteproduktstammdaten/${produkt.id}">Loeschen</a></td>
+                <td data-label="Operation"><a href="/ikar/web/editproduktstammdaten/${produkt.id}">Aendern</a></td>
+                <td data-label="Operation"><a href="/ikar/web/deleteproduktstammdaten/${produkt.id}">Loeschen</a></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -116,7 +116,7 @@
         var buttonReset = document.getElementById("resetId");
 
         buttonReset.addEventListener("click", function () {
-            document.forms[0].action = "/produktstammdatensucheform/resetbutton";
+            document.forms[0].action = "/ikar/produktstammdatensucheform/resetbutton";
             document.forms[0].submit();
         });
     }

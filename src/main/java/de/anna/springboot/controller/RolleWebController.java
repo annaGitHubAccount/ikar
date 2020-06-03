@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/ikar/web")
 public class RolleWebController {
 
     private static final String ROLLE = "rolle";
@@ -100,7 +100,7 @@ public class RolleWebController {
         List<KundeDTO> kundeDTOList = kundeService.findAll();
         model.addAttribute(KUNDE_LIST, kundeDTOList);
 
-        return "redirect:/kundesucheform/listevonkunden";
+        return "redirect:/ikar/kundesucheform/listevonkunden";
     }
 
 

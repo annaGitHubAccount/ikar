@@ -156,7 +156,7 @@ public class KundeServiceImpl implements KundeService {
     }
 
     @Override
-    public List<KundeZeileDTO> findeKunden(Long kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
+    public List<KundeZeileDTO> findeKunden(String kundeNummer, String steuerId, String nachname, String kundeArt, LocalDate geburtsdatumAB, LocalDate geburtsdatumBIS) {
 
         List<Kunde> kundeList = kundeSucheRepository.findKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
 

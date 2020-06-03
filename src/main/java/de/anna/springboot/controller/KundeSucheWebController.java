@@ -109,8 +109,7 @@ public class KundeSucheWebController {
                 geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
             }
 
-            Long kundeNummerLong = StringUtils.isEmpty(kundeNummer) ? null : Long.valueOf(kundeNummer);
-            List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummerLong, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+            List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
             request.getSession().setAttribute(KUNDE_LIST, kundeZeileDTOList);
 
@@ -146,10 +145,7 @@ public class KundeSucheWebController {
             geburtsdatumBISlocalDate = DateUtils.stringToLocalDate(geburtsdatumBIS);
         }
 
-        if (kundeNummer != null && !kundeNummer.equals("")) {
-            kundeNUmmerLong = Long.valueOf(kundeNummer);
-        }
-        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNUmmerLong, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
+        List<KundeZeileDTO> kundeZeileDTOList = kundeService.findeKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumABlocalDate, geburtsdatumBISlocalDate);
 
         KundeRootDTO kundeRootDTO = KundeDTOToKundeRootDTOAssembler.convertKundeZeileListDTOToKundeRootDTO(kundeZeileDTOList);
 

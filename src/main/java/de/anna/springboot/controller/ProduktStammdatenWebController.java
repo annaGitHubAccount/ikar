@@ -4,15 +4,15 @@ import de.anna.springboot.model.assembler.ProduktStammdatenDTOProductStammdatenF
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.enums.ProduktArt;
 import de.anna.springboot.model.form.ProduktStammdatenForm;
+import de.anna.springboot.model.form.ProduktStammdatenSucheForm;
 import de.anna.springboot.service.ProduktStammdatenService;
-import de.anna.springboot.webservice.IkarWebServiceConfig;
+import de.anna.springboot.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +22,11 @@ import java.util.Map;
 public class ProduktStammdatenWebController {
 
     @Autowired
-    ProduktStammdatenService produktStammdatenService;
+    private ProduktStammdatenService produktStammdatenService;
 
     private static final String PRODUKT_STAMMDATEN_FORM = "produktStammdatenForm";
     private static final String PRODUKT_STAMMDATEN_LIST = "produktStammdatenList";
+    private static final String PRODUKT_STAMMDATEN_SUCHE_FORM = "produktStammdatenSucheForm";
 
     @GetMapping("/addproduktstammdaten")
     public String addProduktStammdaten(Model model) {
@@ -62,13 +63,16 @@ public class ProduktStammdatenWebController {
     }
 
     @PostMapping("/saveproduktstammdaten")
-    public String saveProduktStammdaten(@ModelAttribute(PRODUKT_STAMMDATEN_FORM) ProduktStammdatenForm produktStammdatenForm, Model model) {
+    public String saveProduktStammdaten(@ModelAttribute(PRODUKT_STAMMDATEN_FORM) ProduktStammdatenForm produktStammdatenForm, @ModelAttribute("produktStammdatenSucheForm") @Valid ProduktStammdatenSucheForm produktStammdatenSucheForm, Model model) {
 
         ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenDTOProductStammdatenFormAssembler.mapProduktStammdatenFormToProduktStammdatenDTO(produktStammdatenForm);
         produktStammdatenService.save(produktStammdatenDTO);
 
+        produktStammdatenSucheForm.setIsAktivMap(StringUtils.setzenAktivMapWerten());
+
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
         model.addAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenDTOList);
+        model.addAttribute(PRODUKT_STAMMDATEN_SUCHE_FORM, produktStammdatenSucheForm);
 
         return "produktStammdatenList";
     }
@@ -97,10 +101,13 @@ public class ProduktStammdatenWebController {
     }
 
     @GetMapping("/deleteproduktstammdaten/{id}")
-    public String deleteProduktStammdaten(@PathVariable Long id, Model model) {
+    public String deleteProduktStammdaten(@PathVariable Long id, @ModelAttribute("produktStammdatenSucheForm") @Valid ProduktStammdatenSucheForm produktStammdatenSucheForm, Model model) {
 
         ProduktStammdatenDTO produktStammdatenById = produktStammdatenService.findProduktStammdatenById(id);
         produktStammdatenService.deleteProduktStammdatenById(produktStammdatenById.getId());
+
+        produktStammdatenSucheForm.setIsAktivMap(StringUtils.setzenAktivMapWerten());
+        model.addAttribute(PRODUKT_STAMMDATEN_SUCHE_FORM, produktStammdatenSucheForm);
 
         List<ProduktStammdatenDTO> stammdatenServiceAll = produktStammdatenService.findAll();
         model.addAttribute(PRODUKT_STAMMDATEN_LIST, stammdatenServiceAll);

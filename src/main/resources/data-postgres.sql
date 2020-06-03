@@ -1,9 +1,9 @@
     insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (1, '1905K0001', '345676548', 'Mariusz', 'Pudzian', to_date('17.08.2000', 'dd.MM.yyyy'), 'GD');
     insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (2, '1508K0002', '467887549', 'Kora', 'Jackowska', to_date('06.01.2019', 'dd.MM.yyyy'), 'SB');
-    insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, '1204K0003', '256787543', 'Maja', 'Morowska', to_date('02.05.2010', 'dd.MM.yyyy'), 'BR');
+    insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, '1204K0003', '256787875', 'Maja', 'Morowska', to_date('02.05.2010', 'dd.MM.yyyy'), 'BR');
     insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (4, '1706K0004', '256787543', 'Monika', 'Ferna', to_date('03.08.1980', 'dd.MM.yyyy'), 'BR');
-    insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (5, '2004K0005', '256787543', 'Sabrina', 'Wolna', to_date('08.10.1986', 'dd.MM.yyyy'), 'GD');
-    insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (6, '2003K0006', '256787543', 'Robert', 'Kowalski', to_date('11.07.1978', 'dd.MM.yyyy'), 'GD');
+    insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (5, '2004K0005', '256765439', 'Sabrina', 'Wolna', to_date('08.10.1986', 'dd.MM.yyyy'), 'GD');
+    insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (6, '2003K0006', '976547543', 'Robert', 'Kowalski', to_date('11.07.1978', 'dd.MM.yyyy'), 'GD');
 
     insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (1, 'P01', 'Produkt1', 100, true, 'L');
     insert into Produkt_Stammdaten(id, symbol, name, preis, is_aktiv, PRODUKT_ART) values (2, 'P02', 'Produkt2', 250, true, 'S');

@@ -262,7 +262,7 @@
 
                     <tr>
                         <td>
-                            <input type="submit" value="Weiter" id="saveId" class="ui button"/>
+                            <input type="submit" value="Weiter" id="weiterButtonID" class="ui button"/>
                         </td>
                     </tr>
 
@@ -286,7 +286,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/bundeslaenderVonPostanschrift";
+                document.forms[0].action = "/ikar/web/bundeslaenderVonPostanschrift";
                 document.forms[0].submit();
             });
         }
@@ -301,7 +301,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/orteVonPostanschrift";
+                document.forms[0].action = "/ikar/web/orteVonPostanschrift";
                 document.forms[0].submit();
             });
         }
@@ -316,7 +316,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/bundeslaenderVonMeldeanschrift";
+                document.forms[0].action = "/ikar/web/bundeslaenderVonMeldeanschrift";
                 document.forms[0].submit();
             });
         }
@@ -331,7 +331,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/orteVonMeldeanschrift";
+                document.forms[0].action = "/ikar/web/orteVonMeldeanschrift";
                 document.forms[0].submit();
             });
         }
@@ -361,21 +361,96 @@
     }
 
     function bedienebuttonNachRechts() {
+
         var buttonNachRechts = document.getElementById("buttonNachRechts");
 
-        buttonNachRechts.addEventListener("click", function () {
-            document.forms[0].action = "/web/buttonnachrechts";
-            document.forms[0].submit();
-        })
+        let produktStammdatenSelect = document.getElementById("produktStammdaten");
+        let produktStammdatenOptions = produktStammdatenSelect.options;
+
+        let produktenSelect = document.getElementById("produkten");
+
+        if (buttonNachRechts) {
+            buttonNachRechts.addEventListener("click", function () {
+
+                let selectedProduktStammdatenMap = new Map();
+
+                let selectedProduktStammdaten = [];
+
+                for (let i = 0; i < produktStammdatenOptions.length; i++) {
+                    let produktStammdatenOption = produktStammdatenOptions[i];
+                    if (produktStammdatenOption.selected) {
+                        selectedProduktStammdatenMap.set(produktStammdatenOption.value, produktStammdatenOption.text);
+                        selectedProduktStammdaten.push(produktStammdatenOption);
+                    }
+                }
+
+                for (let i = 0; i < selectedProduktStammdaten.length; i++) {
+                    produktStammdatenSelect.removeChild(selectedProduktStammdaten[i]);
+                }
+
+                // Map iteration
+                for (let [key, value] of selectedProduktStammdatenMap) {
+                    let htmlOptionElement = document.createElement("option");
+                    htmlOptionElement.value = key;
+                    htmlOptionElement.innerHTML = value;
+                    produktenSelect.appendChild(htmlOptionElement);
+                }
+            });
+        }
     }
 
     function bedieneButtonNachLinks() {
+
         var buttonNachLinks = document.getElementById("buttonNachLinks");
 
-        buttonNachLinks.addEventListener("click", function () {
-            document.forms[0].action = "/web/buttonnachlinks";
-            document.forms[0].submit();
-        });
+        let produktenSelect = document.getElementById("produkten");
+        let produktenOptions = produktenSelect.options;
+
+        let produktStammdatenSelect = document.getElementById("produktStammdaten");
+
+        if (buttonNachLinks) {
+            buttonNachLinks.addEventListener("click", function () {
+
+                let selectedProduktMap = new Map();
+
+                let selectedProdukten = [];
+
+                for (let i = 0; i < produktenOptions.length; i++) {
+                    let produktenOption = produktenOptions[i];
+                    if (produktenOption.selected) {
+                        selectedProduktMap.set(produktenOption.value, produktenOption.text);
+                        selectedProdukten.push(produktenOption);
+                    }
+                }
+
+                for (let i = 0; i < selectedProdukten.length; i++) {
+                    produktenSelect.removeChild(selectedProdukten[i]);
+                }
+
+                // Map iteration
+                for (let [key, value] of selectedProduktMap) {
+                    let htmlOptionElement = document.createElement("option");
+                    htmlOptionElement.value = key;
+                    htmlOptionElement.innerHTML = value;
+                    produktStammdatenSelect.appendChild(htmlOptionElement);
+                }
+            });
+        }
+    }
+
+    function sammelnGewahlteProdukten() {
+
+        let buttonWeiter = document.getElementById("weiterButtonID");
+        let produktenSelect = document.getElementById("produkten");
+        let produktenOptions = produktenSelect.options;
+
+        buttonWeiter.onclick = function(){
+
+            for (let i = 0; i < produktenOptions.length; i++) {
+                let produktOption = produktenOptions[i];
+                produktOption.selected = true;
+            }
+        }
     }
 
     function sammleAlleProduktstammdatenUndProdukten(){
@@ -406,5 +481,6 @@
     checkLandVonPostanschriftChange();
     checkBundeslandVonPostanschriftChange();
     sammleAlleProduktstammdatenUndProdukten();
+    sammelnGewahlteProdukten();
 
 </script>

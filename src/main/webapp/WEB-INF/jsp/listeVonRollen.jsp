@@ -7,7 +7,7 @@
 </h1>
 
 
-<form:form method="post" modelAttribute="kundeForm" action="/web/rolleweiterleiten">
+<form:form method="post" modelAttribute="kundeForm" action="/ikar/web/rolleweiterleiten">
 
     <table>
 
@@ -57,7 +57,7 @@
         var buttonNachRechts = document.getElementById("buttonNachRechts");
 
         buttonNachRechts.addEventListener("click", function () {
-            document.forms[0].action = "/web/rollebuttonnachrechts";
+            document.forms[0].action = "/ikar/web/rollebuttonnachrechts";
             document.forms[0].submit();
         })
     }
@@ -66,7 +66,7 @@
         var buttonNachLinks = document.getElementById("buttonNachLinks");
 
         buttonNachLinks.addEventListener("click", function () {
-            document.forms[0].action = "/web/rollebuttonnachlinks";
+            document.forms[0].action = "/ikar/web/rollebuttonnachlinks";
             document.forms[0].submit();
         });
     }

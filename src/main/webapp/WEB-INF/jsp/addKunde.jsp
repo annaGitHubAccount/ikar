@@ -366,7 +366,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/bundeslaenderVonPostanschrift";
+                document.forms[0].action = "/ikar/web/bundeslaenderVonPostanschrift";
                 document.forms[0].submit();
             });
         }
@@ -381,7 +381,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/orteVonPostanschrift";
+                document.forms[0].action = "/ikar/web/orteVonPostanschrift";
                 document.forms[0].submit();
             });
         }
@@ -396,7 +396,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/bundeslaenderVonMeldeanschrift";
+                document.forms[0].action = "/ikar/web/bundeslaenderVonMeldeanschrift";
                 document.forms[0].submit();
             });
         }
@@ -411,7 +411,7 @@
 
                 sammleAlleProduktstammdatenUndProdukten();
 
-                document.forms[0].action = "/web/orteVonMeldeanschrift";
+                document.forms[0].action = "/ikar/web/orteVonMeldeanschrift";
                 document.forms[0].submit();
             });
         }
@@ -528,7 +528,7 @@
 
         if(buttonAbbrechen) {
             buttonAbbrechen.onclick = function () {
-                document.forms[0].action = "/kundesucheform/listevonkunden";
+                document.forms[0].action = "/ikar/kundesucheform/listevonkunden";
                 document.forms[0].submit();
             };
         }

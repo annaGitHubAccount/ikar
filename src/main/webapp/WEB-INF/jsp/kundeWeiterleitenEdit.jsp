@@ -143,4 +143,6 @@
     <form:hidden path="postleitzahlVonPostanschrift"/>
     <form:hidden path="strasseVonPostanschrift"/>
     <form:hidden path="hausNrVonPostanschrift"/>
+
+    <form:hidden path="produktList"/>
 </form:form>

@@ -24,9 +24,7 @@ public final class ProduktStammdatenProductStammdatenDTOAssembler {
     }
 
 
-    public static ProduktStammdaten mapProduktStammdatenDTOToProduktStammdaten(ProduktStammdatenDTO produktStammdatenDTO) {
-
-        ProduktStammdaten produktStammdaten = new ProduktStammdaten();
+    public static ProduktStammdaten mapProduktStammdatenDTOToProduktStammdaten(ProduktStammdaten produktStammdaten, ProduktStammdatenDTO produktStammdatenDTO) {
 
         produktStammdaten.setId(produktStammdatenDTO.getId());
         produktStammdaten.setName(produktStammdatenDTO.getName());

@@ -3,6 +3,7 @@ package de.anna.springboot.controller;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
 import de.anna.springboot.model.form.ProduktStammdatenSucheForm;
 import de.anna.springboot.service.ProduktStammdatenService;
+import de.anna.springboot.util.StringUtils;
 import de.anna.springboot.webservice.IkarWebServiceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,12 +37,12 @@ public class ProduktStammdatenSucheWebController {
 
         if (resultOfValidation.hasErrors()) {
 
-            produktStammdatenSucheForm.setIsAktivMap(setzenAktivMapWerten());
+            produktStammdatenSucheForm.setIsAktivMap(StringUtils.setzenAktivMapWerten());
             model.addAttribute(PRODUKT_STAMMDATEN_SUCHE_FORM, produktStammdatenSucheForm);
 
         } else {
 
-            produktStammdatenSucheForm.setIsAktivMap(setzenAktivMapWerten());
+            produktStammdatenSucheForm.setIsAktivMap(StringUtils.setzenAktivMapWerten());
 
             String name = produktStammdatenSucheForm.getName();
             String symbol = produktStammdatenSucheForm.getSymbol();
@@ -67,7 +68,7 @@ public class ProduktStammdatenSucheWebController {
         model.addAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenDTOList);
 
         ProduktStammdatenSucheForm produktStammdatenSucheForm = new ProduktStammdatenSucheForm();
-        produktStammdatenSucheForm.setIsAktivMap(setzenAktivMapWerten());
+        produktStammdatenSucheForm.setIsAktivMap(StringUtils.setzenAktivMapWerten());
         model.addAttribute(PRODUKT_STAMMDATEN_SUCHE_FORM, produktStammdatenSucheForm);
 
         return "produktStammdatenList";
@@ -86,17 +87,7 @@ public class ProduktStammdatenSucheWebController {
         List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenService.findAll();
         model.addAttribute(PRODUKT_STAMMDATEN_LIST, produktStammdatenDTOList);
 
-        return "redirect:/produktstammdatensucheform/produktstammdatenlist";
-    }
-
-    private static Map<String, String> setzenAktivMapWerten() {
-
-        Map<String, String> aktivMap = new HashMap<>();
-        aktivMap.put("", "wähle eine Option aus");
-        aktivMap.put("true", "ja");
-        aktivMap.put("false", "nein");
-
-        return aktivMap;
+        return "redirect:/ikar/produktstammdatensucheform/produktstammdatenlist";
     }
 
     private static Boolean convertStringToBoolean(String string) {

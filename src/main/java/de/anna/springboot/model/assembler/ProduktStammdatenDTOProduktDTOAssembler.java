@@ -17,6 +17,7 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
 
         ProduktDTO produktDTO = new ProduktDTO();
 
+        produktDTO.setId(produktStammdatenDTO.getId());
         produktDTO.setSymbol(produktStammdatenDTO.getSymbol());
         produktDTO.setName(produktStammdatenDTO.getName());
         produktDTO.setPreis(produktStammdatenDTO.getPreis());
@@ -42,6 +43,7 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
 
         ProduktStammdatenDTO produktStammdatenDTO = new ProduktStammdatenDTO();
 
+        produktStammdatenDTO.setId(produktDTO.getId());
         produktStammdatenDTO.setSymbol(produktDTO.getSymbol());
         produktStammdatenDTO.setName(produktDTO.getName());
         produktStammdatenDTO.setPreis(produktDTO.getPreis());
