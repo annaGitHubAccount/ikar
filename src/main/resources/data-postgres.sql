@@ -61,6 +61,12 @@
     insert into Bundesland(id, name, land_id) VALUES (1, 'Bayern', 1);
     insert into Bundesland(id, name, land_id) VALUES (2, 'Hessen', 1);
     insert into Bundesland(id, name, land_id) VALUES (3, 'Sachsen', 1);
+    insert into Bundesland(id, name, land_id) VALUES (4, 'Cambridgeshire', 2);
+    insert into Bundesland(id, name, land_id) VALUES (5, 'Hampshire', 2);
+    insert into Bundesland(id, name, land_id) VALUES (6, 'Derbyshire', 2);
+    insert into Bundesland(id, name, land_id) VALUES (7, 'Mazowieckie', 3);
+    insert into Bundesland(id, name, land_id) VALUES (8, 'Warmia i Mazury', 3);
+    insert into Bundesland(id, name, land_id) VALUES (9, 'Pomorskie', 3);
 
     insert into Ort (id, name, bundesland_id) VALUES (1, 'München', 1);
     insert into Ort (id, name, bundesland_id) VALUES (2, 'Nürnberg', 1);
@@ -68,6 +74,18 @@
     insert into Ort (id, name, bundesland_id) VALUES (4, 'Wiesbaden', 2);
     insert into Ort (id, name, bundesland_id) VALUES (5, 'Drezden', 3);
     insert into Ort (id, name, bundesland_id) VALUES (6, 'Leipzig', 3);
+    insert into Ort (id, name, bundesland_id) VALUES (7, 'Cambridge', 4);
+    insert into Ort (id, name, bundesland_id) VALUES (8, 'Peterborough', 4);
+    insert into Ort (id, name, bundesland_id) VALUES (9, 'Winchester',5);
+    insert into Ort (id, name, bundesland_id) VALUES (10, 'New Forest',5);
+    insert into Ort (id, name, bundesland_id) VALUES (11, 'Ashbourne',6);
+    insert into Ort (id, name, bundesland_id) VALUES (12, 'Derby',6);
+    insert into Ort (id, name, bundesland_id) VALUES (13, 'Warszawa',7);
+    insert into Ort (id, name, bundesland_id) VALUES (14, 'Lodz',7);
+    insert into Ort (id, name, bundesland_id) VALUES (15, 'Olsztyn',8);
+    insert into Ort (id, name, bundesland_id) VALUES (16, 'Ostroda',8);
+    insert into Ort (id, name, bundesland_id) VALUES (17, 'Gdansk',9);
+    insert into Ort (id, name, bundesland_id) VALUES (18, 'Sopot',9);
 
     insert into users(username, password, enabled) values('robert', '$2y$12$VDL36qc/EEBJF8nBDa0ejefecheX2t3DGPgv9.dv2PCVIFS/MofOm', true);
     insert into users(username, password, enabled) values('anna', '$2y$12$VDL36qc/EEBJF8nBDa0ejefecheX2t3DGPgv9.dv2PCVIFS/MofOm', true);
