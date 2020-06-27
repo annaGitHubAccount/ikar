@@ -1,8 +1,5 @@
 package de.anna.springboot.controller;
 
-import de.anna.springboot.controller.helper.ButtonNachLinksHelperVonProdukt;
-import de.anna.springboot.controller.helper.ButtonNachRechtsHelperVonProdukt;
-import de.anna.springboot.controller.helper.RolleDTOHelper;
 import de.anna.springboot.model.assembler.KundeDTOKundeFormAssembler;
 import de.anna.springboot.model.assembler.ProduktStammdatenDTOProduktDTOAssembler;
 import de.anna.springboot.model.dto.*;
@@ -28,37 +25,29 @@ public class KundeWebController {
 
     private static final String KUNDE_FORM = "kundeForm";
     private static final String KUNDE_LIST = "kundeList";
-    private static final String PRODUKT_STAMMDATEN_LIST = "produktStammdatenList";
-    private static final String PRODUKT_LIST = "produktList";
     private static final String TAB_NUMMER = "TabNummer";
-
-    @Autowired
-    private KundeService kundeService;
 
     @Autowired
     private KundeFormValidator kundeFormValidator;
 
-    @Autowired
-    private ProduktStammdatenService produktStammdatenService;
+    private final KundeService kundeService;
+
+    private final ProduktStammdatenService produktStammdatenService;
+
+    private final LandService landService;
+
+    private final BundeslandService bundeslandService;
+
+    private final OrtService ortService;
 
     @Autowired
-    private ButtonNachRechtsHelperVonProdukt buttonNachRechtsHelperVonProdukt;
-
-    @Autowired
-    private ButtonNachLinksHelperVonProdukt buttonNachLinksHelperVonProdukt;
-
-    @Autowired
-    private RolleDTOHelper rolleDTOHelper;
-
-    @Autowired
-    private LandService landService;
-
-    @Autowired
-    private BundeslandService bundeslandService;
-
-    @Autowired
-    private OrtService ortService;
-
+    public KundeWebController(KundeService kundeService, ProduktStammdatenService produktStammdatenService, LandService landService, BundeslandService bundeslandService, OrtService ortService) {
+        this.kundeService = kundeService;
+        this.produktStammdatenService = produktStammdatenService;
+        this.landService = landService;
+        this.bundeslandService = bundeslandService;
+        this.ortService = ortService;
+    }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

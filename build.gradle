@@ -6,7 +6,7 @@ plugins {
 
 group = 'de.anna.springboot.ikar'
 version = '0.0.1'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 configurations {
 	developmentOnly
@@ -30,9 +30,7 @@ dependencies {
 	compileOnly "org.apache.tomcat.embed:tomcat-embed-jasper"
 	compile "javax.servlet:jstl:1.2"
 	//runtime "com.h2database:h2"
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	compile "org.apache.tiles:tiles-core:3.0.8"
 	compile "org.apache.tiles:tiles-api:3.0.8"
 	compile "org.apache.tiles:tiles-servlet:3.0.8"
@@ -56,5 +54,5 @@ dependencies {
 compileJava.dependsOn(processResources)
 
 test {
-	useJUnitPlatform()
+	useJUnit()
 }

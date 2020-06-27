@@ -1,3 +1,7 @@
+/*
+
+@RestController befindet sich jetzt in nestor !!!!!!!!!!!!!!!
+
 package de.anna.springboot.controller;
 
 import de.anna.springboot.model.dto.KundeDTO;
@@ -148,3 +152,4 @@ public class KundeWSController {
         return new KundeZeileListServiceAntwort(allKundeZeileDTOByNachname, true, "");
     }
 }
+*/
