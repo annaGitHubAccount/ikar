@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="homePage" extends="base.definition">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="body" value="/WEB-INF/jsp/homePage.jsp" />
+    </definition>
+
+    <definition name="addProduktStammdaten" extends="base.definition">
+        <put-attribute name="title" value="Add new Produkt Stammdaten" />
+        <put-attribute name="body" value="/WEB-INF/jsp/addProduktStammdaten.jsp" />
+    </definition>
+
+    <definition name="produktStammdatenWeiterleiten" extends="base.definition">
+        <put-attribute name="title" value="Produkt Stammdaten weiterleiten" />
+        <put-attribute name="body" value="/WEB-INF/jsp/produktStammdatenWeiterleiten.jsp" />
+    </definition>
+
+    <definition name="produktStammdatenList" extends="base.definition">
+        <put-attribute name="title" value="Liste von Produkt Stammdaten" />
+        <put-attribute name="body" value="/WEB-INF/jsp/produktStammdatenList.jsp" />
+    </definition>
+
+    <definition name="editProduktStammdaten" extends="base.definition">
+        <put-attribute name="title" value="Edit Produkt Stammdaten" />
+        <put-attribute name="body" value="/WEB-INF/jsp/editProduktStammdaten.jsp" />
+    </definition>
+
+    <definition name="produktStammdatenWeiterleitenEdit" extends="base.definition">
+        <put-attribute name="title" value="Produkt Stammdaten weiterleiten edit" />
+        <put-attribute name="body" value="/WEB-INF/jsp/produktStammdatenWeiterleitenEdit.jsp" />
+    </definition>
+
+</tiles-definitions>

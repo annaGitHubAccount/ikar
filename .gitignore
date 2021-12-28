@@ -1,0 +1,7 @@
+target/
+.idea/
+ikar.iml
+.gradle
+build/
+gradle/
+logfile.log

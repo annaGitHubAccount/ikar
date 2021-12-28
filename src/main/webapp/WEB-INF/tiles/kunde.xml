@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="homePage" extends="base.definition">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="body" value="/WEB-INF/jsp/homePage.jsp" />
+    </definition>
+
+    <definition name="addKunde" extends="base.definition">
+        <put-attribute name="title" value="Add new Kunde" />
+        <put-attribute name="body" value="/WEB-INF/jsp/addKunde.jsp" />
+    </definition>
+
+    <definition name="kundeWeiterleiten" extends="base.definition">
+        <put-attribute name="title" value="Kunde weiterleiten" />
+        <put-attribute name="body" value="/WEB-INF/jsp/kundeWeiterleiten.jsp" />
+    </definition>
+
+    <definition name="listeVonKunden" extends="base.definition">
+        <put-attribute name="title" value="Liste Von Kunden" />
+        <put-attribute name="body" value="/WEB-INF/jsp/listeVonKunden.jsp" />
+    </definition>
+
+    <definition name="editKunde" extends="base.definition">
+        <put-attribute name="title" value="Edit Kunde" />
+        <put-attribute name="body" value="/WEB-INF/jsp/editKunde.jsp" />
+    </definition>
+
+    <definition name="kundeWeiterleitenEdit" extends="base.definition">
+        <put-attribute name="title" value="Kunde Weiterleiten Edit" />
+        <put-attribute name="body" value="/WEB-INF/jsp/kundeWeiterleitenEdit.jsp" />
+    </definition>
+
+</tiles-definitions>

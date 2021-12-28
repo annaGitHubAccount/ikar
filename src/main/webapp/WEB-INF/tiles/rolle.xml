@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="homePage" extends="base.definition">
+        <put-attribute name="title" value="Home Page"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/homePage.jsp"/>
+    </definition>
+
+    <definition name="listeVonRollen" extends="base.definition">
+        <put-attribute name="title" value="Liste Von Rollen"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/listeVonRollen.jsp"/>
+    </definition>
+
+    <definition name="editRolle" extends="base.definition">
+        <put-attribute name="title" value="Edit Rolle" />
+        <put-attribute name="body" value="/WEB-INF/jsp/editRolle.jsp" />
+    </definition>
+
+    <definition name="rolleWeiterleitenEdit" extends="base.definition">
+        <put-attribute name="title" value="Rolle Weiterleiten Edit" />
+        <put-attribute name="body" value="/WEB-INF/jsp/rolleWeiterleitenEdit.jsp" />
+    </definition>
+
+    <definition name="addRole" extends="base.definition">
+        <put-attribute name="title" value="Add new Rolle" />
+        <put-attribute name="body" value="/WEB-INF/jsp/addRole.jsp" />
+    </definition>
+
+    <definition name="rolleWeiterleiten" extends="base.definition">
+        <put-attribute name="title" value="Rolle weiterleiten" />
+        <put-attribute name="body" value="/WEB-INF/jsp/rolleWeiterleiten.jsp" />
+    </definition>
+
+</tiles-definitions>
