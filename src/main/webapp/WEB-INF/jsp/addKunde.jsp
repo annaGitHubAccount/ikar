@@ -34,7 +34,7 @@
                                                 <div class="ui input"><form:input path="steuerId"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="steuerId" cssClass="error"/>
+                                                <form:errors path="steuerId" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -43,7 +43,7 @@
                                                 <div class="ui input"><form:input path="name"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="name" cssClass="error"/>
+                                                <form:errors path="name" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -52,7 +52,7 @@
                                                 <div class="ui input"><form:input path="nachname"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="nachname" cssClass="error"/>
+                                                <form:errors path="nachname" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -61,7 +61,7 @@
                                                 <div class="ui input"><form:input path="rolle"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="rolle" cssClass="error"/>
+                                                <form:errors path="rolle" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -71,7 +71,7 @@
                                                                                   id="datepickeraddkunde" autocomplete="false"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="birthDate" cssClass="error"/>
+                                                <form:errors path="birthDate" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -81,7 +81,7 @@
                                                              items="${kundeForm.kundeArtMap}"/>
                                             </td>
                                             <td>
-                                                <form:errors path="kundeArt" cssClass="error"/>
+                                                <form:errors path="kundeArt" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -98,7 +98,7 @@
                                                 </form:select>
                                             </td>
                                             <td>
-                                                <form:errors path="landVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="landVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -122,7 +122,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -146,7 +146,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="ortVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="ortVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -155,7 +155,7 @@
                                                 <div class="ui input"><form:input path="postleitzahlVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="postleitzahlVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="postleitzahlVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -165,7 +165,7 @@
                                                         path="strasseVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="strasseVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="strasseVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -174,7 +174,7 @@
                                                 <div class="ui input"><form:input path="hausNrVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="hausNrVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="hausNrVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -201,7 +201,7 @@
                                                 </form:select>
                                             </td>
                                             <td>
-                                                <form:errors path="landVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="landVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -224,7 +224,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="bundeslandVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="bundeslandVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -249,7 +249,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="ortVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="ortVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -260,7 +260,7 @@
                                                                                   disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="postleitzahlVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="postleitzahlVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -271,7 +271,7 @@
                                                                                   disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="strasseVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="strasseVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -282,7 +282,7 @@
                                                                                   disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="hausNrVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="hausNrVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                     </table>

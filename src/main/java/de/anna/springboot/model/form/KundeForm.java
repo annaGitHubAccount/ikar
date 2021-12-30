@@ -42,6 +42,8 @@ public class KundeForm {
 
     private String landVonMeldeanschriftName;
 
+    @NotNull(message = "{feld.isErfordelich}")
+    @NotEmpty(message = "{feld.isErfordelich}")
     private String bundeslandVonMeldeanschrift;
 
     @NotNull(message = "{feld.isErfordelich}")

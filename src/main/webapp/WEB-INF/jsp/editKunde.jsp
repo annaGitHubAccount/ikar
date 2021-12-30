@@ -84,6 +84,9 @@
                                                     <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
                                                 </form:select>
                                             </td>
+                                           <td>
+                                               <form:errors path="landVonMeldeanschrift" cssClass="ui red label"/>
+                                           </td>
                                         </tr>
                                         <tr>
                                             <td>Bundesland :</td>
@@ -106,7 +109,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -130,7 +133,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="ortVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="ortVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -139,7 +142,7 @@
                                                 <div class="ui input"><form:input path="postleitzahlVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="postleitzahlVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="postleitzahlVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -183,7 +186,7 @@
                                                         </form:select>
                                                     </td>
                                             <td>
-                                                <form:errors path="bundeslandVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="bundeslandVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -196,7 +199,7 @@
                                                         </form:select>
                                                     </td>
                                             <td>
-                                                <form:errors path="ortVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="ortVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -206,7 +209,7 @@
                                                                                   id="postleitzahlVonPostanschriftID" disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="postleitzahlVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="postleitzahlVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -372,28 +375,19 @@
         if (buttonNachRechts) {
             buttonNachRechts.addEventListener("click", function () {
 
-                let selectedProduktStammdatenMap = new Map();
-
                 let selectedProduktStammdaten = [];
 
                 for (let i = 0; i < produktStammdatenOptions.length; i++) {
                     let produktStammdatenOption = produktStammdatenOptions[i];
                     if (produktStammdatenOption.selected) {
-                        selectedProduktStammdatenMap.set(produktStammdatenOption.value, produktStammdatenOption.text);
                         selectedProduktStammdaten.push(produktStammdatenOption);
                     }
                 }
 
                 for (let i = 0; i < selectedProduktStammdaten.length; i++) {
-                    produktStammdatenSelect.removeChild(selectedProduktStammdaten[i]);
-                }
-
-                // Map iteration
-                for (let [key, value] of selectedProduktStammdatenMap) {
-                    let htmlOptionElement = document.createElement("option");
-                    htmlOptionElement.value = key;
-                    htmlOptionElement.innerHTML = value;
-                    produktenSelect.appendChild(htmlOptionElement);
+                    let selectedProduktStammdatenElement = selectedProduktStammdaten[i];
+                    produktStammdatenSelect.removeChild(selectedProduktStammdatenElement);
+                    produktenSelect.appendChild(selectedProduktStammdatenElement);
                 }
             });
         }
@@ -411,28 +405,19 @@
         if (buttonNachLinks) {
             buttonNachLinks.addEventListener("click", function () {
 
-                let selectedProduktMap = new Map();
-
                 let selectedProdukten = [];
 
                 for (let i = 0; i < produktenOptions.length; i++) {
                     let produktenOption = produktenOptions[i];
                     if (produktenOption.selected) {
-                        selectedProduktMap.set(produktenOption.value, produktenOption.text);
                         selectedProdukten.push(produktenOption);
                     }
                 }
 
                 for (let i = 0; i < selectedProdukten.length; i++) {
-                    produktenSelect.removeChild(selectedProdukten[i]);
-                }
-
-                // Map iteration
-                for (let [key, value] of selectedProduktMap) {
-                    let htmlOptionElement = document.createElement("option");
-                    htmlOptionElement.value = key;
-                    htmlOptionElement.innerHTML = value;
-                    produktStammdatenSelect.appendChild(htmlOptionElement);
+                    let selectedProduktenElement = selectedProdukten[i];
+                    produktenSelect.removeChild(selectedProduktenElement);
+                    produktStammdatenSelect.appendChild(selectedProduktenElement);
                 }
             });
         }

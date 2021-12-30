@@ -4,16 +4,16 @@ import de.anna.springboot.model.assembler.KundeKundeDTOAssembler;
 import de.anna.springboot.model.assembler.KundeKundeZeileDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
+import de.anna.springboot.model.entity.Adresse;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
 import de.anna.springboot.model.entity.Rolle;
+import de.anna.springboot.repository.AdresseRepository;
 import de.anna.springboot.repository.KundeRepository;
 import de.anna.springboot.repository.KundeSucheRepository;
 import de.anna.springboot.repository.ProduktRepository;
 import de.anna.springboot.repository.RolleRepository;
 import de.anna.springboot.util.KundeNummerUtils;
-import de.anna.springboot.util.MathUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +34,16 @@ public class KundeServiceImpl implements KundeService {
 
     private final RolleRepository rolleRepository;
 
+    private final AdresseRepository adresseRepository;
+
 
     public KundeServiceImpl(KundeRepository kundeRepository, ProduktRepository produktRepository,
-                            KundeSucheRepository kundeSucheRepository, RolleRepository rolleRepository) {
+                            KundeSucheRepository kundeSucheRepository, RolleRepository rolleRepository, AdresseRepository adresseRepository) {
         this.kundeRepository = kundeRepository;
         this.produktRepository = produktRepository;
         this.kundeSucheRepository = kundeSucheRepository;
         this.rolleRepository = rolleRepository;
+        this.adresseRepository = adresseRepository;
     }
 
 
@@ -65,6 +68,7 @@ public class KundeServiceImpl implements KundeService {
 
                 clearKundeProduktList(kundeFromDatenbank);
                 clearKundeRollenList(kundeFromDatenbank);
+                clearKundeAddresseList(kundeFromDatenbank);
 
                 Kunde kunde = KundeKundeDTOAssembler.mapKundeDTOToKunde(kundeDTO, kundeFromDatenbank);
 
@@ -73,6 +77,13 @@ public class KundeServiceImpl implements KundeService {
         }
 
 
+    }
+
+    private void clearKundeAddresseList(Kunde kundeFromDatenbank) {
+
+        List<Adresse> adresseList = kundeFromDatenbank.getAdresseList();
+        adresseRepository.deleteAll(adresseList);
+        adresseList.clear();
     }
 
     private void clearKundeProduktList(Kunde kundeFromDatenbank) {
