@@ -361,6 +361,8 @@ public class KundeWebController {
     @PostMapping("/bundeslaenderVonPostanschrift")
     public String showBundeslaenderVonPostanschrift(Model model, KundeForm kundeForm) {
 
+        Boolean postanschriftAktiv = kundeForm.getPostanschriftAktiv();
+
         String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
         List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
 
@@ -372,6 +374,7 @@ public class KundeWebController {
         String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
         List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
 
+        kundeForm.setPostanschriftAktiv(postanschriftAktiv);
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         kundeForm.setLandDTOListPostanschrift(landDTOList);
@@ -394,6 +397,8 @@ public class KundeWebController {
     @PostMapping("/orteVonPostanschrift")
     public String showOrteVonPostanschrift(Model model, KundeForm kundeForm) {
 
+        Boolean postanschriftAktiv = kundeForm.getPostanschriftAktiv();
+
         String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
         List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
 
@@ -408,6 +413,7 @@ public class KundeWebController {
         String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
         List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
 
+        kundeForm.setPostanschriftAktiv(postanschriftAktiv);
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);
