@@ -63,6 +63,7 @@ public class KundeForm {
     @NotEmpty(message = "{feld.isErfordelich}")
     private String hausNrVonMeldeanschrift;
 
+    private Boolean postanschriftAktiv;
     private String landVonPostanschrift;
     private String landVonPostanschriftName;
     private String bundeslandVonPostanschrift;
@@ -385,5 +386,13 @@ public class KundeForm {
 
     public void setLandDTOListPostanschrift(List<LandDTO> landDTOListPostanschrift) {
         this.landDTOListPostanschrift = landDTOListPostanschrift;
+    }
+
+    public Boolean getPostanschriftAktiv() {
+        return postanschriftAktiv;
+    }
+
+    public void setPostanschriftAktiv(Boolean postanschriftAktiv) {
+        this.postanschriftAktiv = postanschriftAktiv;
     }
 }
