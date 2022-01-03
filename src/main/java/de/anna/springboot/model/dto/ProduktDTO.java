@@ -43,6 +43,17 @@ public class ProduktDTO {
     }
 
     @Override
+    public String toString() {
+
+        return "id: " + this.id +
+                ", symbol: " + this.symbol +
+                ", name: " + this.name +
+                ", preis: " + this.preis +
+                ", isAktiv: " + this.aktiv +
+                ", produktArt: " + this.produktArt;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(getSymbol());
     }

@@ -115,16 +115,22 @@ public class KundeWebController {
 
     private void setAuswahllistenVonMeldeanschriftFuerKundeForm(@ModelAttribute(KUNDE_FORM) @Valid KundeForm kundeForm, List<LandDTO> landDTOList) {
 
-        LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
-        kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
+        if(kundeForm.getLandVonPostanschrift() != null) {
+            LandDTO landDTOMeldeanschrift = landService.findLandBySymbol(kundeForm.getLandVonMeldeanschrift());
+            kundeForm.setLandVonMeldeanschriftName(landDTOMeldeanschrift.getName());
+        }
 
-        String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
-        List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
-        kundeForm.setOrtDTOList(ortByBundesland);
+        if(kundeForm.getBundeslandVonMeldeanschrift() != null) {
+            String bundeslandVonMeldeanschrift = kundeForm.getBundeslandVonMeldeanschrift();
+            List<OrtDTO> ortByBundesland = ortService.findOrtByBundesland(bundeslandVonMeldeanschrift);
+            kundeForm.setOrtDTOList(ortByBundesland);
+        }
 
-        String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
-        List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
-        kundeForm.setBundeslandDTOList(bundeslandByLandList);
+        if(kundeForm.getLandVonMeldeanschrift() != null) {
+            String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
+            List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
+            kundeForm.setBundeslandDTOList(bundeslandByLandList);
+        }
 
         kundeForm.setLandDTOList(landDTOList);
     }
@@ -247,7 +253,7 @@ public class KundeWebController {
 
 
     @PostMapping("/kundeweiterleitenedit")
-    public String kundeWeiterleitenEdit(Model model, KundeForm kundeForm) {
+    public String kundeWeiterleitenEdit(Model model, @Valid KundeForm kundeForm, BindingResult resultOfValidation) {
 
         List<LandDTO> landDTOList = landService.findAll();
 
@@ -259,6 +265,12 @@ public class KundeWebController {
 
         model.addAttribute(KUNDE_FORM, kundeForm);
 
+        if (resultOfValidation.hasErrors()) {
+            model.addAttribute(KUNDE_FORM, kundeForm);
+            return "editKunde";
+        }
+
+        model.addAttribute(KUNDE_FORM, kundeForm);
         return "kundeWeiterleitenEdit";
     }
 
@@ -349,6 +361,8 @@ public class KundeWebController {
     @PostMapping("/bundeslaenderVonPostanschrift")
     public String showBundeslaenderVonPostanschrift(Model model, KundeForm kundeForm) {
 
+        Boolean postanschriftAktiv = kundeForm.getPostanschriftAktiv();
+
         String landVonPostanschrift = kundeForm.getLandVonPostanschrift();
         List<BundeslandDTO> bundeslandByLandListPostanschrift = bundeslandService.findBundeslandByLand(landVonPostanschrift);
 
@@ -360,6 +374,7 @@ public class KundeWebController {
         String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
         List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
 
+        kundeForm.setPostanschriftAktiv(postanschriftAktiv);
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         kundeForm.setLandDTOListPostanschrift(landDTOList);
@@ -382,6 +397,8 @@ public class KundeWebController {
     @PostMapping("/orteVonPostanschrift")
     public String showOrteVonPostanschrift(Model model, KundeForm kundeForm) {
 
+        Boolean postanschriftAktiv = kundeForm.getPostanschriftAktiv();
+
         String bundeslandVonPostanschrift = kundeForm.getBundeslandVonPostanschrift();
         List<OrtDTO> ortByBundeslandPostanschrift = ortService.findOrtByBundesland(bundeslandVonPostanschrift);
 
@@ -396,6 +413,7 @@ public class KundeWebController {
         String landVonMeldeanschrift = kundeForm.getLandVonMeldeanschrift();
         List<BundeslandDTO> bundeslandByLandList = bundeslandService.findBundeslandByLand(landVonMeldeanschrift);
 
+        kundeForm.setPostanschriftAktiv(postanschriftAktiv);
         kundeForm.setKundeArtMap(KundeArt.convertKundeArtEnumToTextTextMap());
 
         kundeForm.setOrtDTOListPostanschrift(ortByBundeslandPostanschrift);

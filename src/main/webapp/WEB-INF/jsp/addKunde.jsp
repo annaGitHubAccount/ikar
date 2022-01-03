@@ -34,7 +34,7 @@
                                                 <div class="ui input"><form:input path="steuerId"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="steuerId" cssClass="error"/>
+                                                <form:errors path="steuerId" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -43,7 +43,7 @@
                                                 <div class="ui input"><form:input path="name"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="name" cssClass="error"/>
+                                                <form:errors path="name" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -52,7 +52,7 @@
                                                 <div class="ui input"><form:input path="nachname"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="nachname" cssClass="error"/>
+                                                <form:errors path="nachname" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -61,17 +61,18 @@
                                                 <div class="ui input"><form:input path="rolle"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="rolle" cssClass="error"/>
+                                                <form:errors path="rolle" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Geburtsdatum :</td>
                                             <td>
                                                 <div class="ui input"><form:input path="birthDate"
-                                                                                  id="datepickeraddkunde" autocomplete="false"/></div>
+                                                                                  id="datepickeraddkunde"
+                                                                                  autocomplete="false"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="birthDate" cssClass="error"/>
+                                                <form:errors path="birthDate" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -81,7 +82,7 @@
                                                              items="${kundeForm.kundeArtMap}"/>
                                             </td>
                                             <td>
-                                                <form:errors path="kundeArt" cssClass="error"/>
+                                                <form:errors path="kundeArt" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -94,11 +95,12 @@
                                             <td>
                                                 <form:select path="landVonMeldeanschrift" id="landVonMeldeanschriftID">
                                                     <form:option value="" label="Waehle ein Land"/>
-                                                    <form:options items="${kundeForm.landDTOList}" itemValue="symbol" itemLabel="name"/>
+                                                    <form:options items="${kundeForm.landDTOList}" itemValue="symbol"
+                                                                  itemLabel="name"/>
                                                 </form:select>
                                             </td>
                                             <td>
-                                                <form:errors path="landVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="landVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -113,7 +115,8 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>
-                                                        <form:select path="bundeslandVonMeldeanschrift" id="bundeslandVonMeldeanschriftID">
+                                                        <form:select path="bundeslandVonMeldeanschrift"
+                                                                     id="bundeslandVonMeldeanschriftID">
                                                             <form:option value="" label="Waehle ein Bundesland"/>
                                                             <form:options items="${kundeForm.bundeslandDTOList}"
                                                                           itemValue="name" itemLabel="name"/>
@@ -122,7 +125,8 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="bundeslandVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="bundeslandVonMeldeanschrift"
+                                                             cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -146,16 +150,18 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="ortVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="ortVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Postleitzahl :</td>
                                             <td>
-                                                <div class="ui input"><form:input path="postleitzahlVonMeldeanschrift"/></div>
+                                                <div class="ui input"><form:input
+                                                        path="postleitzahlVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="postleitzahlVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="postleitzahlVonMeldeanschrift"
+                                                             cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -165,7 +171,7 @@
                                                         path="strasseVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="strasseVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="strasseVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -174,7 +180,7 @@
                                                 <div class="ui input"><form:input path="hausNrVonMeldeanschrift"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="hausNrVonMeldeanschrift" cssClass="error"/>
+                                                <form:errors path="hausNrVonMeldeanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -190,18 +196,22 @@
                                         <tr>
                                             <td><label for="checkboxPostanschriftID">Aktiviere Postanschrift:</label>
                                             </td>
-                                            <td><input type="checkbox" id="checkboxPostanschriftID" ></td>
+                                            <td>
+                                                <form:checkbox path="postanschriftAktiv" id="checkboxPostanschriftID"/>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Land :</td>
                                             <td>
-                                                <form:select path="landVonPostanschrift" id="landVonPostanschriftID" disabled="true">
+                                                <form:select path="landVonPostanschrift" id="landVonPostanschriftID"
+                                                             disabled="true">
                                                     <form:option value="0" label="Waehle ein Land"/>
-                                                    <form:options items="${kundeForm.landDTOListPostanschrift}" itemLabel="name" itemValue="symbol"/>
+                                                    <form:options items="${kundeForm.landDTOListPostanschrift}"
+                                                                  itemLabel="name" itemValue="symbol"/>
                                                 </form:select>
                                             </td>
                                             <td>
-                                                <form:errors path="landVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="landVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -216,15 +226,18 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>
-                                                        <form:select path="bundeslandVonPostanschrift" id="bundeslandVonPostanschriftID">
+                                                        <form:select path="bundeslandVonPostanschrift"
+                                                                     id="bundeslandVonPostanschriftID" disabled="true">
                                                             <form:option value="" label="Waehle ein Bundesland"/>
-                                                            <form:options items="${kundeForm.bundeslandDTOListPostanschrift}" itemValue="name" itemLabel="name"/>
+                                                            <form:options
+                                                                    items="${kundeForm.bundeslandDTOListPostanschrift}"
+                                                                    itemValue="name" itemLabel="name"/>
                                                         </form:select>
                                                     </td>
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="bundeslandVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="bundeslandVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -240,7 +253,7 @@
                                                 <c:otherwise>
                                                     <td>
                                                         <form:select path="ortVonPostanschrift"
-                                                                     id="ortVonPostanschriftID">
+                                                                     id="ortVonPostanschriftID" disabled="true">
                                                             <form:option value="" label="Waehle ein Ort"/>
                                                             <form:options items="${kundeForm.ortDTOListPostanschrift}"
                                                                           itemValue="name" itemLabel="name"/>
@@ -249,7 +262,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <td>
-                                                <form:errors path="ortVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="ortVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -260,7 +273,8 @@
                                                                                   disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="postleitzahlVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="postleitzahlVonPostanschrift"
+                                                             cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -271,7 +285,7 @@
                                                                                   disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="strasseVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="strasseVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -282,7 +296,7 @@
                                                                                   disabled="true"/></div>
                                             </td>
                                             <td>
-                                                <form:errors path="hausNrVonPostanschrift" cssClass="error"/>
+                                                <form:errors path="hausNrVonPostanschrift" cssClass="ui red label"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -345,7 +359,7 @@
         <tr>
             <td>
                 <br/>
-                <input type="button" value="Abbrechen" id="buttonAbbrechen" class="ui button" />
+                <input type="button" value="Abbrechen" id="buttonAbbrechen" class="ui button"/>
             </td>
         </tr>
 
@@ -361,7 +375,7 @@
 
         let land = document.getElementById("landVonPostanschriftID");
 
-        if(land) {
+        if (land) {
             land.addEventListener("change", function () {
 
                 sammleAlleProduktstammdatenUndProdukten();
@@ -376,7 +390,7 @@
 
         let bundesland = document.getElementById("bundeslandVonPostanschriftID");
 
-        if(bundesland) {
+        if (bundesland) {
             bundesland.addEventListener("change", function () {
 
                 sammleAlleProduktstammdatenUndProdukten();
@@ -391,7 +405,7 @@
 
         let land = document.getElementById("landVonMeldeanschriftID");
 
-        if(land) {
+        if (land) {
             land.addEventListener("change", function () {
 
                 sammleAlleProduktstammdatenUndProdukten();
@@ -406,7 +420,7 @@
 
         let bundesland = document.getElementById("bundeslandVonMeldeanschriftID");
 
-        if(bundesland) {
+        if (bundesland) {
             bundesland.addEventListener("change", function () {
 
                 sammleAlleProduktstammdatenUndProdukten();
@@ -418,27 +432,53 @@
     }
 
     function checkboxChange() {
-        var checkbox = document.getElementById("checkboxPostanschriftID");
 
-        if(checkbox) {
-            checkbox.addEventListener("change", function () {
+        isCheckboxChecked();
 
-                if (checkbox.checked) {
-                    document.getElementById("landVonPostanschriftID").disabled = false;
-                    document.getElementById("bundeslandVonPostanschriftID").disabled = false;
-                    document.getElementById("ortVonPostanschriftID").disabled = false;
-                    document.getElementById("postleitzahlVonPostanschriftID").disabled = false;
-                    document.getElementById("strasseVonPostanschriftID").disabled = false;
-                    document.getElementById("hausNrVonPostanschriftID").disabled = false;
-                } else {
-                    document.getElementById("landVonPostanschriftID").disabled = true;
-                    document.getElementById("bundeslandVonPostanschriftID").disabled = true;
-                    document.getElementById("ortVonPostanschriftID").disabled = true;
-                    document.getElementById("postleitzahlVonPostanschriftID").disabled = true;
-                    document.getElementById("strasseVonPostanschriftID").disabled = true;
-                    document.getElementById("hausNrVonPostanschriftID").disabled = true;
-                }
-            });
+        let checkbox = document.getElementById("checkboxPostanschriftID");
+        checkbox.addEventListener("change", function () {
+            isCheckboxChecked();
+        });
+    }
+
+    function isCheckboxChecked() {
+
+        let checkbox = document.getElementById("checkboxPostanschriftID");
+
+        if (checkbox.checked) {
+
+            document.getElementById("landVonPostanschriftID").disabled = false;
+
+            let bundeslandVonPostanschriftID = document.getElementById("bundeslandVonPostanschriftID");
+            if (bundeslandVonPostanschriftID) {
+                bundeslandVonPostanschriftID.disabled = false;
+            }
+
+            let ortVonPostanschriftID = document.getElementById("ortVonPostanschriftID");
+            if (ortVonPostanschriftID) {
+                ortVonPostanschriftID.disabled = false;
+            }
+
+            document.getElementById("postleitzahlVonPostanschriftID").disabled = false;
+            document.getElementById("strasseVonPostanschriftID").disabled = false;
+            document.getElementById("hausNrVonPostanschriftID").disabled = false;
+
+        } else {
+            document.getElementById("landVonPostanschriftID").disabled = true;
+
+            let bundeslandVonPostanschriftID = document.getElementById("bundeslandVonPostanschriftID");
+            if (bundeslandVonPostanschriftID) {
+                bundeslandVonPostanschriftID.disabled = true;
+            }
+
+            let ortVonPostanschriftID = document.getElementById("ortVonPostanschriftID");
+            if (ortVonPostanschriftID) {
+                ortVonPostanschriftID.disabled = true;
+            }
+
+            document.getElementById("postleitzahlVonPostanschriftID").disabled = true;
+            document.getElementById("strasseVonPostanschriftID").disabled = true;
+            document.getElementById("hausNrVonPostanschriftID").disabled = true;
         }
     }
 
@@ -452,7 +492,7 @@
 
         let produktenSelect = document.getElementById("produkten");
 
-        if(buttonNachRechts) {
+        if (buttonNachRechts) {
             buttonNachRechts.addEventListener("click", function () {
 
                 let selectedProduktStammdatenMap = new Map();
@@ -467,7 +507,7 @@
                     }
                 }
 
-                for(let i = 0; i < selectedProduktStammdaten.length; i++) {
+                for (let i = 0; i < selectedProduktStammdaten.length; i++) {
                     produktStammdatenSelect.removeChild(selectedProduktStammdaten[i]);
                 }
 
@@ -492,7 +532,7 @@
 
         let produktStammdatenSelect = document.getElementById("produktStammdaten");
 
-        if(buttonNachLinks) {
+        if (buttonNachLinks) {
             buttonNachLinks.addEventListener("click", function () {
 
                 let selectedProduktMap = new Map();
@@ -507,7 +547,7 @@
                     }
                 }
 
-                for(let i = 0; i < selectedProdukten.length; i++) {
+                for (let i = 0; i < selectedProdukten.length; i++) {
                     produktenSelect.removeChild(selectedProdukten[i]);
                 }
 
@@ -526,7 +566,7 @@
     function bedieneButtonAbbrechen() {
         var buttonAbbrechen = document.getElementById("buttonAbbrechen");
 
-        if(buttonAbbrechen) {
+        if (buttonAbbrechen) {
             buttonAbbrechen.onclick = function () {
                 document.forms[0].action = "/ikar/kundesucheform/listevonkunden";
                 document.forms[0].submit();
@@ -540,7 +580,7 @@
         let produktenSelect = document.getElementById("produkten");
         let produktenOptions = produktenSelect.options;
 
-        buttonWeiter.onclick = function(){
+        buttonWeiter.onclick = function () {
 
             for (let i = 0; i < produktenOptions.length; i++) {
                 let produktOption = produktenOptions[i];
@@ -549,7 +589,7 @@
         }
     }
 
-    function sammleAlleProduktstammdatenUndProdukten(){
+    function sammleAlleProduktstammdatenUndProdukten() {
 
         let produktStammdatenSelect = document.getElementById("produktStammdaten");
         let produktStammdatenOptions = produktStammdatenSelect.options;
@@ -569,15 +609,17 @@
         }
     }
 
-    checkboxChange();
-    bedienebuttonNachRechts();
-    bedieneButtonNachLinks();
-    bedieneButtonAbbrechen();
-    checkLandVonMeldeanschriftChange();
-    checkBundeslandVonMeldeanschriftChange();
-    checkLandVonPostanschriftChange();
-    checkBundeslandVonPostanschriftChange();
-    sammelnGewahlteProdukten();
-    sammleAlleProduktstammdatenUndProdukten();
 
+    window.onload = function () {
+        checkboxChange();
+        bedienebuttonNachRechts();
+        bedieneButtonNachLinks();
+        bedieneButtonAbbrechen();
+        checkLandVonMeldeanschriftChange();
+        checkBundeslandVonMeldeanschriftChange();
+        checkLandVonPostanschriftChange();
+        checkBundeslandVonPostanschriftChange();
+        sammelnGewahlteProdukten();
+        sammleAlleProduktstammdatenUndProdukten();
+    }
 </script>

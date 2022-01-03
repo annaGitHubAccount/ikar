@@ -30,8 +30,8 @@
     insert into Adresse(ID, LAND, ORT, BUNDESLAND, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(11, 'DE', 'München', 'Bayern', '58741', 'Blumen Str.', '4', 'MA', 6);
     insert into Adresse(ID, LAND, ORT, BUNDESLAND, POSTLEITZAHL, STRASSE, HAUS_NR, ADRESSE_ART, KUNDE_ID) VALUES(12, 'DE', 'München', 'Bayern', '96325', 'Blumen Str.', '4', 'PA', 6);
 
-    insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES (1, 'PO1', 'Produkt1', 100, true, 'L', 1);
-    insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES (2, 'PO2', 'Produkt2', 250, true, 'S', 1);
+    insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES (1, 'P01', 'Produkt1', 100, true, 'L', 1);
+    insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES (2, 'P02', 'Produkt2', 250, true, 'S', 1);
     insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(3, 'P03', 'Produkt3', 500, false, 'M', 2);
     insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(4, 'P04', 'Produkt4', 1000, true, 'L', 2);
     insert into Produkt(id, symbol, name, preis, is_aktiv, PRODUKT_ART, KUNDE_ID) VALUES(5, 'P05', 'Produkt5', 1000, false, 'M', 3);
