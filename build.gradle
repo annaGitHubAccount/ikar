@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
 
+	implementation 'junit:junit:4.13.1'
 	compileOnly "org.springframework.boot:spring-boot-starter-tomcat"
 	compileOnly "org.apache.tomcat.embed:tomcat-embed-jasper"
 

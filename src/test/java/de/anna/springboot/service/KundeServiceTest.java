@@ -4,7 +4,11 @@ import de.anna.springboot.model.assembler.KundeKundeDTOAssembler;
 import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
 import de.anna.springboot.model.entity.Kunde;
+import de.anna.springboot.repository.AdresseRepository;
 import de.anna.springboot.repository.KundeRepository;
+import de.anna.springboot.repository.KundeSucheRepository;
+import de.anna.springboot.repository.ProduktRepository;
+import de.anna.springboot.repository.RolleRepository;
 import de.anna.springboot.testDatenGenerator.KundeTestDatenGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +29,18 @@ public class KundeServiceTest {
 
     @Mock
     private KundeRepository kundeRepository;
+
+    @Mock
+    private ProduktRepository produktRepository;
+
+    @Mock
+    private KundeSucheRepository kundeSucheRepository;
+
+    @Mock
+    private RolleRepository rolleRepository;
+
+    @Mock
+    private AdresseRepository adresseRepository;
 
     private static Kunde kunde1;
     private static Kunde kunde2;
@@ -56,7 +72,7 @@ public class KundeServiceTest {
     @Test
     public void findAllKundeZeileDTOTest(){
 
-        KundeService kundeService = new KundeServiceImpl(kundeRepository);
+        KundeService kundeService = new KundeServiceImpl(kundeRepository, produktRepository, kundeSucheRepository, rolleRepository, adresseRepository);
         List<KundeZeileDTO> kundeZeileDTOList = kundeService.findAllKundeZeileDTO();
 
         KundeZeileDTO kundeZeileDTO1 = kundeZeileDTOList.get(0);
@@ -72,7 +88,7 @@ public class KundeServiceTest {
     @Test
     public void findKundenByNachname(){
 
-        KundeService kundeService = new KundeServiceImpl(kundeRepository);
+        KundeService kundeService = new KundeServiceImpl(kundeRepository, produktRepository, kundeSucheRepository, rolleRepository, adresseRepository);
         List<KundeDTO> kundenByNachnameList = kundeService.findKundenByNachname(kunde1.getNachname());
 
         assertEquals(1, kundenByNachnameList.size());
@@ -83,7 +99,7 @@ public class KundeServiceTest {
     @Test
     public void findKundeById(){
 
-        KundeService kundeService = new KundeServiceImpl(kundeRepository);
+        KundeService kundeService = new KundeServiceImpl(kundeRepository, produktRepository, kundeSucheRepository, rolleRepository, adresseRepository);
         KundeDTO kundeDTO = kundeService.findKundeById(KundeServiceTest.kunde1.getId());
 
         //assertEquals(kunde1, kundeDTO);

@@ -2,12 +2,13 @@ package de.anna.springboot.controller.helper;
 
 import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.entity.Rolle;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class RolleDTOHelperTest {
 
