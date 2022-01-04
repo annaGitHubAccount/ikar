@@ -248,9 +248,7 @@ public class KundeSucheWebController {
         } catch (JAXBException | IOException e) {
             throw new RuntimeException(e);
 
-        } /*catch (SAXException e) {
-            logger.error("XML generierung ist schiefgelaufen", e);
-        }*/
+        }
     }
 }
 
