@@ -21,9 +21,7 @@ public class ProduktStammdatenServiceFabrikDBImpl implements ProduktStammdatenSe
         ArrayList<ProduktStammdaten> produktStammdatenArrayList = (ArrayList<ProduktStammdaten>) produktStammdatenRepository.findAll();
 
         return produktStammdatenArrayList.stream()
-                .map(produktStammdaten -> {
-                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
-                    return produktStammdatenDTO;
-                }).collect(Collectors.toList());
+                .map(ProduktStammdatenProductStammdatenDTOAssembler::mapProduktStammdatenToProduktStammdatenDTO)
+                .toList();
     }
 }

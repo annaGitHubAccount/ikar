@@ -1,7 +1,8 @@
 package de.anna.springboot.model.enums;
 
-import java.util.LinkedHashMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum ProduktArt {
 
@@ -23,13 +24,10 @@ public enum ProduktArt {
 
         ProduktArt[] produktArts = values();
 
-        for(ProduktArt produktArt : produktArts){
-            if(produktArt.getKode().equals(produktArtAlsString)){
-                return produktArt;
-            }
-        }
-
-        throw new RuntimeException("Solchen Kode von ProduktArt gibt es nicht !!!");
+        return Arrays.stream(produktArts)
+                .filter(produktArt -> produktArt.getKode().equals(produktArtAlsString))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Solchen Kode von ProduktArt gibt es nicht !!!"));
     }
 
     public static String convertProduktArtToString(ProduktArt produktArt) {
@@ -40,14 +38,10 @@ public enum ProduktArt {
 
     public static Map<String, String> convertProduktArtEnumToMap() {
 
-        Map<String, String> produktArtMap = new LinkedHashMap<>();
         ProduktArt[] produktArts = values();
 
-        for(ProduktArt produktArt : produktArts){
-            produktArtMap.put(produktArt.getKode(), produktArt.getText());
-        }
-
-        return produktArtMap;
+        return Arrays.stream(produktArts)
+                .collect(Collectors.toMap(ProduktArt::getKode, ProduktArt::getText));
     }
 
 

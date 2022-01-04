@@ -5,9 +5,7 @@ import de.anna.springboot.model.dto.KundeDTO;
 import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.dto.xml.KundeRootDTO;
 import de.anna.springboot.model.dto.xml.KundeZeileDTO;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class KundeDTOToKundeRootDTOAssembler {
 
@@ -24,8 +22,8 @@ public class KundeDTOToKundeRootDTOAssembler {
     public static List<KundeZeileDTO> convertKundeDTOListToKundeZeileDTOList(List<KundeDTO> kundenList) {
 
        return kundenList.stream()
-               .map(kundeDTO -> convertKundeDTOToKundeZeileDTO(kundeDTO))
-               .collect(Collectors.toList());
+               .map(KundeDTOToKundeRootDTOAssembler::convertKundeDTOToKundeZeileDTO)
+               .toList();
     }
 
     private static KundeZeileDTO convertKundeDTOToKundeZeileDTO(KundeDTO kundeDTO) {

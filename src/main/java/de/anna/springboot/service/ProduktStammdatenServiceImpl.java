@@ -54,8 +54,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
     @Override
     public List<ProduktStammdatenDTO> findAll() {
 
-        List<ProduktStammdatenDTO> produktStammdatenDTOList = produktStammdatenServiceFabrik.findAll();
-        return produktStammdatenDTOList;
+        return produktStammdatenServiceFabrik.findAll();
     }
 
     @Override
@@ -77,9 +76,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
 
         Optional<ProduktStammdaten> produktStammdaten = produktStammdatenRepository.findById(id);
 
-        if (produktStammdaten.isPresent()) {
-            produktStammdatenRepository.deleteById(produktStammdaten.get().getId());
-        }
+        produktStammdaten.ifPresent(stammdaten -> produktStammdatenRepository.deleteById(stammdaten.getId()));
     }
 
     @Override
@@ -88,11 +85,8 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
         List<ProduktStammdaten> produktStammdatenByNameList = produktStammdatenRepository.findProduktStammdatenByName(name);
 
         return produktStammdatenByNameList.stream()
-                .map(produktStammdaten -> {
-                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
-                    return produktStammdatenDTO;
-                })
-                .collect(Collectors.toList());
+                .map(ProduktStammdatenProductStammdatenDTOAssembler::mapProduktStammdatenToProduktStammdatenDTO)
+                .toList();
     }
 
     @Override
@@ -101,10 +95,7 @@ public class ProduktStammdatenServiceImpl implements ProduktStammdatenService {
         List<ProduktStammdaten> produktStammdatenList = produktstammdatenSucheRepository.findProduktStammdaten(name, preisAB, preisBIS, symbol, aktiv);
 
         return produktStammdatenList.stream()
-                .map(produktStammdaten -> {
-                    ProduktStammdatenDTO produktStammdatenDTO = ProduktStammdatenProductStammdatenDTOAssembler.mapProduktStammdatenToProduktStammdatenDTO(produktStammdaten);
-                    return produktStammdatenDTO;
-                })
-                .collect(Collectors.toList());
+                .map(ProduktStammdatenProductStammdatenDTOAssembler::mapProduktStammdatenToProduktStammdatenDTO)
+                .toList();
     }
 }

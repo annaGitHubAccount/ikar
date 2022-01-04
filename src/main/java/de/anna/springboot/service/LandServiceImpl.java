@@ -22,17 +22,16 @@ public class LandServiceImpl implements LandService {
         List<Land> landDTOList = (List<Land>) landRepository.findAll();
 
         return landDTOList.stream()
-                .map(land -> LandDTOLandAssembler.mapLandToLandDTO(land))
-                .collect(Collectors.toList());
+                .map(LandDTOLandAssembler::mapLandToLandDTO)
+                .toList();
     }
 
     @Override
     public LandDTO findLandBySymbol(String symbol) {
 
         Land land = landRepository.findLandBySymbol(symbol);
-        LandDTO landDTO = LandDTOLandAssembler.mapLandToLandDTO(land);
 
-        return landDTO;
+        return LandDTOLandAssembler.mapLandToLandDTO(land);
     }
 
 

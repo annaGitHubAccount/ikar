@@ -1,7 +1,8 @@
 package de.anna.springboot.model.enums;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum KundeArt {
 
@@ -21,68 +22,49 @@ public enum KundeArt {
 
     public static Map<String, String> convertKundeArtEnumToTextTextMap() {
 
-        Map<String, String> kundeArtMap = new HashMap<>();
         KundeArt[] kundeArtEnumArray = values();
 
-        for (KundeArt kundeArt : kundeArtEnumArray) {
-            kundeArtMap.put(kundeArt.getText(), kundeArt.getText());
-        }
-
-        return kundeArtMap;
+        return Arrays.stream(kundeArtEnumArray)
+                .collect(Collectors.toMap(KundeArt::getText, KundeArt::getText));
     }
 
     public static Map<String, String> convertKundeArtEnumToKodeTextMap() {
 
-        Map<String, String> kundeArtMap = new HashMap<>();
         KundeArt[] kundeArtEnumArray = values();
 
-        for (KundeArt kundeArt : kundeArtEnumArray) {
-            kundeArtMap.put(kundeArt.getKode(), kundeArt.getText());
-        }
-
-        return kundeArtMap;
+        return Arrays.stream(kundeArtEnumArray)
+                .collect(Collectors.toMap(KundeArt::getKode, KundeArt::getText));
     }
 
     public static KundeArt convertToKundeArtByCode(String kundeArtByKode) {
 
         KundeArt[] kundeArtsArray = values();
 
-        for(KundeArt kundeArt : kundeArtsArray){
-            if(kundeArt.getKode().equals(kundeArtByKode)){
-                return kundeArt;
-            }
-        }
-
-        // return null; // nieladnie zwracac null, wiec lepiej rzucic wyjatek
-        throw new RuntimeException("Es gibt solchen KundenArt by Kode nicht: " + kundeArtByKode + " !!!");
-
+        return Arrays.stream(kundeArtsArray)
+                .filter(kundeArt -> kundeArt.getKode().equals(kundeArtByKode))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Es gibt solchen KundenArt by Kode nicht: " + kundeArtByKode + " !!!"));
     }
 
     public static KundeArt convertToKundeArtByText(String kundeArtByText) {
 
         KundeArt[] kundeArtsArray = values();
 
-        for(KundeArt kundeArt : kundeArtsArray){
-            if(kundeArt.getText().equals(kundeArtByText)){
-                return kundeArt;
-            }
-        }
-
-        throw new RuntimeException("Es gibt solchen KundenArt by Text nicht !!!");
-
+        return Arrays.stream(kundeArtsArray)
+                .filter(kundeArt -> kundeArt.getText().equals(kundeArtByText))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Es gibt solchen KundenArt by Text nicht !!!"));
     }
 
     public static String convertKundeArtKodeToText(String kundeArtKode) {
 
         KundeArt[] kundeArtsArray = values();
 
-        for (KundeArt kundeArt : kundeArtsArray) {
-            if (kundeArt.getKode().equals(kundeArtKode)) {
-                return kundeArt.getText();
-            }
-        }
-
-        throw new RuntimeException("Es gibt solchen Kode nicht !!!");
+        return Arrays.stream(kundeArtsArray)
+                .filter(kundeArt -> kundeArt.getKode().equals(kundeArtKode))
+                .findFirst()
+                .map(KundeArt::getText)
+                .orElseThrow(() -> new RuntimeException("Es gibt solchen Kode nicht !!!"));
     }
 
 

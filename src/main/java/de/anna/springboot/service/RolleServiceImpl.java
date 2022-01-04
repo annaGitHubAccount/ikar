@@ -32,11 +32,8 @@ public class RolleServiceImpl implements RolleService {
         List<Rolle> rollenListByKunde = rolleRepository.findByKundeId(kundeId);
 
         return rollenListByKunde.stream()
-                .map(rolle -> {
-                    RolleDTO rolleDTO = RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle);
-                    return rolleDTO;
-                })
-                .collect(Collectors.toList());
+                .map(RolleRolleDTOAssembler::convertRolleToRolleDTO)
+                .toList();
     }
 
     @Override
@@ -59,9 +56,7 @@ public class RolleServiceImpl implements RolleService {
 
         Optional<Rolle> rolleById = rolleRepository.findById(id);
 
-        if (rolleById.isPresent()) {
-            rolleRepository.delete(rolleById.get());
-        }
+        rolleById.ifPresent(rolle -> rolleRepository.delete(rolle));
     }
 
     @Override
@@ -103,7 +98,8 @@ public class RolleServiceImpl implements RolleService {
 
         List<Rolle> rolleByNameList = rolleRepository.findRolleByName(name);
 
-        return rolleByNameList.stream().map(rolle -> RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle))
-                .collect(Collectors.toList());
+        return rolleByNameList.stream()
+                .map(RolleRolleDTOAssembler::convertRolleToRolleDTO)
+                .toList();
     }
 }

@@ -2,9 +2,7 @@ package de.anna.springboot.model.assembler;
 
 import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.dto.RolleStammdatenDTO;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class RolleStammdatenToRolleDTO {
 
@@ -26,7 +24,7 @@ public final class RolleStammdatenToRolleDTO {
     public static List<RolleDTO> convertRolleStammdatenDTOToRolleDTOList(List<RolleStammdatenDTO> rolleStammdatenDTOList) {
 
         return rolleStammdatenDTOList.stream()
-                .map(rolleStammdatenDTO -> RolleStammdatenToRolleDTO.convertRolleStammdatenDTOTORolleDTO(rolleStammdatenDTO))
-                .collect(Collectors.toList());
+                .map(RolleStammdatenToRolleDTO::convertRolleStammdatenDTOTORolleDTO)
+                .toList();
     }
 }

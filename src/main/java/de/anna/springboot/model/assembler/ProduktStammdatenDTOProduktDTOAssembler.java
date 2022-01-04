@@ -2,9 +2,8 @@ package de.anna.springboot.model.assembler;
 
 import de.anna.springboot.model.dto.ProduktDTO;
 import de.anna.springboot.model.dto.ProduktStammdatenDTO;
-
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public final class ProduktStammdatenDTOProduktDTOAssembler {
 
@@ -31,11 +30,8 @@ public final class ProduktStammdatenDTOProduktDTOAssembler {
     public static List<ProduktDTO> convertProduktStammdatenDTOToProduktDTO(List<ProduktStammdatenDTO> produktStammdatenDTOList){
 
         return produktStammdatenDTOList.stream()
-                .map(produktStammdatenDTO -> {
-                    ProduktDTO produktDTO = ProduktStammdatenDTOProduktDTOAssembler.convertProduktStammdatenDTOToProduktDTO(produktStammdatenDTO);
-                    return produktDTO;
-                })
-                .collect(Collectors.toList());
+                .map(ProduktStammdatenDTOProduktDTOAssembler::convertProduktStammdatenDTOToProduktDTO)
+                .toList();
     }
 
 

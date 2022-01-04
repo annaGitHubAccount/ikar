@@ -17,16 +17,12 @@ public class StatistikServiceImpl implements StatistikService {
     @Override
     public List<KundeAnzahlLandDTO> findAnzahlVonKundenImLand() {
 
-        List<KundeAnzahlLandDTO> anzahlVonKundenImLand = statistikRepository.findAnzahlVonKundenImLand();
-
-        return anzahlVonKundenImLand;
+        return statistikRepository.findAnzahlVonKundenImLand();
     }
 
     @Override
     public List<KundeAnzahlProProduktDTO> findAnzahlVonKundenProProdukt() {
 
-        List<KundeAnzahlProProduktDTO> anzahlVonKundenProProdukt = statistikRepository.findAnzahlVonKundenProProdukt();
-
-        return anzahlVonKundenProProdukt;
+        return statistikRepository.findAnzahlVonKundenProProdukt();
     }
 }
