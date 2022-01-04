@@ -20,10 +20,8 @@ public class OrtServiceImpl implements OrtService{
 
         List<Ort> ortByBundesland = ortRepository.findOrtByBundesland(bundeslandName);
 
-        List<OrtDTO> ortDTOList = ortByBundesland.stream()
-                .map(ort -> OrtDTOOrtAssembler.convertOrtToOrtTDO(ort))
-                .collect(Collectors.toList());
-
-        return ortDTOList;
+        return ortByBundesland.stream()
+                .map(OrtDTOOrtAssembler::convertOrtToOrtTDO)
+                .toList();
     }
 }

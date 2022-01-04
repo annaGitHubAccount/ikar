@@ -1,5 +1,7 @@
 package de.anna.springboot.model.enums;
 
+import java.util.Arrays;
+
 public enum AdresseArt {
 
     MELDEANSCHRIFT("MA", "Meldeanschrift"),
@@ -19,13 +21,10 @@ public enum AdresseArt {
 
         AdresseArt[] adresseArts = values();
 
-        for(AdresseArt adresseArt : adresseArts){
-            if(adresseArt.getKode().equals(adresseArtByKode)){
-                return adresseArt;
-            }
-        }
-
-        throw new RuntimeException("Es gibt solchen AdresseArt by Kode nicht !!!");
+        return Arrays.stream(adresseArts)
+                .filter(adresseArt -> adresseArt.getKode().equals(adresseArtByKode))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Es gibt solchen AdresseArt by Kode nicht !!!"));
     }
 
 

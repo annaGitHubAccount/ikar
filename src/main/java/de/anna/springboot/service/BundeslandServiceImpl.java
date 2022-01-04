@@ -25,10 +25,8 @@ public class BundeslandServiceImpl implements BundeslandService {
 
         List<Bundesland> bundeslandList = bundeslandRepository.findBundeslandByLand(landSymbol);
 
-        List<BundeslandDTO> bundeslandDTOList = bundeslandList.stream()
-                .map(bundesland -> BundeslandDTOBundeslandAssembler.convertBundeslandToBundeslandDTO(bundesland))
-                .collect(Collectors.toList());
-
-        return bundeslandDTOList;
+        return bundeslandList.stream()
+                .map(BundeslandDTOBundeslandAssembler::convertBundeslandToBundeslandDTO)
+                .toList();
     }
 }

@@ -3,9 +3,8 @@ package de.anna.springboot.repository.impl;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.repository.KundeSucheRepository;
+import de.anna.springboot.util.StringUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;

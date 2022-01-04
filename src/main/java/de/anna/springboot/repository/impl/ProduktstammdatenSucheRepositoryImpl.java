@@ -1,11 +1,9 @@
 package de.anna.springboot.repository.impl;
 
-import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.ProduktStammdaten;
 import de.anna.springboot.repository.ProduktstammdatenSucheRepository;
+import de.anna.springboot.util.StringUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;

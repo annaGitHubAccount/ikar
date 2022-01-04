@@ -8,12 +8,12 @@ import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeSucheForm;
 import de.anna.springboot.service.KundeService;
 import de.anna.springboot.util.DateUtils;
+import de.anna.springboot.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -248,9 +248,7 @@ public class KundeSucheWebController {
         } catch (JAXBException | IOException e) {
             throw new RuntimeException(e);
 
-        } /*catch (SAXException e) {
-            logger.error("XML generierung ist schiefgelaufen", e);
-        }*/
+        }
     }
 }
 

@@ -89,14 +89,14 @@ public class KundeServiceImpl implements KundeService {
     private void clearKundeProduktList(Kunde kundeFromDatenbank) {
 
         List<Produkt> produktList = kundeFromDatenbank.getProduktList();
-        produktList.forEach(produkt -> produktRepository.delete(produkt));
+        produktRepository.deleteAll(produktList);
         produktList.clear();
     }
 
     private void clearKundeRollenList(Kunde kundeFromDatenbank) {
 
         List<Rolle> rolleList = kundeFromDatenbank.getRolleList();
-        rolleList.forEach(rolle -> rolleRepository.delete(rolle));
+        rolleRepository.deleteAll(rolleList);
         rolleList.clear();
     }
 
@@ -107,8 +107,8 @@ public class KundeServiceImpl implements KundeService {
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
 
         return kundeList.stream()
-                .map(kunde -> KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde))
-                .collect(Collectors.toList());
+                .map(KundeKundeDTOAssembler::mapKundeToKundeDTO)
+                .toList();
     }
 
     @Override
@@ -117,8 +117,8 @@ public class KundeServiceImpl implements KundeService {
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findAll();
 
         return kundeList.stream()
-                .map(kunde -> KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde))
-                .collect(Collectors.toList());
+                .map(KundeKundeZeileDTOAssembler::mapKundeToKundeZeileDTO)
+                .toList();
     }
 
     @Override
@@ -127,8 +127,8 @@ public class KundeServiceImpl implements KundeService {
         ArrayList<Kunde> kundeList = (ArrayList<Kunde>) kundeRepository.findKundeByNachname(nachname);
 
         return kundeList.stream()
-                .map(kunde -> KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde))
-                .collect(Collectors.toList());
+                .map(KundeKundeZeileDTOAssembler::mapKundeToKundeZeileDTO)
+                .toList();
     }
 
 
@@ -152,9 +152,7 @@ public class KundeServiceImpl implements KundeService {
 
         Optional<Kunde> kundeById = kundeRepository.findById(id);
 
-        if (kundeById.isPresent()) {
-            kundeRepository.delete(kundeById.get());
-        }
+        kundeById.ifPresent(kundeRepository::delete);
     }
 
     @Override
@@ -163,8 +161,8 @@ public class KundeServiceImpl implements KundeService {
         List<Kunde> kundenByNachname = kundeRepository.findKundeByNachname(nachname);
 
         return kundenByNachname.stream()
-                .map(kunde -> KundeKundeDTOAssembler.mapKundeToKundeDTO(kunde))
-                .collect(Collectors.toList());
+                .map(KundeKundeDTOAssembler::mapKundeToKundeDTO)
+                .toList();
     }
 
     @Override
@@ -173,8 +171,8 @@ public class KundeServiceImpl implements KundeService {
         List<Kunde> kundeList = kundeSucheRepository.findKunden(kundeNummer, steuerId, nachname, kundeArt, geburtsdatumAB, geburtsdatumBIS);
 
         return kundeList.stream()
-                .map(kunde -> KundeKundeZeileDTOAssembler.mapKundeToKundeZeileDTO(kunde))
-                .collect(Collectors.toList());
+                .map(KundeKundeZeileDTOAssembler::mapKundeToKundeZeileDTO)
+                .toList();
     }
 
 

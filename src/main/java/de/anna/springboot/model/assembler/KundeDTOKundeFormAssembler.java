@@ -1,15 +1,15 @@
 package de.anna.springboot.model.assembler;
 
 import de.anna.springboot.controller.helper.RolleDTOHelper;
-import de.anna.springboot.model.dto.*;
+import de.anna.springboot.model.dto.AdresseDTO;
+import de.anna.springboot.model.dto.KundeDTO;
+import de.anna.springboot.model.dto.ProduktDTO;
+import de.anna.springboot.model.dto.RolleDTO;
 import de.anna.springboot.model.enums.AdresseArt;
 import de.anna.springboot.model.enums.KundeArt;
 import de.anna.springboot.model.form.KundeForm;
 import de.anna.springboot.util.DateUtils;
 import de.anna.springboot.util.StringUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,11 +98,8 @@ public final class KundeDTOKundeFormAssembler {
 
         convertKundeDTOAdresseToKundeFormAdresse(kundeDTO, kundeForm);
 
-        List<String> produktListAlsName = new ArrayList<>();
         List<ProduktDTO> produktDTOList = kundeDTO.getProduktDTOList();
-        for(ProduktDTO produktDTO : produktDTOList){
-            produktListAlsName.add(produktDTO.getName());
-        }
+        List<String> produktListAlsName = produktDTOList.stream().map(ProduktDTO::getName).toList();
         kundeForm.setProduktList(produktListAlsName);
 
         List<RolleDTO> rolleDTOList = kundeDTO.getRolleDTOList();

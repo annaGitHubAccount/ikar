@@ -8,10 +8,7 @@ import de.anna.springboot.model.entity.Adresse;
 import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
 import de.anna.springboot.model.entity.Rolle;
-import de.anna.springboot.util.MathUtils;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class KundeKundeDTOAssembler {
 
@@ -48,7 +45,7 @@ public final class KundeKundeDTOAssembler {
 
         return rolleList.stream()
                 .map(rolle -> RolleRolleDTOAssembler.convertRolleToRolleDTO(rolle, kundeDTO))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private static List<AdresseDTO> convertAddresseToAdresseDTOList(Kunde kunde, KundeDTO kundeDTO) {
@@ -57,7 +54,7 @@ public final class KundeKundeDTOAssembler {
 
         return adresseList.stream()
                 .map(adresse -> AdresseAdresseDTOAssembler.mapAdresseToAdresseDTO(adresse, kundeDTO))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private static List<ProduktDTO> convertProduktToProduktDTOList(Kunde kunde, KundeDTO kundeDTO) {
@@ -66,7 +63,7 @@ public final class KundeKundeDTOAssembler {
 
         return produktList.stream()
                 .map(produkt -> ProduktProduktDTOAssembler.mapProduktToProduktDTO(produkt, kundeDTO))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -98,7 +95,7 @@ public final class KundeKundeDTOAssembler {
 
         return rolleDTOList.stream()
                 .map(rolleDTO -> RolleRolleDTOAssembler.convertRolleDTOToRolle(rolleDTO, kunde))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private static List<Produkt> convertProduktDTOToProduktList(KundeDTO kundeDTO, Kunde kunde) {
@@ -107,7 +104,7 @@ public final class KundeKundeDTOAssembler {
 
         return produktDTOList.stream()
                 .map(produktDTO -> ProduktProduktDTOAssembler.mapProduktDTOToProdukt(produktDTO, kunde))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private static List<Adresse> convertAdresseDTOToAdresseList(KundeDTO kundeDTO, Kunde kunde) {
@@ -116,6 +113,6 @@ public final class KundeKundeDTOAssembler {
 
         return adresseList.stream()
                 .map(adresseDTO -> AdresseAdresseDTOAssembler.mapAdresseDTOToAdresse(adresseDTO, kunde))
-                .collect(Collectors.toList());
+                .toList();
     }
 }
