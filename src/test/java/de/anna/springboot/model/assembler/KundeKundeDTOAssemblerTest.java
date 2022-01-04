@@ -8,17 +8,21 @@ import de.anna.springboot.model.entity.Kunde;
 import de.anna.springboot.model.entity.Produkt;
 import de.anna.springboot.testDatenGenerator.KundeDTOTestDatenGenerator;
 import de.anna.springboot.testDatenGenerator.KundeTestDatenGenerator;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class KundeKundeDTOAssemblerTest {
 
     private static Kunde kunde;
     private static KundeDTO kundeDTO;
 
-    @BeforeClass
+    @BeforeAll
     public static void erstellenVonKundeEntity(){
 
         kunde = KundeTestDatenGenerator.erstellBeispielhaftenKunden1();
