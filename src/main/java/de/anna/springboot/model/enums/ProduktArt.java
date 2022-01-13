@@ -1,5 +1,7 @@
 package de.anna.springboot.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,6 +51,7 @@ public enum ProduktArt {
         return kode;
     }
 
+    @JsonValue
     public String getText() {
         return text;
     }
