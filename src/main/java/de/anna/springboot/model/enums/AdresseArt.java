@@ -1,5 +1,7 @@
 package de.anna.springboot.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum AdresseArt {
@@ -33,6 +35,7 @@ public enum AdresseArt {
         return kode;
     }
 
+    @JsonValue
     public String getText() {
         return text;
     }
