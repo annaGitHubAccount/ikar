@@ -1,3 +1,15 @@
+    delete from adresse;
+    delete from authorities;
+    delete from ort;
+    delete from bundesland;
+    delete from  produkt;
+    delete from rolle;
+    delete from kunde;
+    delete from land;
+    delete from produkt_stammdaten;
+    delete from rolle_stammdaten;
+    delete from users;
+
     insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (1, '1905K0001', '345676548', 'Mariusz', 'Pudzian', to_date('17.08.2000', 'dd.MM.yyyy'), 'GD');
     insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (2, '1508K0002', '467887549', 'Kora', 'Jackowska', to_date('06.01.2019', 'dd.MM.yyyy'), 'SB');
     insert into Kunde(id, kunde_nummer, steuer_id, name, nachname, birth_date, KUNDE_ART) VALUES (3, '1204K0003', '256787875', 'Maja', 'Morowska', to_date('02.05.2010', 'dd.MM.yyyy'), 'BR');
@@ -87,8 +99,8 @@
     insert into Ort (id, name, bundesland_id) VALUES (17, 'Gdansk',9);
     insert into Ort (id, name, bundesland_id) VALUES (18, 'Sopot',9);
 
-    insert into users(username, password, enabled) values('robert', '$2y$12$VDL36qc/EEBJF8nBDa0ejefecheX2t3DGPgv9.dv2PCVIFS/MofOm', true);
-    insert into users(username, password, enabled) values('anna', '$2y$12$VDL36qc/EEBJF8nBDa0ejefecheX2t3DGPgv9.dv2PCVIFS/MofOm', true);
+    insert into users(username, password, enabled) values('robert', '$2a$12$EEIqrTF5/RIHh2Z7IKnRxepWz2prXuaQ07aVtXfSkDFO1dOCG2EXi', true);
+    insert into users(username, password, enabled) values('anna', '$2a$12$EEIqrTF5/RIHh2Z7IKnRxepWz2prXuaQ07aVtXfSkDFO1dOCG2EXi', true);
 
     insert into authorities(username, authority) values ('robert', 'ROLE_USER');
     insert into authorities(username, authority) values ('anna', 'ROLE_USER');

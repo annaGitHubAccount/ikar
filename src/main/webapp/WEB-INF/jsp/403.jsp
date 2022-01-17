@@ -1,3 +1,3 @@
 
-Die Seite ist verbotten!
+Die Seite ist verboten!
 
