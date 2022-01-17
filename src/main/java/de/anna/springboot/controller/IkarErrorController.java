@@ -24,6 +24,9 @@ public class IkarErrorController implements ErrorController {
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "404";
             }
+            if(statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "403";
+            }
         }
 
         model.addAttribute("httpStatus", status);

@@ -109,7 +109,7 @@
         let logout = document.getElementById("logout");
 
         logout.onclick = function () {
-            window.location = "${pageContext.request.contextPath}/logout";
+            window.location = "${pageContext.request.contextPath}/login";
         }
     }
 
